@@ -1,16 +1,51 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResumeHeader from '../components/ResumeHeader.astro';
+import WorkExperience from '../components/WorkExperience.astro';
+import Education from '../components/Education.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Certificates from '../components/Certificates.astro';
+import Languages from '../components/Languages.astro';
 
+import resume from '../data/resume.json';
+
+const { basics, work, education, skills, projects, certificates, languages } = resume;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title={`${basics.name} - ${basics.label}`}
+  description={basics.summary}
+>
+  <ResumeHeader
+    name={basics.name}
+    label={basics.label}
+    email={basics.email}
+    phone={basics.phone}
+    url={basics.url}
+    summary={basics.summary}
+    location={basics.location}
+    profiles={basics.profiles}
+    image={basics.image}
+  />
+
+  {work && work.length > 0 && <WorkExperience work={work} />}
+
+  {skills && skills.length > 0 && <Skills skills={skills} />}
+
+  {projects && projects.length > 0 && <Projects projects={projects} />}
+
+  {education && education.length > 0 && <Education education={education} />}
+
+  {certificates && certificates.length > 0 && <Certificates certificates={certificates} />}
+
+  {languages && languages.length > 0 && <Languages languages={languages} />}
+
+  <footer class="py-6 px-6 text-center text-sm text-slate-500 border-t border-slate-200">
+    <p>
+      Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="text-slate-700 hover:text-slate-900">Astro</a>
+      &middot;
+      Resume data follows <a href="https://jsonresume.org" target="_blank" rel="noopener noreferrer" class="text-slate-700 hover:text-slate-900">JSON Resume</a> standard
+    </p>
+  </footer>
+</BaseLayout>

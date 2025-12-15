@@ -1,0 +1,317 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "[YOUR FIRST NAME] [YOUR LAST NAME]",
+    "label": "Tech Chief / Lead Software Engineer",
+    "image": "",
+    "email": "[your.email@example.com]",
+    "phone": "[+66 XXX XXX XXXX]",
+    "url": "[https://yourwebsite.com]",
+    "summary": "Engineering leader with 11+ years of full-stack development experience, specializing in PHP/Laravel ecosystems. Currently serving as Tech Chief at a SaaS startup, leading product development and AI engineering initiatives. Proven track record spanning agency work delivering enterprise systems for 40+ clients, including ERP, HRM, accounting, and e-commerce platforms. Combines deep technical expertise with team leadership, having progressed from Senior Engineer to Lead Engineer to executive technical roles.",
+    "location": {
+      "city": "Bangkok",
+      "countryCode": "TH",
+      "region": "Bangkok"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "[yourprofile]",
+        "url": "[https://linkedin.com/in/yourprofile]"
+      },
+      {
+        "network": "GitHub",
+        "username": "[yourusername]",
+        "url": "[https://github.com/yourusername]"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "DxT",
+      "location": "Bangkok, Thailand",
+      "description": "SaaS startup developing Translation Management System",
+      "position": "Tech Chief & AI Engineer",
+      "url": "",
+      "startDate": "2025-02",
+      "summary": "Leading technical strategy for SaaS Translation Management System (TMS) competing with industry leaders like Phrase.com. Dual role combining executive leadership with hands-on AI engineering.",
+      "highlights": [
+        "Lead technical strategy for SaaS Translation Management System (TMS) competing with industry leaders",
+        "Direct cross-functional team of 5 members including 2 developers, 1 product manager, 1 QA engineer, and 1 project manager",
+        "Architect and implement AI-powered features for translation workflows, leveraging LLM integration",
+        "Define technology stack, coding standards, and CI/CD pipelines for scalable multi-tenant SaaS architecture",
+        "Own full product lifecycle from requirements to production monitoring, establishing engineering processes for startup growth phase"
+      ]
+    },
+    {
+      "name": "EQHO Communications",
+      "location": "Bangkok, Thailand",
+      "description": "Digital development agency",
+      "position": "Lead Software Engineer",
+      "url": "",
+      "startDate": "2021-01",
+      "endDate": "2025-01",
+      "summary": "Led development team at digital agency, delivering custom systems and websites for clients across diverse industries.",
+      "highlights": [
+        "Led development team delivering custom systems and websites for multiple clients across diverse industries",
+        "Architected and delivered enterprise-grade solutions including ERP, CRM, and e-commerce platforms",
+        "Mentored junior developers through code reviews, pair programming, and technical workshops",
+        "Established modern development practices: Laravel + Livewire + Alpine.js stack",
+        "Implemented automated testing and CI/CD pipelines, improving deployment frequency",
+        "Conducted technical interviews and onboarding, scaling engineering team"
+      ]
+    },
+    {
+      "name": "EQHO Communications",
+      "location": "Bangkok, Thailand",
+      "description": "Digital development agency",
+      "position": "Corporate Systems Manager / Senior Software Engineer",
+      "url": "",
+      "startDate": "2015-08",
+      "endDate": "2021-01",
+      "summary": "Designed and developed suite of internal corporate systems and client-facing applications.",
+      "highlights": [
+        "Designed and developed suite of internal corporate systems including Accounting, Project Management, HRM, and ERP modules",
+        "Built custom e-commerce platforms with high availability",
+        "Migrated legacy systems to Laravel framework, reducing maintenance overhead and improving performance",
+        "Integrated third-party APIs (payment gateways, shipping providers) streamlining operations",
+        "Managed MySQL/MongoDB databases with business-critical data, implementing backup and recovery procedures"
+      ]
+    },
+    {
+      "name": "Com7 AB",
+      "location": "Bangkok, Thailand & Gothenburg, Sweden",
+      "description": "IT and Telecom company",
+      "position": "IT/Telecom Technician & Developer",
+      "url": "",
+      "startDate": "2015-01",
+      "endDate": "2015-08",
+      "summary": "Managed IT infrastructure and developed web applications for international telecom company.",
+      "highlights": [
+        "Managed IT infrastructure across 3 international offices (Bangkok, Gothenburg, Stockholm)",
+        "Designed and developed company website with third-party integrations using PHP",
+        "Created custom database system using PHP, Python, and MySQL for resource management",
+        "Provided call support for corporate customers regarding phone switches, network, WiFi, and mobile devices"
+      ]
+    },
+    {
+      "name": "thewiding Software",
+      "location": "Sweden",
+      "description": "Freelance web development",
+      "position": "Freelance Web Developer",
+      "url": "",
+      "startDate": "2014-06",
+      "endDate": "2014-11",
+      "summary": "Freelance web design and development services.",
+      "highlights": [
+        "Developed production and beta websites using WordPress and JavaScript",
+        "Developed custom software solutions for clients, including a custom CMS from scratch using PHP"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Uppsala University",
+      "url": "https://www.uu.se/",
+      "area": "Software Engineering",
+      "studyType": "Associate of Applied Science (AAS)",
+      "startDate": "2012",
+      "endDate": "2014",
+      "score": "",
+      "courses": []
+    },
+    {
+      "institution": "Arlandagymnasiet",
+      "url": "",
+      "area": "Science - Information & Media Technology",
+      "studyType": "High School Diploma",
+      "startDate": "2007",
+      "endDate": "2010",
+      "score": "",
+      "courses": []
+    }
+  ],
+  "certificates": [
+    {
+      "name": "EFR (Emergency First Response) Certification",
+      "date": "2022",
+      "issuer": "EFR",
+      "url": ""
+    },
+    {
+      "name": "AIDA Freediving Instructor & Competition Coach",
+      "date": "2022",
+      "issuer": "AIDA International",
+      "url": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Backend Development",
+      "level": "Expert",
+      "keywords": [
+        "PHP",
+        "Laravel",
+        "REST APIs",
+        "MySQL",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "Supabase"
+      ]
+    },
+    {
+      "name": "Frontend Development",
+      "level": "Advanced",
+      "keywords": [
+        "JavaScript",
+        "TypeScript",
+        "Vue.js",
+        "Angular",
+        "Alpine.js",
+        "Livewire",
+        "Next.js",
+        "TailwindCSS"
+      ]
+    },
+    {
+      "name": "AI Engineering",
+      "level": "Intermediate",
+      "keywords": [
+        "LLM Integration",
+        "Prompt Engineering",
+        "AI-powered Features"
+      ]
+    },
+    {
+      "name": "DevOps & Tools",
+      "level": "Advanced",
+      "keywords": [
+        "Git",
+        "CI/CD",
+        "Docker",
+        "Linux"
+      ]
+    },
+    {
+      "name": "CMS & Platforms",
+      "level": "Advanced",
+      "keywords": [
+        "WordPress",
+        "Custom CMS Development"
+      ]
+    },
+    {
+      "name": "Architecture & Practices",
+      "level": "Expert",
+      "keywords": [
+        "RESTful APIs",
+        "SaaS Multi-tenancy",
+        "MVC",
+        "Microservices",
+        "System Design",
+        "Agile/Scrum"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Swedish",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "English",
+      "fluency": "Fluent"
+    },
+    {
+      "language": "Thai",
+      "fluency": "Professional working proficiency"
+    },
+    {
+      "language": "Japanese",
+      "fluency": "Basic (JLPT N5)"
+    }
+  ],
+  "projects": [
+    {
+      "name": "TMS SaaS Platform",
+      "description": "Translation Management System with AI-powered features, competing in enterprise localization market (similar to Phrase.com)",
+      "highlights": [
+        "Multi-tenant SaaS architecture",
+        "AI-powered translation workflows",
+        "LLM integration for efficiency improvements"
+      ],
+      "keywords": [
+        "Laravel",
+        "SaaS",
+        "AI",
+        "LLM",
+        "Translation"
+      ],
+      "startDate": "2025-02",
+      "url": "",
+      "roles": [
+        "Tech Chief",
+        "AI Engineer"
+      ],
+      "entity": "DxT",
+      "type": "application"
+    },
+    {
+      "name": "Enterprise ERP Suite",
+      "description": "Integrated Accounting, HRM, and Project Management systems for internal corporate use",
+      "highlights": [
+        "Full accounting module",
+        "HRM system with employee management",
+        "Project management and resource allocation"
+      ],
+      "keywords": [
+        "Laravel",
+        "ERP",
+        "MySQL",
+        "Enterprise"
+      ],
+      "startDate": "2015-08",
+      "endDate": "2021-01",
+      "url": "",
+      "roles": [
+        "Lead Developer",
+        "Architect"
+      ],
+      "entity": "EQHO Communications",
+      "type": "application"
+    },
+    {
+      "name": "GPS Tracker System",
+      "description": "Arduino-based GPS tracking device with web interface for vehicle/boat tracking and anti-theft purposes",
+      "highlights": [
+        "Led 3-person team for university finals project",
+        "Arduino microcontroller integration",
+        "Web interface accessible from any device",
+        "Google APIs for GPS tracking"
+      ],
+      "keywords": [
+        "Laravel",
+        "Arduino",
+        "Google APIs",
+        "GPS",
+        "IoT"
+      ],
+      "startDate": "2014-03",
+      "endDate": "2014-06",
+      "url": "",
+      "roles": [
+        "Team Lead",
+        "Developer"
+      ],
+      "entity": "Uppsala University",
+      "type": "application"
+    }
+  ],
+  "meta": {
+    "canonical": "",
+    "version": "v1.0.0",
+    "lastModified": "2025-12-09",
+    "theme": "elegant"
+  }
+}

@@ -1,0 +1,62 @@
+---
+interface Skill {
+  name: string;
+  level?: string;
+  keywords?: string[];
+}
+
+interface Props {
+  skills: Skill[];
+}
+
+const { skills } = Astro.props;
+
+const getLevelColor = (level?: string) => {
+  switch (level?.toLowerCase()) {
+    case 'expert':
+      return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+    case 'advanced':
+      return 'bg-blue-100 text-blue-700 border-blue-200';
+    case 'intermediate':
+      return 'bg-amber-100 text-amber-700 border-amber-200';
+    default:
+      return 'bg-slate-100 text-slate-700 border-slate-200';
+  }
+};
+---
+
+<section class="py-8 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      </svg>
+      Skills
+    </h2>
+
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {skills.map((skill) => (
+        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold text-slate-800">{skill.name}</h3>
+            {skill.level && (
+              <span class={`text-xs px-2 py-0.5 rounded-full border ${getLevelColor(skill.level)}`}>
+                {skill.level}
+              </span>
+            )}
+          </div>
+
+          {skill.keywords && skill.keywords.length > 0 && (
+            <div class="flex flex-wrap gap-1.5">
+              {skill.keywords.map((keyword) => (
+                <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">
+                  {keyword}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
