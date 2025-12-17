@@ -1,58 +1,62 @@
 ---
 interface Language {
-  language: string;
-  fluency?: string;
+	language: string;
+	fluency?: string;
 }
 
 interface Props {
-  languages: Language[];
+	languages: Language[];
 }
 
 const { languages } = Astro.props;
 
 const getFluencyLevel = (fluency?: string) => {
-  const lower = fluency?.toLowerCase() || '';
-  if (lower.includes('native')) return 100;
-  if (lower.includes('fluent')) return 90;
-  if (lower.includes('professional')) return 75;
-  if (lower.includes('intermediate')) return 50;
-  if (lower.includes('basic') || lower.includes('elementary')) return 25;
-  return 50;
+	const lower = fluency?.toLowerCase() || "";
+	if (lower.includes("native")) return 100;
+	if (lower.includes("fluent")) return 95;
+	if (lower.includes("professional")) return 75;
+	if (lower.includes("conversational")) return 70;
+	if (lower.includes("intermediate")) return 50;
+	if (lower.includes("basic") || lower.includes("elementary")) return 25;
+	return 50;
 };
 
-const getFluencyColor = (fluency?: string) => {
-  const lower = fluency?.toLowerCase() || '';
-  if (lower.includes('native')) return 'bg-emerald-500';
-  if (lower.includes('fluent')) return 'bg-blue-500';
-  if (lower.includes('professional')) return 'bg-indigo-500';
-  return 'bg-slate-400';
+const getBarColor = (language: string) => {
+	const lower = language.toLowerCase();
+	if (lower.includes("swedish")) return "bg-green-500";
+	if (lower.includes("english")) return "bg-blue-500";
+	if (lower.includes("thai")) return "bg-purple-500";
+	if (lower.includes("japanese")) return "bg-gray-500";
+	return "bg-primary";
 };
 ---
 
-<section class="py-8 px-6 bg-slate-50">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-      <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-      </svg>
-      Languages
-    </h2>
+<section class="py-10 px-6 bg-muted/30">
+	<div class="max-w-4xl mx-auto">
+		<h2 class="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
+			<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="m5 8 6 6"></path>
+				<path d="m4 14 6-6 2-3"></path>
+				<path d="M2 5h12"></path>
+				<path d="M7 2h1"></path>
+				<path d="m22 22-5-10-5 10"></path>
+				<path d="M14 18h6"></path>
+			</svg>
+			Languages
+		</h2>
 
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      {languages.map((lang) => (
-        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-100">
-          <h3 class="font-semibold text-slate-800">{lang.language}</h3>
-          {lang.fluency && (
-            <p class="text-sm text-slate-500 mt-1">{lang.fluency}</p>
-          )}
-          <div class="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
-            <div
-              class={`h-full rounded-full ${getFluencyColor(lang.fluency)}`}
-              style={`width: ${getFluencyLevel(lang.fluency)}%`}
-            ></div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+			{
+				languages.map((lang) => (
+					<div class="border border-border bg-card p-4 shadow-sm">
+						<h3 class="font-semibold text-card-foreground">{lang.language}</h3>
+						{lang.fluency && <span class="inline-flex items-center bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary mt-2">{lang.fluency}</span>}
+						<div class="mt-3 h-2 bg-secondary overflow-hidden">
+							<div class={`h-full ${getBarColor(lang.language)} transition-all duration-500`} style={`width: ${getFluencyLevel(lang.fluency)}%`} />
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
 </section>

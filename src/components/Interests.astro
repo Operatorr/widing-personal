@@ -1,0 +1,97 @@
+---
+interface Interest {
+	name: string;
+	keywords?: string[];
+}
+
+interface Props {
+	interests: Interest[];
+}
+
+const { interests } = Astro.props;
+
+const getInterestIcon = (name: string) => {
+	const lower = name.toLowerCase();
+	if (lower.includes("climbing")) return "climbing";
+	if (lower.includes("fitness") || lower.includes("nutrition")) return "fitness";
+	if (lower.includes("photo")) return "camera";
+	if (lower.includes("car")) return "car";
+	if (lower.includes("warcraft") || lower.includes("gaming") || lower.includes("game")) return "gamepad";
+	return "star";
+};
+---
+
+<section class="py-10 px-6">
+	<div class="max-w-4xl mx-auto">
+		<h2 class="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
+			<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+			</svg>
+			Interests
+		</h2>
+
+		<div class="grid gap-4 md:grid-cols-2">
+			{
+				interests.map((interest) => (
+					<div class="border border-border bg-card p-4 shadow-sm">
+						<h3 class="font-semibold text-card-foreground flex items-center gap-2">
+							{getInterestIcon(interest.name) === "climbing" && (
+								<svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+									<circle cx="9" cy="7" r="4"></circle>
+									<path d="m16 11 2 2 4-4"></path>
+								</svg>
+							)}
+							{getInterestIcon(interest.name) === "fitness" && (
+								<svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+									<path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+									<line x1="6" y1="1" x2="6" y2="4"></line>
+									<line x1="10" y1="1" x2="10" y2="4"></line>
+									<line x1="14" y1="1" x2="14" y2="4"></line>
+								</svg>
+							)}
+							{getInterestIcon(interest.name) === "camera" && (
+								<svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+									<circle cx="12" cy="13" r="3"></circle>
+								</svg>
+							)}
+							{getInterestIcon(interest.name) === "car" && (
+								<svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+									<circle cx="7" cy="17" r="2"></circle>
+									<circle cx="17" cy="17" r="2"></circle>
+								</svg>
+							)}
+							{getInterestIcon(interest.name) === "gamepad" && (
+								<svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<line x1="6" x2="10" y1="12" y2="12"></line>
+									<line x1="8" x2="8" y1="10" y2="14"></line>
+									<line x1="15" x2="15.01" y1="13" y2="13"></line>
+									<line x1="18" x2="18.01" y1="11" y2="11"></line>
+									<rect width="20" height="12" x="2" y="6" rx="2"></rect>
+								</svg>
+							)}
+							{getInterestIcon(interest.name) === "star" && (
+								<svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+								</svg>
+							)}
+							{interest.name}
+						</h3>
+						{interest.keywords && interest.keywords.length > 0 && (
+							<div class="mt-2 flex flex-wrap gap-1.5">
+								{interest.keywords.map((keyword) => (
+									<span class="inline-flex items-center bg-secondary px-2 py-0.5 text-xs text-secondary-foreground">
+										{keyword}
+									</span>
+								))}
+							</div>
+						)}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

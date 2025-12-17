@@ -7,10 +7,11 @@ import Skills from '../components/Skills.astro';
 import Projects from '../components/Projects.astro';
 import Certificates from '../components/Certificates.astro';
 import Languages from '../components/Languages.astro';
+import Interests from '../components/Interests.astro';
 
 import resume from '../data/resume.json';
 
-const { basics, work, education, skills, projects, certificates, languages } = resume;
+const { basics, work, education, skills, projects, certificates, languages, interests } = resume;
 ---
 
 <BaseLayout
@@ -39,11 +40,17 @@ const { basics, work, education, skills, projects, certificates, languages } = r
 
   {languages && languages.length > 0 && <Languages languages={languages} />}
 
-  <footer class="py-6 px-6 text-center text-sm text-slate-500 border-t border-slate-200">
-    <p>
-      Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="text-slate-700 hover:text-slate-900">Astro</a>
-      &middot;
-      Resume data follows <a href="https://jsonresume.org" target="_blank" rel="noopener noreferrer" class="text-slate-700 hover:text-slate-900">JSON Resume</a> standard
-    </p>
+  {interests && interests.length > 0 && <Interests interests={interests} />}
+
+  <footer class="py-8 px-6 border-t border-border">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-sm text-muted-foreground">
+        Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Astro</a>
+        <span class="mx-2 text-border">•</span>
+        Styled with <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">shadcn/ui</a>
+        <span class="mx-2 text-border">•</span>
+        Resume data follows <a href="https://jsonresume.org" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">JSON Resume</a> standard
+      </p>
+    </div>
   </footer>
 </BaseLayout>

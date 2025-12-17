@@ -1,60 +1,79 @@
 ---
 interface Certificate {
-  name: string;
-  date?: string;
-  issuer?: string;
-  url?: string;
+	name: string;
+	date?: string;
+	issuer?: string;
+	url?: string;
+	highlights?: string[];
 }
 
 interface Props {
-  certificates: Certificate[];
+	certificates: Certificate[];
 }
 
 const { certificates } = Astro.props;
 
 const formatDate = (dateStr?: string) => {
-  if (!dateStr) return '';
-  if (dateStr.length === 4) return dateStr;
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+	if (!dateStr) return "";
+	if (dateStr.length === 4) return dateStr;
+	const date = new Date(dateStr);
+	return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 };
 ---
 
-<section class="py-8 px-6">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-      <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-      </svg>
-      Certifications
-    </h2>
+<section class="py-10 px-6">
+	<div class="max-w-4xl mx-auto">
+		<h2 class="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
+			<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="12" cy="8" r="6"></circle>
+				<path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+			</svg>
+			Certifications
+		</h2>
 
-    <div class="grid gap-3 md:grid-cols-2">
-      {certificates.map((cert) => (
-        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-100 flex items-start gap-3">
-          <div class="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
-            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-            </svg>
-          </div>
-          <div class="flex-1 min-w-0">
-            <h3 class="font-medium text-slate-800">
-              {cert.url ? (
-                <a href={cert.url} target="_blank" rel="noopener noreferrer" class="hover:text-slate-600 transition-colors">
-                  {cert.name}
-                </a>
-              ) : (
-                cert.name
-              )}
-            </h3>
-            <div class="flex flex-wrap items-center gap-2 text-sm text-slate-500 mt-1">
-              {cert.issuer && <span>{cert.issuer}</span>}
-              {cert.issuer && cert.date && <span class="text-slate-300">•</span>}
-              {cert.date && <span>{formatDate(cert.date)}</span>}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+		<div class="grid gap-3 md:grid-cols-2">
+			{
+				certificates.map((cert) => (
+					<div class="border border-border bg-card p-4 shadow-sm flex items-start gap-3">
+						<div class="shrink-0 w-10 h-10 bg-none text-green-500 flex items-center justify-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+									<>
+										<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77a4 4 0 0 1 6.74 0a4 4 0 0 1 4.78 4.78a4 4 0 0 1 0 6.74a4 4 0 0 1-4.77 4.78a4 4 0 0 1-6.75 0a4 4 0 0 1-4.78-4.77a4 4 0 0 1 0-6.76" />
+										<path d="m9 12l2 2l4-4" />
+									</>
+								</g>
+							</svg>
+						</div>
+						<div class="flex-1 min-w-0">
+							<h3 class="font-medium text-card-foreground">
+								{cert.url ? (
+									<a href={cert.url} target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">
+										{cert.name}
+									</a>
+								) : (
+									cert.name
+								)}
+							</h3>
+							<div class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground mt-1">
+								{cert.issuer && <span>{cert.issuer}</span>}
+								{cert.issuer && cert.date && <span class="text-border">•</span>}
+								{cert.date && <span>{formatDate(cert.date)}</span>}
+							</div>
+							{cert.highlights && cert.highlights.length > 0 && (
+								<ul class="mt-2 text-sm text-muted-foreground">
+									{cert.highlights.map((highlight) => (
+										<li class="flex items-center gap-2">
+											<span class="text-primary">›</span>
+											<span>{highlight}</span>
+										</li>
+									))}
+								</ul>
+							)}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
 </section>
