@@ -30,7 +30,6 @@
 			"location": "Bangkok, Thailand",
 			"description": "SaaS startup developing Translation Management System",
 			"position": "Tech Chief & AI Engineer",
-			"url": "",
 			"startDate": "2025-02",
 			"summary": "Leading technical strategy and system architecture for enterprise-grade SaaS Translation Management System (TMS). Dual role combining executive leadership with hands-on AI engineering as an individual contributor.",
 			"highlights": [
@@ -48,7 +47,6 @@
 			"location": "Bangkok, Thailand",
 			"description": "Digital development agency",
 			"position": "Lead Software Engineer",
-			"url": "",
 			"startDate": "2021-01",
 			"endDate": "2025-01",
 			"summary": "Led development team at digital agency, delivering custom systems and websites for clients across diverse industries.",
@@ -68,7 +66,6 @@
 			"location": "Singapore, Thailand",
 			"description": "Digital development agency",
 			"position": "Corporate Systems Manager / Senior Software Engineer",
-			"url": "",
 			"startDate": "2015-08",
 			"endDate": "2021-01",
 			"summary": "Designed and developed suite of internal corporate systems and client-facing applications.",
@@ -84,7 +81,6 @@
 			"location": "Bangkok, Thailand & Gothenburg, Sweden",
 			"description": "IT and Telecom company",
 			"position": "IT/Telecom Technician & Developer",
-			"url": "",
 			"startDate": "2015-01",
 			"endDate": "2015-08",
 			"summary": "Managed IT infrastructure and developed web applications for international telecom company.",
@@ -100,7 +96,6 @@
 			"location": "Sweden",
 			"description": "Freelance web development",
 			"position": "Freelance Web Developer",
-			"url": "",
 			"startDate": "2014-06",
 			"endDate": "2014-11",
 			"summary": "Freelance web design and development services for 2 clients.",
@@ -114,7 +109,6 @@
 			"location": "Stockholm, Sweden",
 			"description": "Motorcycle and outdoor equipment retailer",
 			"position": "Retail Associate",
-			"url": "",
 			"startDate": "2010-08",
 			"endDate": "2012-06",
 			"summary": "Customer service and sales operations at motorcycle equipment retailer. Returned Dec 2014 - Jan 2015 for seasonal fireworks sale consulting.",
@@ -135,7 +129,6 @@
 			"location": "Älvsjö, Stockholm, Sweden",
 			"description": "Motorcycle and outdoor equipment retailer",
 			"position": "Exhibition Sales Representative",
-			"url": "",
 			"startDate": "2011-01",
 			"endDate": "2011-01",
 			"summary": "Represented company at Sweden's biggest motorcycle exhibition \"På två hjul\" at Älvsjömässan.",
@@ -162,7 +155,6 @@
 		},
 		{
 			"institution": "Högskolan på Gotland",
-			"url": "",
 			"area": "Introduction to 3D-Graphics",
 			"studyType": "Independent Course (15 Credits)",
 			"startDate": "2012",
@@ -211,7 +203,6 @@
 			"name": "Pyrotechnics Safety Training",
 			"date": "2010-11",
 			"issuer": "MC-Boden AB, Stockholm",
-			"url": "",
 			"highlights": [
 				"Certified in safe handling, storage, and sale of consumer pyrotechnics"
 			]
@@ -370,7 +361,6 @@
 				"Docker Compose"
 			],
 			"startDate": "2025-10",
-			"url": "",
 			"roles": [
 				"Solo Developer"
 			],
@@ -398,7 +388,6 @@
 				"Translation"
 			],
 			"startDate": "2025-02",
-			"url": "",
 			"roles": [
 				"Tech Chief",
 				"AI Engineer"
@@ -422,7 +411,6 @@
 			],
 			"startDate": "2016-05",
 			"endDate": "2021-01",
-			"url": "",
 			"roles": [
 				"Lead Developer",
 				"Architect"
@@ -448,7 +436,6 @@
 			],
 			"startDate": "2020-08",
 			"endDate": "2025-10",
-			"url": "",
 			"roles": [
 				"Lead Developer",
 				"Architect"
@@ -475,7 +462,6 @@
 			],
 			"startDate": "2014-03",
 			"endDate": "2014-06",
-			"url": "",
 			"roles": [
 				"Team Lead",
 				"Developer"
@@ -485,7 +471,6 @@
 		}
 	],
 	"meta": {
-		"canonical": "",
 		"version": "v1.0.0",
 		"lastModified": "2025-12-09",
 		"theme": "elegant"
