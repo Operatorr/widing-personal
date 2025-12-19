@@ -4,8 +4,8 @@
 		"name": "Alexander Widing",
 		"label": "Tech Chief / Lead Software Engineer",
 		"image": "",
-		"url": "https://alex-widing.vercel.app/",
-		"summary": "Engineering leader with over 11 years of full-stack development experience, specializing in PHP/Laravel ecosystems and Python development. Currently serving as Tech Chief at a SaaS startup, with recent focus on Python-driven AI automation development and system integrations, leading product development and AI engineering initiatives.\n\nProven track record spanning agency work delivering e-commerce systems, corporate websites, and comprehensive tech solutions including DevOps implementations for enterprise clients. Developed robust internal systems spanning ERP, HRM, accounting, and CRM platforms to optimize operational efficiency. Combines deep technical expertise with progressive team leadership, having advanced from Engineer to Senior Engineer to Lead Engineer to executive technical roles.",
+		"url": "https://widing.dev/",
+		"summary": "Engineering leader with over 11 years of full-stack development experience, specializing in PHP/Laravel ecosystems and Python development. I'm driven by curiosity for emerging technology and a genuine passion for teaching others to grow. I build systems and teams — from enterprise ERP platforms to coaching athletes to national records.\n\nMy track record spans agency work delivering e-commerce systems, corporate websites, and comprehensive DevOps solutions. Currently serving as Tech Chief at a SaaS startup, I lead product development and AI engineering initiatives, combining deep technical expertise with a history of progressive leadership from Junior Engineer to Executive.",
 		"location": {
 			"city": "Bangkok",
 			"countryCode": "TH",
@@ -31,13 +31,12 @@
 			"description": "SaaS startup developing Translation Management System",
 			"position": "Tech Chief & AI Engineer",
 			"startDate": "2025-02",
-			"summary": "Leading technical strategy and system architecture for enterprise-grade SaaS Translation Management System (TMS). Dual role combining executive leadership with hands-on AI engineering as an individual contributor.",
+			"summary": "Leading technical vision, strategy and system architecture for enterprise-grade SaaS Translation Management System (TMS). Dual role combining executive leadership with hands-on AI engineering as an individual contributor.",
 			"highlights": [
-				"Lead technical strategy for SaaS Translation Management System (TMS) competing with industry leaders",
-				"Direct cross-functional team spanning development, product, QA, project management, and linguistics",
+				"Set organization-wide technical direction and architecture standards as strategic business partner to CEO",
+				"Oversee engineering organization with hiring authority and budget responsibility for technical resources",
+				"Lead cross-functional team of 6 spanning engineering, product, QA, and project management",
 				"Architect and implement AI-powered features for translation workflows, leveraging LLM integration",
-				"Develop Python automation scripts for AI integrations and system automation workflows",
-				"Implement Supabase Vector store with semantic search using sentence-transformers and self-hosted embedding models",
 				"Define technology stack, coding standards, and CI/CD pipelines for scalable multi-tenant SaaS architecture",
 				"Own full product lifecycle from requirements to production monitoring, establishing engineering processes for startup growth phase"
 			]
@@ -51,14 +50,10 @@
 			"endDate": "2025-01",
 			"summary": "Led development team at digital agency, delivering custom systems and websites for clients across diverse industries.",
 			"highlights": [
-				"Led development team delivering custom systems and websites for multiple clients across diverse industries",
-				"Architected and delivered enterprise-grade web solutions and custom e-commerce platforms for agency clients",
-				"Integrated third-party APIs (payment gateways, shipping providers) streamlining operations",
-				"Mentored junior developers through code reviews, pair programming, and technical workshops",
-				"Established modern development practices: Laravel + Livewire + Alpine.js stack",
-				"Implemented automated testing and CI/CD pipelines, improving deployment frequency",
-				"Managed DevOps responsibilities including server provisioning, deployment automation, monitoring, and infrastructure maintenance",
-				"Conducted technical interviews and onboarding, scaling engineering team"
+				"Led team of 2 engineers while remaining hands-on with code, bridging individual contributor and management roles",
+				"Managed team performance and career development, goal setting, growth planning, including job postings, technical interviews, and onboarding",
+				"Architected and delivered web solutions and custom e-commerce platforms for clients, integrating third-party APIs and streamlining operations",
+				"Managed DevOps responsibilities including server provisioning, deployment automation, monitoring, and infrastructure maintenance"
 			]
 		},
 		{
@@ -70,10 +65,10 @@
 			"endDate": "2021-01",
 			"summary": "Designed and developed suite of internal corporate systems and client-facing applications.",
 			"highlights": [
-				"Designed and developed suite of internal corporate systems including ERP, CRM, Accounting, Project Management, and HRM modules",
+				"Designed and developed suite of internal corporate systems including ERP, CRM, Accounting, Project Management, and HRM modules — adopted company-wide, reducing operational overhead by 90% for executive, sales, and project management teams",
 				"Gained hands-on corporate finance and accounting knowledge through mentorship while building an accounting system, learning financial workflows, reporting, and compliance requirements",
-				"Migrated legacy systems to Laravel framework, reducing maintenance overhead and improving performance",
-				"Managed MySQL/MongoDB databases with business-critical data, implementing backup and recovery procedures"
+				"Migrated legacy systems to modern frameworks, reducing maintenance overhead and improving performance",
+				"Managed production databases with business-critical data, implementing backup and recovery procedures"
 			]
 		},
 		{
@@ -93,7 +88,7 @@
 		},
 		{
 			"name": "theWiding Software",
-			"location": "Sweden",
+			"location": "Stockholm, Sweden",
 			"description": "Freelance web development",
 			"position": "Freelance Web Developer",
 			"startDate": "2014-06",
@@ -105,41 +100,11 @@
 			]
 		},
 		{
-			"name": "MC-Boden AB",
+			"name": "Prior non-tech experience",
 			"location": "Stockholm, Sweden",
-			"description": "Motorcycle and outdoor equipment retailer",
-			"position": "Retail Associate",
+			"position": "Retail & Sales Associate",
 			"startDate": "2010-08",
-			"endDate": "2012-06",
-			"summary": "Customer service and sales operations at motorcycle equipment retailer. Returned Dec 2014 - Jan 2015 for seasonal fireworks sale consulting.",
-			"highlights": [
-				"Addressed customer inquiries and resolved complaints",
-				"Reorganized the sales floor to meet company demands",
-				"Directed and supervised employees engaged in sales, inventory-taking and reconciling cash receipts",
-				"Trained all new staff on store procedures and policies, and to deliver outstanding customer service",
-				"Returned to consult and work at yearly Fireworks sale (Dec 2014 - Jan 2015)",
-				"Ensured safety regarding pyrotechnics; maintained fire extinguishers and other fire equipment",
-				"Replenished floor stock and processed shipments to ensure product availability",
-				"Administered all point of sale opening and closing procedures",
-				"Operated cash register to process cash, check and credit card transactions"
-			]
-		},
-		{
-			"name": "MC-Boden AB",
-			"location": "Älvsjö, Stockholm, Sweden",
-			"description": "Motorcycle and outdoor equipment retailer",
-			"position": "Exhibition Sales Representative",
-			"startDate": "2011-01",
-			"endDate": "2011-01",
-			"summary": "Represented company at Sweden's biggest motorcycle exhibition \"På två hjul\" at Älvsjömässan.",
-			"highlights": [
-				"Customer service and sales at major motorcycle exhibition",
-				"Described merchandise and explained operation of merchandise to customers",
-				"Maintained knowledge of current promotions, policies regarding payment and exchanges, and security practices",
-				"Recommended merchandise based on customer needs",
-				"Guided customers in choosing items that reflected personal style and shape",
-				"Explained information about the quality, value and style of products to influence customer buying decisions"
-			]
+			"endDate": "2012-06"
 		}
 	],
 	"education": [
@@ -472,7 +437,7 @@
 	],
 	"meta": {
 		"version": "v1.0.0",
-		"lastModified": "2025-12-09",
+		"lastModified": "2025-12-19",
 		"theme": "elegant"
 	}
 }

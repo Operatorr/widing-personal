@@ -80,7 +80,7 @@ const networkIcons: Record<string, string> = {
 					}
 					{
 						url && (
-							<a href={url} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
+							<a id="website-link" href={url} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
 								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 									<circle cx="12" cy="12" r="10" />
 									<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
@@ -124,3 +124,12 @@ const networkIcons: Record<string, string> = {
 		)}
 	</div>
 </header>
+
+<script>
+	if (window.location.hostname.includes('widing.dev')) {
+		const websiteLink = document.getElementById('website-link');
+		if (websiteLink) {
+			websiteLink.style.display = 'none';
+		}
+	}
+</script>
