@@ -4,12 +4,13 @@ A modern, responsive CV/portfolio website built with Astro and Tailwind CSS.
 
 ## Live Demo
 
-[Add your deployed URL here]
+[widing.dev](https://widing.dev)
 
 ## Tech Stack
 
 - **Framework**: [Astro](https://astro.build/) - Static site generator
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
+- **Components**: [shadcn/ui](https://ui.shadcn.com/) - Accessible component library
 - **Data Format**: [JSON Resume](https://jsonresume.org/) standard
 - **Language**: TypeScript
 
@@ -31,7 +32,7 @@ A modern, responsive CV/portfolio website built with Astro and Tailwind CSS.
 ### Installation
 
 ```bash
-git clone https://github.com/[username]/widing-personal.git
+git clone https://github.com/Operatorr/widing-personal.git
 cd widing-personal
 npm install
 npm run dev
