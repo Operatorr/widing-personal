@@ -2,10 +2,10 @@
 	"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	"basics": {
 		"name": "Alexander Widing",
-		"label": "Tech Chief / Lead Software Engineer",
+		"label": "Lead Architect / Lead Software Engineer",
 		"image": "",
 		"url": "https://widing.dev/",
-		"summary": "Engineering leader with over 11 years of full-stack development experience, specializing in PHP/Laravel ecosystems and Python development. I'm driven by curiosity for emerging technology and a genuine passion for teaching others to grow. I build systems and teams, from enterprise ERP platforms to coaching athletes to national records.",
+		"summary": "Full-stack architect and engineering leader with 11+ years building enterprise systems from the ground up. I specialize in end-to-end system architecture—from technology selection to production deployment—across PHP/Laravel, Python, and Go stacks. I build systems and teams, from enterprise ERP platforms to coaching athletes to national records.",
 		"location": {
 			"city": "Bangkok",
 			"countryCode": "TH",
@@ -29,16 +29,16 @@
 			"name": "DxT Corporation Co., Ltd.",
 			"location": "Bangkok, Thailand",
 			"description": "SaaS startup developing Translation Management System",
-			"position": "Tech Chief & AI Engineer",
+			"position": "Lead Architect & AI Engineer",
 			"startDate": "2025-02",
-			"summary": "Leading technical vision, strategy and system architecture for enterprise-grade SaaS Translation Management System (TMS). Dual role combining executive leadership with hands-on AI engineering as an individual contributor.",
+			"summary": "Leading technical vision and system architecture for enterprise-grade SaaS Translation Management System (TMS). Hands-on architect role combining system design with AI engineering implementation.",
 			"highlights": [
-				"Set organization-wide technical direction and architecture standards as strategic business partner to CEO",
-				"Oversee engineering organization with hiring authority and budget responsibility for technical resources",
-				"Lead cross-functional team of 6 spanning engineering, product, QA, and project management",
-				"Architect and implement AI-powered features for translation workflows, leveraging LLM integration",
+				"Designed end-to-end system architecture including technology stack selection, data models, API design, and functional workflows",
+				"Set organization-wide technical direction and architecture standards as strategic partner to CEO",
+				"Architect and implement AI-powered features for translation workflows, leveraging LLM integration and vector embeddings",
 				"Define technology stack, coding standards, and CI/CD pipelines for scalable multi-tenant SaaS architecture",
-				"Own full product lifecycle from requirements to production monitoring, establishing engineering processes for startup growth phase"
+				"Own full product lifecycle from requirements to production monitoring, hands-on with code daily",
+				"Lead technical direction for cross-functional team spanning engineering, product, and QA"
 			]
 		},
 		{
@@ -50,9 +50,9 @@
 			"endDate": "2025-01",
 			"summary": "Led development team at digital agency, delivering custom systems and websites for clients across diverse industries.",
 			"highlights": [
-				"Led team of 2 engineers while remaining hands-on with code, bridging individual contributor and management roles",
-				"Managed team performance and career development, goal setting, growth planning, including job postings, technical interviews, and onboarding",
-				"Architected and delivered web solutions and custom e-commerce platforms for clients, integrating third-party APIs and streamlining operations",
+				"Architected and delivered web solutions and custom e-commerce platforms for clients, integrating third-party APIs and payment systems",
+				"Designed and deployed infrastructure architecture for regional airline websites serving China and Taiwan markets",
+				"Led technical direction for small engineering team while remaining hands-on with code",
 				"Managed DevOps responsibilities including server provisioning, deployment automation, monitoring, and infrastructure maintenance"
 			]
 		},
@@ -354,7 +354,7 @@
 			],
 			"startDate": "2025-02",
 			"roles": [
-				"Tech Chief",
+				"Lead Architect",
 				"AI Engineer"
 			],
 			"entity": "DxT",
