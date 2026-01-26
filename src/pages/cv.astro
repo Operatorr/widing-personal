@@ -1,0 +1,259 @@
+---
+import PrintLayout from '../layouts/PrintLayout.astro';
+import resume from '../data/resume.json';
+
+const { basics, work, education, skills, projects, certificates, languages } = resume;
+
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+};
+
+const formatYear = (dateStr: string) => {
+  if (!dateStr) return '';
+  return dateStr.split('-')[0];
+};
+
+// Filter to show main work experience (skip short/minor positions for print)
+const mainWork = work.filter(job => job.highlights && job.highlights.length > 0);
+
+// Accent color class
+const accent = 'text-slate-700';
+const accentBg = 'bg-slate-700';
+const accentBorder = 'border-slate-700';
+---
+
+<PrintLayout title={`${basics.name} - CV`}>
+  <!-- Header with accent bar -->
+  <header class="mb-4">
+    <div class="flex items-start gap-3">
+      <div class={`w-1 self-stretch ${accentBg} shrink-0`}></div>
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold text-zinc-900 tracking-tight">{basics.name}</h1>
+        <p class={`text-base ${accent} font-medium mt-0.5`}>{basics.label}</p>
+
+        <div class="flex flex-wrap gap-x-3 gap-y-0.5 mt-2 text-xs text-zinc-600">
+          {basics.location && (
+            <span class="flex items-center gap-1">
+              <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              {basics.location.city}, {basics.location.countryCode}
+            </span>
+          )}
+          {basics.url && (
+            <a href={basics.url} class="flex items-center gap-1 text-zinc-600 hover:text-slate-700">
+              <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                <path d="M2 12h20" />
+              </svg>
+              {basics.url.replace('https://', '')}
+            </a>
+          )}
+          {basics.profiles?.map((profile) => (
+            <a href={profile.url} class="flex items-center gap-1 text-zinc-600 hover:text-slate-700">
+              {profile.network === 'LinkedIn' && (
+                <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect width="4" height="12" x="2" y="9"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+              )}
+              {profile.network === 'GitHub' && (
+                <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                  <path d="M9 18c-4.51 2-5-2-7-2"/>
+                </svg>
+              )}
+              {profile.url.replace('https://', '').replace('linkedin.com/in/', 'linkedin.com/in/').replace('github.com/', 'github.com/')}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Summary -->
+  {basics.summary && (
+    <section class="mb-4 pl-4 border-l-2 border-zinc-200">
+      <p class="text-xs text-zinc-700 leading-relaxed">{basics.summary}</p>
+    </section>
+  )}
+
+  <!-- Skills (compact) -->
+  {skills && skills.length > 0 && (
+    <section class="mb-4">
+      <h2 class={`text-xs font-bold ${accent} uppercase tracking-wide mb-1.5 flex items-center gap-2`}>
+        <span class={`w-3 h-0.5 ${accentBg}`}></span>
+        Technical Skills
+      </h2>
+      <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs pl-5">
+        {skills.map((skill) => (
+          <div class="flex items-start gap-1.5">
+            <span class="font-medium text-zinc-800 shrink-0">{skill.name}:</span>
+            <span class="text-zinc-600">{skill.keywords?.join(', ')}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Work Experience -->
+  {mainWork && mainWork.length > 0 && (
+    <section class="mb-4">
+      <h2 class={`text-xs font-bold ${accent} uppercase tracking-wide mb-2 flex items-center gap-2`}>
+        <span class={`w-3 h-0.5 ${accentBg}`}></span>
+        Work Experience
+      </h2>
+      <div class="space-y-3 pl-5">
+        {mainWork.map((job, index) => (
+          <div class={`avoid-break relative ${index < mainWork.length - 1 ? 'pb-3 border-b border-zinc-100' : ''}`}>
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-semibold text-zinc-900 text-sm">{job.position}</h3>
+                <p class="text-xs text-zinc-600">
+                  <span class={`font-medium ${accent}`}>{job.name}</span>
+                  {job.location && <span class="text-zinc-400"> · {job.location}</span>}
+                </p>
+              </div>
+              <span class={`text-xs ${accent} font-medium whitespace-nowrap ml-4 bg-slate-50 px-1.5 py-0.5`}>
+                {formatDate(job.startDate)} – {job.endDate ? formatDate(job.endDate) : 'Present'}
+              </span>
+            </div>
+            {job.summary && (
+              <p class="text-xs text-zinc-600 mt-0.5">{job.summary}</p>
+            )}
+            {job.highlights && job.highlights.length > 0 && (
+              <ul class="mt-1 text-xs text-zinc-600 space-y-0">
+                {job.highlights.map((highlight) => (
+                  <li class="flex items-start gap-1.5">
+                    <span class={`${accent} mt-0.5`}>›</span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Projects -->
+  {projects && projects.length > 0 && (
+    <section class="mb-4">
+      <h2 class={`text-xs font-bold ${accent} uppercase tracking-wide mb-2 flex items-center gap-2`}>
+        <span class={`w-3 h-0.5 ${accentBg}`}></span>
+        Selected Projects
+      </h2>
+      <div class="space-y-2.5 pl-5">
+        {projects.slice(0, 4).map((project) => (
+          <div class="avoid-break">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-semibold text-zinc-900 text-xs inline">{project.name}</h3>
+                {project.entity && <span class="text-xs text-zinc-500"> at {project.entity}</span>}
+                {project.roles && project.roles.length > 0 && (
+                  <span class={`text-xs ${accent}`}> — {project.roles.join(', ')}</span>
+                )}
+              </div>
+              <span class="text-xs text-zinc-500 whitespace-nowrap ml-4">
+                {formatYear(project.startDate)}{project.endDate && ` – ${formatYear(project.endDate)}`}
+              </span>
+            </div>
+            <p class="text-xs text-zinc-600">{project.description}</p>
+            {project.highlights && project.highlights.length > 0 && (
+              <ul class="mt-0.5 text-xs text-zinc-600 space-y-0">
+                {project.highlights.map((highlight) => (
+                  <li class="flex items-start gap-1.5">
+                    <span class={`${accent} mt-0.5`}>›</span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {project.keywords && project.keywords.length > 0 && (
+              <p class="text-xs text-zinc-500 mt-0.5">
+                <span class="font-medium">Tech:</span> {project.keywords.join(', ')}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Education & Certifications side by side -->
+  <div class="grid grid-cols-2 gap-6 mb-3">
+    <!-- Education -->
+    {education && education.length > 0 && (
+      <section>
+        <h2 class={`text-xs font-bold ${accent} uppercase tracking-wide mb-1.5 flex items-center gap-2`}>
+          <span class={`w-3 h-0.5 ${accentBg}`}></span>
+          Education
+        </h2>
+        <div class="space-y-1.5 pl-5">
+          {education.slice(0, 3).map((edu) => (
+            <div class="avoid-break">
+              <h3 class="font-medium text-zinc-900 text-xs">{edu.studyType}</h3>
+              <p class="text-xs text-zinc-600">{edu.area}</p>
+              <p class="text-xs text-zinc-500">{edu.institution} · {formatYear(edu.startDate)}–{formatYear(edu.endDate)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Certifications -->
+    {certificates && certificates.length > 0 && (
+      <section>
+        <h2 class={`text-xs font-bold ${accent} uppercase tracking-wide mb-1.5 flex items-center gap-2`}>
+          <span class={`w-3 h-0.5 ${accentBg}`}></span>
+          Certifications
+        </h2>
+        <div class="space-y-1.5 pl-5">
+          {certificates.map((cert) => (
+            <div class="avoid-break">
+              <h3 class="font-medium text-zinc-900 text-xs">{cert.name}</h3>
+              <p class="text-xs text-zinc-500">{cert.issuer} · {formatYear(cert.date)}</p>
+              {cert.highlights && cert.highlights.length > 0 && (
+                <p class="text-xs text-zinc-600">{cert.highlights.join(', ')}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+
+  <!-- Languages -->
+  {languages && languages.length > 0 && (
+    <section class="mb-3">
+      <h2 class={`text-xs font-bold ${accent} uppercase tracking-wide mb-1 flex items-center gap-2`}>
+        <span class={`w-3 h-0.5 ${accentBg}`}></span>
+        Languages
+      </h2>
+      <div class="flex flex-wrap gap-x-4 gap-y-0.5 text-xs pl-5">
+        {languages.map((lang) => (
+          <span>
+            <span class="font-medium text-zinc-800">{lang.language}:</span>
+            <span class="text-zinc-600"> {lang.fluency}</span>
+          </span>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Print button (hidden in print) -->
+  <div class="no-print fixed bottom-6 right-6 flex gap-2">
+    <a href="/" class="bg-zinc-200 hover:bg-zinc-300 text-zinc-800 px-4 py-2 text-sm font-medium shadow-lg transition-colors">
+      ← Back to site
+    </a>
+    <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-800 text-white px-4 py-2 text-sm font-medium shadow-lg transition-colors">
+      Print / Save PDF
+    </button>
+  </div>
+</PrintLayout>
