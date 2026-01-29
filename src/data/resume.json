@@ -5,7 +5,7 @@
 		"label": "Lead Architect / Head of Engineering",
 		"image": "",
 		"url": "https://widing.dev/",
-		"summary": "Full-stack architect and engineering leader with over 11 years of experience owning end-to-end system architecture, from technology selection and design to production deployment. Experienced across PHP/Laravel ecosystems and Python development. I build systems and teams, from enterprise ERP platforms to coaching athletes to national records.",
+		"summary": "Full-stack architect and engineering leader with over 11 years of experience owning end-to-end system architecture, from technology selection and design to production deployment. Currently focused on production AI engineering alongside SaaS architecture. Experience spanning enterprise platforms, multi-tenant systems, and leading cross-functional teams. I build systems and teams, from ERP suites and AI powered products to coaching athletes to national records.",
 		"location": {
 			"city": "Bangkok",
 			"countryCode": "TH",
@@ -30,10 +30,12 @@
 			"highlights": [
 				"Designed end-to-end system architecture including technology stack selection, data models, API design, and functional workflows",
 				"Set organization-wide technical direction and architecture standards as strategic partner to CEO",
-				"Architect and implement AI-powered features for translation workflows, leveraging LLM integration and vector embeddings",
+				"Built production RAG pipeline integrating vector search with LLM generation for AI-powered workflows",
+				"Implemented evaluation frameworks to score and measure LLM output quality, with human evaluation loops",
+				"Engineered prompt versioning system and hallucination mitigation strategies for reliable LLM outputs",
 				"Define technology stack, coding standards, and CI/CD pipelines for scalable multi-tenant SaaS architecture",
 				"Own full product lifecycle from requirements to production monitoring, hands-on with code daily",
-				"Lead technical direction for cross-functional team spanning engineering, product, and QA"
+				"Lead cross-functional team of 5 spanning engineering, product, QA, and project management"
 			]
 		},
 		{
@@ -47,15 +49,16 @@
 			"highlights": [
 				"Architected and delivered web solutions and custom e-commerce platforms for clients, integrating third-party APIs and payment systems",
 				"Designed and deployed infrastructure architecture for regional airline websites serving China and Taiwan markets",
+				"Built and documented full REST API with OpenAPI/Swagger specification for airline client",
 				"Led technical direction for small engineering team while remaining hands-on with code",
-				"Managed DevOps responsibilities including server provisioning, deployment automation, monitoring, and infrastructure maintenance"
+				"Managed DevOps responsibilities including server or compute provisioning, deployment automation, and production monitoring"
 			]
 		},
 		{
 			"name": "EQHO Globalization Pte. Ltd.",
 			"location": "Singapore & Bangkok, Thailand",
 			"description": "Digital development agency",
-			"position": "Corporate Systems Manager / Software Engineer",
+			"position": "Corporate Systems Manager / Senior Software Engineer",
 			"startDate": "2015-08",
 			"endDate": "2021-01",
 			"summary": "Designed and developed suite of internal corporate systems and client-facing applications.",
@@ -178,11 +181,18 @@
 				"Go",
 				"Python",
 				"REST APIs",
+				"OpenAPI/Swagger",
 				"MySQL",
 				"PostgreSQL",
 				"MongoDB",
 				"Redis",
-				"Supabase"
+				"Supabase",
+				"Queue Processing (Laravel Queues/Horizon)",
+				"JWT Authentication",
+				"OAuth2",
+				"WorkOS",
+				"Rate Limiting",
+				"API Security"
 			]
 		},
 		{
@@ -196,32 +206,84 @@
 				"Alpine.js",
 				"Livewire",
 				"Next.js",
-				"TailwindCSS"
+				"Astro",
+				"TailwindCSS",
+				"SSR/SSG",
+				"Vite",
+				"Webpack",
+				"i18n/l10n"
 			]
 		},
 		{
 			"name": "AI Engineering",
-			"level": "Intermediate",
+			"level": "Advanced",
 			"keywords": [
-				"LLM Integration",
+				"RAG Pipelines",
+				"LLM Integration (Production)",
 				"Prompt Engineering",
+				"Prompt Versioning",
 				"Vector Databases",
 				"Text Embeddings",
 				"OpenAI API",
 				"HuggingFace Models",
-				"AI-powered Features"
+				"Evaluation Frameworks",
+				"Hallucination Mitigation",
+				"Multi-shot Prompting"
 			]
 		},
 		{
-			"name": "DevOps & Tools",
+			"name": "DevOps & Infrastructure",
 			"level": "Advanced",
 			"keywords": [
-				"Git",
-				"CI/CD",
+				"AWS",
+				"Linux Server Administration",
+				"Nginx",
 				"Docker",
-				"Linux",
-				"Security",
-				"Serverless"
+				"CI/CD",
+				"Vercel",
+				"Cloudflare",
+				"SSL/TLS (Let's Encrypt)",
+				"Database Backups & Recovery",
+				"S3 Object Storage",
+				"Git"
+			]
+		},
+		{
+			"name": "Observability & Monitoring",
+			"level": "Intermediate",
+			"keywords": [
+				"New Relic",
+				"Sentry",
+				"Nightwatch",
+				"Production Monitoring",
+				"Error Tracking"
+			]
+		},
+		{
+			"name": "Testing & Quality",
+			"level": "Advanced",
+			"keywords": [
+				"TDD",
+				"Unit Testing",
+				"Pest",
+				"Automated Testing"
+			]
+		},
+		{
+			"name": "Architecture & Practices",
+			"level": "Expert",
+			"keywords": [
+				"System Design",
+				"RESTful APIs",
+				"API Documentation",
+				"SaaS Multi-tenancy",
+				"Event-Driven Architecture",
+				"Database Design",
+				"Caching Strategies (Redis, CDN, HTTP)",
+				"MVC",
+				"Microservices",
+				"Technical Documentation",
+				"Agile/Scrum"
 			]
 		},
 		{
@@ -230,18 +292,6 @@
 			"keywords": [
 				"WordPress",
 				"Custom CMS Development"
-			]
-		},
-		{
-			"name": "Architecture & Practices",
-			"level": "Expert",
-			"keywords": [
-				"RESTful APIs",
-				"SaaS Multi-tenancy",
-				"MVC",
-				"Microservices",
-				"System Design",
-				"Agile/Scrum"
 			]
 		}
 	],
@@ -332,22 +382,25 @@
 			"name": "TMS SaaS Platform",
 			"description": "Translation Management System with AI-powered features for the enterprise localization market",
 			"highlights": [
-				"Multi-tenant SaaS architecture",
-				"AI-powered translation workflows with LLM integration",
-				"Developed Python automation scripts for AI integrations and workflow automation",
-				"Implemented Supabase Vector store with semantic search capabilities",
-				"Data vectorization using OpenAI text-embedding-3 and HuggingFace paraphrase-multilingual-MiniLM-L12-v2 (maps sentences & paragraphs to a 384 dimensional dense vector space) for local processing"
+				"Multi-tenant SaaS architecture serving enterprise clients",
+				"Production RAG pipeline, Vector retrieval, context injection, LLM generation for automated translation",
+				"Implemented prompt versioning with multi-shot prompting and training for hallucination mitigation",
+				"Built evaluation pipeline using evaluation frameworks, and human evaluation for output quality measurement",
+				"Vector store with semantic search for translation memory retrieval",
+				"Dual embedding strategy: OpenAI for cloud processing, and HuggingFace sentence transformer for offline processing",
+				"Python automation scripts for AI integrations and workflow automation"
 			],
 			"keywords": [
 				"Laravel",
 				"Python",
 				"SaaS",
-				"AI",
+				"RAG",
 				"LLM",
-				"Supabase",
+				"Prompt Engineering",
 				"Vector Database",
 				"Embeddings",
-				"Translation"
+				"Translation",
+				"Multi-tenancy"
 			],
 			"startDate": "2025-02",
 			"roles": [
@@ -358,18 +411,56 @@
 			"type": "application"
 		},
 		{
+			"name": "Content Localization Pipeline",
+			"description": "Content processing system for regional airline",
+			"highlights": [
+				"Architected end-to-end content pipeline",
+				"Built automated quoting engine using word count analysis and TM fuzzy matching against pricing rules",
+				"Implemented LLM-assisted localization workflow for English to multiple languages with human review",
+				"Designed REST API with full OpenAPI/Swagger documentation for technical team",
+				"Managed infrastructure for regional sites",
+				"Queue-based job processing for content updates"
+			],
+			"keywords": [
+				"Laravel",
+				"MongoDB",
+				"Redis",
+				"LLM",
+				"OpenAPI/Swagger",
+				"Queue Processing",
+				"Localization",
+				"Solutions Architecture",
+				"Content Pipeline"
+			],
+			"startDate": "2025-01",
+			"endDate": "2025-05",
+			"roles": [
+				"Solutions Architect"
+			],
+			"entity": "EQHO Communications",
+			"type": "application"
+		},
+		{
 			"name": "Enterprise ERP Suite",
 			"description": "Integrated Accounting, CRM, and Project Management systems for internal corporate use",
 			"highlights": [
-				"Full accounting system with Chart of Accounts, P&L, AR/AP aging, revenue tracking, and financial dashboards",
+				"Full double-entry accounting system with Chart of Accounts, General Ledger, and multi-currency support",
+				"Financial reporting suite: P&L, Balance Sheet, Cash Flow statements, and custom reports",
+				"AR/AP management with invoice generation, payment tracking, partial payments, and aging reports",
+				"Tax handling including VAT and withholding tax calculations",
+				"Revenue tracking and financial dashboards for executive reporting",
 				"CRM for customer relationship tracking",
 				"Project management and resource allocation"
 			],
 			"keywords": [
 				"Laravel",
-				"ERP",
 				"PostgreSQL",
-				"Enterprise"
+				"ERP",
+				"Accounting",
+				"CRM",
+				"Double-entry Bookkeeping",
+				"Financial Reporting",
+				"Multi-currency"
 			],
 			"startDate": "2016-05",
 			"endDate": "2021-01",
