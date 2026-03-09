@@ -135,59 +135,204 @@ const { title, description } = Astro.props;
           <circle cx="30" cy="-18" r="4" fill="white" opacity="0.3"/>
         </g>
 
-        <!-- ══ UFO #1 – CLASSIC SAUCER (top-right) ══ -->
+        <!-- ══ X-WING (top-right, descends nose-down into battle) ══ -->
         <g id="ls-ship" transform="translate(900, -110)">
-          <ellipse cx="0" cy="15" rx="55" ry="10" fill="#c084fc" opacity="0.3"/>
-          <ellipse cx="0" cy="0" rx="75" ry="24" fill="#200a3d" stroke="#c084fc" stroke-width="2.5"/>
-          <ellipse cx="0" cy="0" rx="62" ry="13" fill="none" stroke="#f472b6" stroke-width="1.2" opacity="0.5"/>
-          <path d="M -34 0 Q -34 -36 0 -40 Q 34 -36 34 0 Z" fill="#1a0a30" stroke="#c084fc" stroke-width="1.5"/>
-          <path d="M -22 -2 Q -20 -30 0 -35 Q 20 -30 22 -2 Z" fill="#22d3ee" opacity="0.15"/>
-          <circle cx="-30" cy="-4" r="6" fill="#22d3ee" opacity="0.9" filter="url(#ls-glow-cyan)"/>
-          <circle cx="0" cy="-8" r="6" fill="#22d3ee" opacity="0.9" filter="url(#ls-glow-cyan)"/>
-          <circle cx="30" cy="-4" r="6" fill="#22d3ee" opacity="0.9" filter="url(#ls-glow-cyan)"/>
+          <!-- Engine block at top (rear of ship) -->
+          <rect x="-16" y="-44" width="32" height="13" rx="3" fill="#0a0f1a" stroke="#22d3ee" stroke-width="1.5"/>
+          <!-- Twin engine exhausts -->
+          <ellipse cx="-7" cy="-48" rx="6" ry="3" fill="#22d3ee" opacity="0.85" filter="url(#ls-glow-cyan)"/>
+          <ellipse cx="7" cy="-48" rx="6" ry="3" fill="#22d3ee" opacity="0.85" filter="url(#ls-glow-cyan)"/>
+          <!-- Main fuselage (nose points down) -->
+          <polygon points="-12,-31 12,-31 14,0 9,44 -9,44 -14,0" fill="#0a0f1a" stroke="#22d3ee" stroke-width="2"/>
+          <!-- Cockpit canopy -->
+          <ellipse cx="0" cy="-12" rx="9" ry="6" fill="#0a1a2a" stroke="#22d3ee" stroke-width="1.5"/>
+          <ellipse cx="-1" cy="-14" rx="5" ry="3" fill="#22d3ee" opacity="0.2"/>
+          <!-- R2-D2 astromech socket (port side) -->
+          <circle cx="-11" cy="3" r="4" fill="#0a0f1a" stroke="#22d3ee" stroke-width="1"/>
+          <circle cx="-11" cy="3" r="2" fill="#22d3ee" opacity="0.4"/>
+          <!-- Nose cone tip -->
+          <polygon points="-7,44 7,44 0,60" fill="#22d3ee" opacity="0.5"/>
+          <!-- Fuselage rib line -->
+          <line x1="0" y1="-31" x2="0" y2="44" stroke="#22d3ee" stroke-width="0.7" opacity="0.3"/>
+
+          <!-- S-foils open in attack position (classic X pattern) -->
+          <!-- Upper-left wing -->
+          <polygon points="-12,-24 -3,-4 -70,-54 -76,-40" fill="#0a0f1a" stroke="#22d3ee" stroke-width="1.5"/>
+          <!-- Upper-right wing -->
+          <polygon points="12,-24 3,-4 70,-54 76,-40" fill="#0a0f1a" stroke="#22d3ee" stroke-width="1.5"/>
+          <!-- Lower-left wing -->
+          <polygon points="-12,20 -3,4 -70,56 -76,42" fill="#0a0f1a" stroke="#22d3ee" stroke-width="1.5"/>
+          <!-- Lower-right wing -->
+          <polygon points="12,20 3,4 70,56 76,42" fill="#0a0f1a" stroke="#22d3ee" stroke-width="1.5"/>
+
+          <!-- Rebel Alliance red accent stripes on wings -->
+          <line x1="-42" y1="-38" x2="-70" y2="-54" stroke="#f472b6" stroke-width="2.5" opacity="0.8"/>
+          <line x1="42" y1="-38" x2="70" y2="-54" stroke="#f472b6" stroke-width="2.5" opacity="0.8"/>
+          <line x1="-42" y1="36" x2="-70" y2="56" stroke="#f472b6" stroke-width="2.5" opacity="0.8"/>
+          <line x1="42" y1="36" x2="70" y2="56" stroke="#f472b6" stroke-width="2.5" opacity="0.8"/>
+
+          <!-- Wing panel internal lines (depth detail) -->
+          <line x1="-36" y1="-42" x2="-14" y2="-14" stroke="#22d3ee" stroke-width="0.7" opacity="0.3"/>
+          <line x1="36" y1="-42" x2="14" y2="-14" stroke="#22d3ee" stroke-width="0.7" opacity="0.3"/>
+          <line x1="-36" y1="38" x2="-14" y2="12" stroke="#22d3ee" stroke-width="0.7" opacity="0.3"/>
+          <line x1="36" y1="38" x2="14" y2="12" stroke="#22d3ee" stroke-width="0.7" opacity="0.3"/>
+
+          <!-- Laser cannons at all 4 wing tips -->
+          <line x1="-72" y1="-47" x2="-86" y2="-58" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+          <line x1="72" y1="-47" x2="86" y2="-58" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+          <line x1="-72" y1="49" x2="-86" y2="60" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+          <line x1="72" y1="49" x2="86" y2="60" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+          <!-- Cannon tip glow nodes -->
+          <circle cx="-86" cy="-58" r="3" fill="#c084fc" opacity="0.6"/>
+          <circle cx="86" cy="-58" r="3" fill="#c084fc" opacity="0.6"/>
+          <circle cx="-86" cy="60" r="3" fill="#c084fc" opacity="0.6"/>
+          <circle cx="86" cy="60" r="3" fill="#c084fc" opacity="0.6"/>
+
+          <!-- 4-cannon laser volley (fires downward through the battle) -->
           <g id="ls-ship-lasers" opacity="0">
-            <rect class="ls-ship-laser" x="-35" y="24" width="6" height="0" fill="#c084fc" filter="url(#ls-glow-purple)" rx="2"/>
-            <rect class="ls-ship-laser" x="-3" y="24" width="6" height="0" fill="#c084fc" filter="url(#ls-glow-purple)" rx="2"/>
-            <rect class="ls-ship-laser" x="29" y="24" width="6" height="0" fill="#c084fc" filter="url(#ls-glow-purple)" rx="2"/>
+            <rect class="ls-ship-laser" x="-89" y="-58" width="5" height="0" fill="#c084fc" filter="url(#ls-glow-purple)" rx="2"/>
+            <rect class="ls-ship-laser" x="84" y="-58" width="5" height="0" fill="#c084fc" filter="url(#ls-glow-purple)" rx="2"/>
+            <rect class="ls-ship-laser" x="-89" y="60" width="5" height="0" fill="#c084fc" filter="url(#ls-glow-purple)" rx="2"/>
+            <rect class="ls-ship-laser" x="84" y="60" width="5" height="0" fill="#c084fc" filter="url(#ls-glow-purple)" rx="2"/>
           </g>
         </g>
 
-        <!-- ══ UFO #2 – SCOUT SHIP (left side) ══ -->
+        <!-- ══ TIE FIGHTER (left side, descends) ══ -->
         <g id="ls-ufo2" transform="translate(260, -80)">
-          <ellipse cx="0" cy="8" rx="44" ry="8" fill="#f472b6" opacity="0.25"/>
-          <ellipse cx="0" cy="0" rx="52" ry="17" fill="#150a25" stroke="#f472b6" stroke-width="2"/>
-          <path d="M -22 0 Q -22 -24 0 -28 Q 22 -24 22 0 Z" fill="#0a051a" stroke="#f472b6" stroke-width="1.5"/>
-          <circle cx="-22" cy="8" r="5" fill="#f472b6" class="ls-ufo2-light"/>
-          <circle cx="0" cy="10" r="5" fill="#fbbf24" class="ls-ufo2-light" style="animation-delay:0.13s"/>
-          <circle cx="22" cy="8" r="5" fill="#4ade80" class="ls-ufo2-light" style="animation-delay:0.26s"/>
+          <!-- Left solar panel (hexagonal) -->
+          <polygon points="-54,-24 -44,-46 -20,-46 -20,46 -44,46 -54,24" fill="#080e10" stroke="#4ade80" stroke-width="2"/>
+          <!-- Left panel grid (3 horizontal + 1 vertical) -->
+          <line x1="-54" y1="-12" x2="-20" y2="-12" stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+          <line x1="-54" y1="0"   x2="-20" y2="0"   stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+          <line x1="-54" y1="12"  x2="-20" y2="12"  stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+          <line x1="-37" y1="-46" x2="-37" y2="46"  stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+          <!-- Left connection arm -->
+          <rect x="-20" y="-5" width="13" height="10" rx="1" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+
+          <!-- Central cockpit ball -->
+          <circle cx="0" cy="0" r="20" fill="#080e10" stroke="#4ade80" stroke-width="2.5"/>
+          <circle cx="0" cy="0" r="14" fill="none" stroke="#4ade80" stroke-width="0.8" opacity="0.35"/>
+          <!-- Cockpit hexagonal viewport (iconic TIE viewport) -->
+          <polygon points="-9,-7 -5,-13 5,-13 9,-7 5,-1 -5,-1" fill="#0a1a10" stroke="#4ade80" stroke-width="1.5"/>
+          <polygon points="-7,-7 -4,-11 4,-11 7,-7 4,-3 -4,-3" fill="#4ade80" opacity="0.28"/>
+
+          <!-- Right connection arm -->
+          <rect x="7" y="-5" width="13" height="10" rx="1" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+          <!-- Right solar panel (mirror) -->
+          <polygon points="20,-46 44,-46 54,-24 54,24 44,46 20,46" fill="#080e10" stroke="#4ade80" stroke-width="2"/>
+          <!-- Right panel grid -->
+          <line x1="20" y1="-12" x2="54" y2="-12" stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+          <line x1="20" y1="0"   x2="54" y2="0"   stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+          <line x1="20" y1="12"  x2="54" y2="12"  stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+          <line x1="37" y1="-46" x2="37" y2="46"  stroke="#4ade80" stroke-width="0.9" opacity="0.45"/>
+
+          <!-- Ion cannon barrel below cockpit -->
+          <rect x="-5" y="20" width="10" height="16" rx="2" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+          <!-- Cannon muzzle glow -->
+          <ellipse cx="0" cy="37" rx="5" ry="2.5" fill="#4ade80" opacity="0.55" filter="url(#ls-glow-green)"/>
+
+          <!-- Ion cannon bolt (fires downward) -->
           <g id="ls-ufo2-beam" opacity="0">
-            <polygon points="-12,17 12,17 48,170 -48,170" fill="#f472b6" opacity="0.18"/>
-            <polygon points="-5,17 5,17 18,170 -18,170" fill="white" opacity="0.1"/>
+            <rect x="-4" y="36" width="8" height="350" fill="#4ade80" filter="url(#ls-glow-green)" rx="3" opacity="0.8"/>
+            <rect x="-2" y="36" width="4" height="350" fill="white" rx="1.5" opacity="0.55"/>
           </g>
         </g>
 
-        <!-- ══ ROBOT (center, rises from bottom) ══ -->
+        <!-- ══ DEATH STAR + TIE FIGHTERS (center, rises from bottom) ══ -->
         <g id="ls-robot" transform="translate(600, 900)">
-          <rect x="-28" y="20" width="22" height="32" rx="3" fill="#0d1f0d" stroke="#4ade80" stroke-width="1.5"/>
-          <rect x="6" y="20" width="22" height="32" rx="3" fill="#0d1f0d" stroke="#4ade80" stroke-width="1.5"/>
-          <rect x="-38" y="-62" width="76" height="82" rx="7" fill="#0d1f0d" stroke="#4ade80" stroke-width="2"/>
-          <rect x="-62" y="-52" width="24" height="14" rx="3" fill="#0d1f0d" stroke="#4ade80" stroke-width="1.5"/>
-          <rect x="38" y="-52" width="24" height="14" rx="3" fill="#0d1f0d" stroke="#4ade80" stroke-width="1.5"/>
-          <rect x="-30" y="-112" width="60" height="52" rx="7" fill="#0d1f0d" stroke="#4ade80" stroke-width="2"/>
-          <line x1="0" y1="-112" x2="0" y2="-133" stroke="#4ade80" stroke-width="2.5"/>
-          <circle cx="0" cy="-138" r="6" fill="#4ade80" filter="url(#ls-glow-green)"/>
-          <circle cx="-12" cy="-90" r="10" fill="#0a0f0a" stroke="#4ade80" stroke-width="2"/>
-          <circle cx="12" cy="-90" r="10" fill="#0a0f0a" stroke="#4ade80" stroke-width="2"/>
-          <circle class="ls-eye-glow" cx="-12" cy="-90" r="6" fill="#4ade80" filter="url(#ls-glow-green)"/>
-          <circle class="ls-eye-glow" cx="12" cy="-90" r="6" fill="#4ade80" filter="url(#ls-glow-green)"/>
-          <rect x="-20" y="-75" width="40" height="9" rx="2" fill="#4ade80" opacity="0.35"/>
-          <rect x="-24" y="-50" width="48" height="34" rx="4" fill="#0a1a0a" stroke="#4ade80" stroke-width="1" opacity="0.9"/>
-          <circle cx="-12" cy="-33" r="5" fill="#4ade80" opacity="0.9"/>
-          <circle cx="0" cy="-33" r="5" fill="#22d3ee" opacity="0.9"/>
-          <circle cx="12" cy="-33" r="5" fill="#c084fc" opacity="0.9"/>
+
+          <!-- TIE Fighter #1 – upper-left escort -->
+          <g id="ls-tie1" transform="translate(-158, -155)">
+            <polygon points="-26,-12 -22,-22 -12,-22 -12,22 -22,22 -26,12" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+            <!-- panel grid lines -->
+            <line x1="-26" y1="-4" x2="-12" y2="-4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="-26" y1="4" x2="-12" y2="4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="-19" y1="-22" x2="-19" y2="22" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <!-- connection arm -->
+            <line x1="-12" y1="0" x2="0" y2="0" stroke="#4ade80" stroke-width="1.5"/>
+            <!-- cockpit sphere -->
+            <circle cx="0" cy="0" r="9" fill="#080e10" stroke="#4ade80" stroke-width="2"/>
+            <circle cx="-3" cy="-3" r="3" fill="#4ade80" opacity="0.35"/>
+            <!-- connection arm right -->
+            <line x1="9" y1="0" x2="21" y2="0" stroke="#4ade80" stroke-width="1.5"/>
+            <polygon points="12,-22 22,-22 26,-12 26,12 22,22 12,22" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+            <line x1="12" y1="-4" x2="26" y2="-4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="12" y1="4" x2="26" y2="4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="19" y1="-22" x2="19" y2="22" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+          </g>
+
+          <!-- TIE Fighter #2 – upper-right escort -->
+          <g id="ls-tie2" transform="translate(155, -135)">
+            <polygon points="-26,-12 -22,-22 -12,-22 -12,22 -22,22 -26,12" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+            <line x1="-26" y1="-4" x2="-12" y2="-4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="-26" y1="4" x2="-12" y2="4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="-19" y1="-22" x2="-19" y2="22" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="-12" y1="0" x2="0" y2="0" stroke="#4ade80" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="9" fill="#080e10" stroke="#4ade80" stroke-width="2"/>
+            <circle cx="-3" cy="-3" r="3" fill="#4ade80" opacity="0.35"/>
+            <line x1="9" y1="0" x2="21" y2="0" stroke="#4ade80" stroke-width="1.5"/>
+            <polygon points="12,-22 22,-22 26,-12 26,12 22,22 12,22" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+            <line x1="12" y1="-4" x2="26" y2="-4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="12" y1="4" x2="26" y2="4" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+            <line x1="19" y1="-22" x2="19" y2="22" stroke="#4ade80" stroke-width="0.7" opacity="0.4"/>
+          </g>
+
+          <!-- TIE Fighter #3 – directly above (smaller, in formation) -->
+          <g id="ls-tie3" transform="translate(12, -210)">
+            <polygon points="-20,-9 -17,-17 -9,-17 -9,17 -17,17 -20,9" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+            <line x1="-20" y1="-3" x2="-9" y2="-3" stroke="#4ade80" stroke-width="0.6" opacity="0.4"/>
+            <line x1="-20" y1="3" x2="-9" y2="3" stroke="#4ade80" stroke-width="0.6" opacity="0.4"/>
+            <line x1="-14" y1="-17" x2="-14" y2="17" stroke="#4ade80" stroke-width="0.6" opacity="0.4"/>
+            <line x1="-9" y1="0" x2="0" y2="0" stroke="#4ade80" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="7" fill="#080e10" stroke="#4ade80" stroke-width="1.8"/>
+            <circle cx="-2" cy="-2" r="2.5" fill="#4ade80" opacity="0.3"/>
+            <line x1="7" y1="0" x2="16" y2="0" stroke="#4ade80" stroke-width="1.5"/>
+            <polygon points="9,-17 17,-17 20,-9 20,9 17,17 9,17" fill="#080e10" stroke="#4ade80" stroke-width="1.5"/>
+            <line x1="9" y1="-3" x2="20" y2="-3" stroke="#4ade80" stroke-width="0.6" opacity="0.4"/>
+            <line x1="9" y1="3" x2="20" y2="3" stroke="#4ade80" stroke-width="0.6" opacity="0.4"/>
+            <line x1="14" y1="-17" x2="14" y2="17" stroke="#4ade80" stroke-width="0.6" opacity="0.4"/>
+          </g>
+
+          <!-- Death Star main sphere -->
+          <circle cx="0" cy="0" r="94" fill="#080e10" stroke="#4ade80" stroke-width="2.5"/>
+
+          <!-- Equatorial trench (the iconic groove) -->
+          <line x1="-94" y1="10" x2="94" y2="10" stroke="#4ade80" stroke-width="3.5" opacity="0.75"/>
+          <line x1="-94" y1="3" x2="94" y2="3" stroke="#4ade80" stroke-width="1" opacity="0.35"/>
+          <line x1="-94" y1="17" x2="94" y2="17" stroke="#4ade80" stroke-width="1" opacity="0.35"/>
+
+          <!-- Surface latitude panel lines (upper hemisphere) -->
+          <line x1="-88" y1="-28" x2="88" y2="-28" stroke="#4ade80" stroke-width="0.8" opacity="0.22"/>
+          <line x1="-78" y1="-52" x2="78" y2="-52" stroke="#4ade80" stroke-width="0.8" opacity="0.18"/>
+          <line x1="-58" y1="-72" x2="58" y2="-72" stroke="#4ade80" stroke-width="0.7" opacity="0.14"/>
+
+          <!-- Surface latitude panel lines (lower hemisphere) -->
+          <line x1="-88" y1="38" x2="88" y2="38" stroke="#4ade80" stroke-width="0.8" opacity="0.22"/>
+          <line x1="-78" y1="62" x2="78" y2="62" stroke="#4ade80" stroke-width="0.7" opacity="0.18"/>
+
+          <!-- Vertical segment lines -->
+          <line x1="32" y1="-94" x2="32" y2="94" stroke="#4ade80" stroke-width="0.6" opacity="0.14"/>
+          <line x1="64" y1="-75" x2="64" y2="75" stroke="#4ade80" stroke-width="0.6" opacity="0.12"/>
+          <line x1="-32" y1="-94" x2="-32" y2="94" stroke="#4ade80" stroke-width="0.6" opacity="0.12"/>
+          <line x1="-64" y1="-75" x2="-64" y2="75" stroke="#4ade80" stroke-width="0.6" opacity="0.10"/>
+
+          <!-- Superlaser dish – upper-left quadrant (iconic) -->
+          <circle cx="-44" cy="-50" r="31" fill="#060c0e" stroke="#4ade80" stroke-width="2.5"/>
+          <circle cx="-44" cy="-50" r="21" fill="#060c0e" stroke="#4ade80" stroke-width="1.5" opacity="0.85"/>
+          <!-- Dish spoke lines (concave detail) -->
+          <line x1="-44" y1="-50" x2="-67" y2="-36" stroke="#4ade80" stroke-width="0.9" opacity="0.5"/>
+          <line x1="-44" y1="-50" x2="-55" y2="-70" stroke="#4ade80" stroke-width="0.9" opacity="0.5"/>
+          <line x1="-44" y1="-50" x2="-22" y2="-62" stroke="#4ade80" stroke-width="0.9" opacity="0.5"/>
+          <line x1="-44" y1="-50" x2="-34" y2="-28" stroke="#4ade80" stroke-width="0.9" opacity="0.5"/>
+          <!-- Dish charge glow -->
+          <circle id="ls-dish-glow" cx="-44" cy="-50" r="9" fill="#4ade80" opacity="0" filter="url(#ls-glow-green)"/>
+
+          <!-- Superlaser beam (fires from dish going left) -->
           <g id="ls-robot-lasers" opacity="0">
-            <rect id="ls-laser-l" x="-12" y="-94" width="0" height="8" fill="#4ade80" filter="url(#ls-glow-green)" rx="2"/>
-            <rect id="ls-laser-r" x="12" y="-94" width="0" height="8" fill="#4ade80" filter="url(#ls-glow-green)" rx="2"/>
+            <!-- Outer beam / glow -->
+            <rect id="ls-laser-l" x="-44" y="-59" width="0" height="18" fill="#4ade80" filter="url(#ls-glow-green)" rx="4"/>
+            <!-- Bright white core -->
+            <rect id="ls-laser-r" x="-44" y="-54" width="0" height="8" fill="white" rx="2"/>
           </g>
         </g>
 
@@ -432,12 +577,6 @@ const { title, description } = Astro.props;
           <circle id="ls-opm-mega" cx="290" cy="373" r="0" fill="none" stroke="white" stroke-width="12" opacity="0"/>
         </g>
 
-        <!-- ══ POWER LEVEL TEXT ══ -->
-        <text id="ls-over9000" x="600" y="380" text-anchor="middle"
-              font-family="'JetBrains Mono','Fira Code',monospace" font-size="0"
-              fill="#fbbf24" filter="url(#ls-glow-gold)" opacity="0" font-weight="bold"
-              letter-spacing="2">POWER LEVEL: OVER 9000!!</text>
-
       </svg>
 
       <div id="ls-smoke-container"></div>
@@ -593,14 +732,6 @@ const { title, description } = Astro.props;
     to   { opacity: 0;   }
   }
 
-  /* UFO scout light blink */
-  .ls-ufo2-light {
-    animation: ls-light-blink 0.35s steps(2) infinite;
-  }
-  @keyframes ls-light-blink {
-    from { opacity: 1;   }
-    to   { opacity: 0.1; }
-  }
 </style>
 
 <script>
@@ -848,7 +979,6 @@ const { title, description } = Astro.props;
     const lsCannonGlow  = document.getElementById('ls-cannon-glow');
     const lsFlash       = document.getElementById('ls-flash');
     const lsTitle       = document.getElementById('ls-title');
-    const lsOver9000    = document.getElementById('ls-over9000');
     const lsSpeedlines  = document.getElementById('ls-speedlines');
     const lsExps        = gsap.utils.toArray<SVGCircleElement>('.ls-exp');
     const lsMegaExp     = document.getElementById('ls-mega-exp');
@@ -879,185 +1009,148 @@ const { title, description } = Astro.props;
       },
     });
 
-    // ── 0.0s: THREE HEROES RISE SIMULTANEOUSLY ──────────────
-    tl.to(lsRobot,   { y: -320, duration: 0.9, ease: 'back.out(1.2)' }, 0);
-    tl.to(lsSaiyan,  { y: -450, duration: 1.0, ease: 'back.out(1.1)' }, 0.05);
-    tl.to(lsOpm,     { y: -480, duration: 0.95, ease: 'back.out(1.15)' }, 0.1);
-    // Planet rises slowly from lower-left
-    tl.to(lsPlanet,  { x: 40, y: 200, duration: 2.5, ease: 'power1.inOut' }, 0);
+    // ── Instant: heroes already in battle position ───────────
+    gsap.set(lsRobot,  { y: -320 });
+    gsap.set(lsSaiyan, { y: -450 });
+    gsap.set(lsOpm,    { y: -480 });
+    gsap.set(lsPlanet, { x: 40, y: 200 });
 
-    // ── 0.1s: Robot eye power-up flicker ────────────────────
-    tl.to('.ls-eye-glow', { opacity: 0, duration: 0.07, repeat: 8, yoyo: true, ease: 'none' }, 0.1);
+    // TIE fighter escort patrol wobble
+    gsap.to('#ls-tie1', { y: 12, duration: 0.62, yoyo: true, repeat: 15, ease: 'sine.inOut' });
+    gsap.to('#ls-tie2', { y: -10, duration: 0.70, yoyo: true, repeat: 14, ease: 'sine.inOut', delay: 0.15 });
+    gsap.to('#ls-tie3', { x: 7, y: 6, duration: 0.52, yoyo: true, repeat: 16, ease: 'sine.inOut', delay: 0.08 });
 
-    // ── 0.3s: SSJ aura elements appear ──────────────────────
-    tl.to('.ls-ssj-aura', { opacity: 0.4, duration: 0.3, stagger: 0.06 }, 0.3);
-    tl.to('.ls-ssj-bolt', { opacity: 0.8, duration: 0.1 }, 0.3);
+    // ── 0.0s: SSJ aura on, dish charges ──────────────────────
+    tl.to('.ls-ssj-aura', { opacity: 0.4, duration: 0.18, stagger: 0.04 }, 0);
+    tl.to('.ls-ssj-bolt',  { opacity: 0.8, duration: 0.08 }, 0);
+    tl.to('#ls-dish-glow', { opacity: 0.9, scale: 2.2, transformOrigin: '50% 50%', duration: 0.2, ease: 'power3.in' }, 0);
 
-    // ── 0.55s: Title glitches in ─────────────────────────────
-    tl.fromTo(lsTitle, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: 'power2.out' }, 0.55);
+    // ── 0.05s: Title glitches in ─────────────────────────────
+    tl.fromTo(lsTitle, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.22, ease: 'power2.out' }, 0.05);
 
-    // ── 0.7s: Robot eye lasers sweep ────────────────────────
-    tl.to(lsRobotLasers, { opacity: 1, duration: 0.05 }, 0.7);
-    tl.to('#ls-laser-l', { attr: { x: -660, width: 648 }, duration: 0.35, ease: 'power3.out' }, 0.7);
-    tl.to('#ls-laser-r', { attr: { width: 648 }, duration: 0.35, ease: 'power3.out' }, 0.7);
-    tl.to(lsRobotLasers, { opacity: 0, duration: 0.2 }, 1.2);
-
-    // ── 0.85s: Rocket #1 launches lower-left → upper-right ──
+    // ── 0.0–0.35s: All vehicles enter simultaneously ──────────
     tl.call(() => {
       for (let i = 0; i < 7; i++)
-        setTimeout(() => spawnSmoke(7 + Math.random() * 5, 79 + Math.random() * 5, 'rgba(74,222,128,0.13)'), i * 100);
-    }, [], 0.85);
-    tl.to(lsRocketGrp, { x: 560, y: -560, rotation: -44, duration: 1.4, ease: 'power2.inOut' }, 0.85);
-    tl.to('#ls-rocket-flame', { scaleY: 1.8, scaleX: 1.3, transformOrigin: '50% 0%', duration: 0.15, repeat: 9, yoyo: true, ease: 'none' }, 0.85);
-
-    // ── 0.95s: Rocket #2 from right → left-down ─────────────
-    tl.to(lsRocket2, { x: -1050, y: 280, rotation: 155, duration: 1.4, ease: 'power2.inOut' }, 0.95);
-    tl.to('#ls-rocket2-flame', { scaleY: 1.6, scaleX: 1.2, transformOrigin: '50% 0%', duration: 0.14, repeat: 10, yoyo: true, ease: 'none' }, 0.95);
-
-    // ── 1.0s: SR-71 screams right across mid ────────────────
-    tl.to(lsSr71, { x: 1620, duration: 0.9, ease: 'power2.in' }, 1.0);
+        setTimeout(() => spawnSmoke(7 + Math.random() * 5, 79 + Math.random() * 5, 'rgba(74,222,128,0.13)'), i * 80);
+    }, [], 0);
+    tl.to(lsRocketGrp, { x: 560, y: -560, rotation: -44, duration: 1.0, ease: 'power2.inOut' }, 0);
+    tl.to('#ls-rocket-flame', { scaleY: 1.8, scaleX: 1.3, transformOrigin: '50% 0%', duration: 0.15, repeat: 7, yoyo: true, ease: 'none' }, 0);
+    tl.to(lsRocket2, { x: -1050, y: 280, rotation: 155, duration: 1.0, ease: 'power2.inOut' }, 0.05);
+    tl.to('#ls-rocket2-flame', { scaleY: 1.6, scaleX: 1.2, transformOrigin: '50% 0%', duration: 0.14, repeat: 7, yoyo: true, ease: 'none' }, 0.05);
+    tl.to(lsSr71, { x: 1620, duration: 0.7, ease: 'power2.in' }, 0.08);
     tl.call(() => {
       for (let i = 0; i < 5; i++)
-        setTimeout(() => spawnSmoke(2 + Math.random() * 4, 37 + Math.random() * 3, 'rgba(34,211,238,0.14)'), i * 120);
-    }, [], 1.05);
-
-    // ── 1.1s: Biplane zooms right-to-left ───────────────────
-    tl.to(lsPlane, { x: -1750, duration: 1.2, ease: 'power1.inOut' }, 1.1);
-
-    // ── 1.15s: F-22 climbs diagonally ───────────────────────
-    tl.to(lsF22, { x: 780, y: -820, rotation: -50, duration: 1.3, ease: 'power2.inOut' }, 1.15);
+        setTimeout(() => spawnSmoke(2 + Math.random() * 4, 37 + Math.random() * 3, 'rgba(34,211,238,0.14)'), i * 100);
+    }, [], 0.1);
+    tl.to(lsPlane, { x: -1750, duration: 0.9, ease: 'power1.inOut' }, 0.1);
+    tl.to(lsF22, { x: 780, y: -820, rotation: -50, duration: 1.0, ease: 'power2.inOut' }, 0.12);
     tl.to('#ls-f22 ellipse:last-of-type, #ls-f22 ellipse:nth-of-type(2)', {
-      scaleY: 1.5, transformOrigin: '50% 0%', duration: 0.16, repeat: 8, yoyo: true, ease: 'none',
-    }, 1.15);
-
-    // ── 1.2s: UFO #1 descends ───────────────────────────────
-    tl.to(lsShipGrp, { y: 250, duration: 0.75, ease: 'back.out(1.1)' }, 1.2);
-
-    // ── 1.35s: UFO #2 scout descends left ───────────────────
-    tl.to(lsUfo2, { y: 240, duration: 0.7, ease: 'back.out(1.2)' }, 1.35);
-
-    // ── 1.4s: Mothership descends top-center ────────────────
-    tl.to(lsMothership, { y: 200, duration: 0.9, ease: 'back.out(1.05)' }, 1.4);
-
-    // ── 1.5s: Bio-ship drifts in top-right ──────────────────
-    tl.to(lsBioship, { y: 180, duration: 0.9, ease: 'back.out(1.1)' }, 1.5);
-
-    // ── 1.6s: Rocket #3 enters from far right ───────────────
-    tl.to(lsRocket3, { x: -1260, y: -220, rotation: 130, duration: 1.2, ease: 'power2.in' }, 1.6);
-    tl.to('#ls-rocket3-flame', { scaleY: 1.7, scaleX: 1.3, transformOrigin: '50% 0%', duration: 0.13, repeat: 9, yoyo: true, ease: 'none' }, 1.6);
-
-    // ── 1.7s: Akira motorcycle SLIDES through bottom ─────────
-    tl.to(lsAkira, { x: -1760, duration: 0.95, ease: 'power3.in' }, 1.7);
+      scaleY: 1.5, transformOrigin: '50% 0%', duration: 0.16, repeat: 7, yoyo: true, ease: 'none',
+    }, 0.12);
+    tl.to(lsShipGrp,   { y: 250, duration: 0.55, ease: 'back.out(1.1)' }, 0.1);
+    tl.to(lsUfo2,      { y: 240, duration: 0.5,  ease: 'back.out(1.2)' }, 0.18);
+    tl.to(lsMothership,{ y: 200, duration: 0.6,  ease: 'back.out(1.05)' }, 0.12);
+    tl.to(lsBioship,   { y: 180, duration: 0.6,  ease: 'back.out(1.1)' }, 0.18);
+    tl.to(lsRocket3, { x: -1260, y: -220, rotation: 130, duration: 0.9, ease: 'power2.in' }, 0.2);
+    tl.to('#ls-rocket3-flame', { scaleY: 1.7, scaleX: 1.3, transformOrigin: '50% 0%', duration: 0.13, repeat: 7, yoyo: true, ease: 'none' }, 0.2);
+    tl.to(lsAkira, { x: -1760, duration: 0.75, ease: 'power3.in' }, 0.22);
     tl.call(() => {
       for (let i = 0; i < 6; i++)
-        setTimeout(() => spawnSmoke(80 - i * 11, 84 + Math.random() * 4, 'rgba(34,211,238,0.1)'), i * 80);
-    }, [], 1.75);
+        setTimeout(() => spawnSmoke(80 - i * 11, 84 + Math.random() * 4, 'rgba(34,211,238,0.1)'), i * 70);
+    }, [], 0.25);
 
-    // ── 1.85s: UFO #1 fires laser volley ────────────────────
-    tl.to(lsShipLasers, { opacity: 1, duration: 0.06 }, 1.85);
-    tl.to('.ls-ship-laser', { attr: { height: 680 }, duration: 0.4, ease: 'power3.out', stagger: 0.09 }, 1.85);
+    // ── 0.15s: Death Star superlaser fires ───────────────────
+    tl.to(lsRobotLasers, { opacity: 1, duration: 0.05 }, 0.15);
+    tl.to('#ls-laser-l', { attr: { x: -660, width: 616 }, duration: 0.3, ease: 'power3.out' }, 0.15);
+    tl.to('#ls-laser-r', { attr: { x: -660, width: 616 }, duration: 0.3, ease: 'power3.out' }, 0.15);
+    tl.to('#ls-dish-glow', { opacity: 0, duration: 0.18 }, 0.4);
+    tl.to(lsRobotLasers, { opacity: 0, duration: 0.15 }, 0.52);
 
-    // ── 1.9s: UFO #2 tractor beam ───────────────────────────
-    tl.to(lsUfo2Beam, { opacity: 1, duration: 0.3 }, 1.9);
-    tl.to(lsUfo2Beam, { opacity: 0, duration: 0.4 }, 2.5);
-
-    // ── 2.0s: KAMEHAMEHA fires from SSJ ─────────────────────
-    tl.to(lsKamehameha, { opacity: 1, duration: 0.05 }, 2.0);
-    // Funnel + beam grow leftward from SSJ hands ~(900,405)
-    tl.fromTo('#ls-kame-beam', { attr: { x: 900, width: 0 } }, { attr: { x: 0, width: 900 }, duration: 0.35, ease: 'power3.out' }, 2.0);
-    tl.fromTo('#ls-kame-glow', { attr: { x: 900, width: 0 } }, { attr: { x: 0, width: 900 }, duration: 0.35, ease: 'power3.out' }, 2.0);
+    // ── 0.5s: ALL WEAPONS OPEN FIRE ──────────────────────────
+    tl.to(lsShipLasers, { opacity: 1, duration: 0.06 }, 0.5);
+    tl.to('.ls-ship-laser', { attr: { height: 680 }, duration: 0.35, ease: 'power3.out', stagger: 0.07 }, 0.5);
+    tl.to(lsUfo2Beam, { opacity: 1, duration: 0.2 }, 0.55);
+    tl.to(lsUfo2Beam, { opacity: 0, duration: 0.3 }, 1.1);
+    tl.to(lsKamehameha, { opacity: 1, duration: 0.05 }, 0.5);
+    tl.fromTo('#ls-kame-beam',  { attr: { x: 900, width: 0 } }, { attr: { x: 0, width: 900 }, duration: 0.3, ease: 'power3.out' }, 0.5);
+    tl.fromTo('#ls-kame-glow',  { attr: { x: 900, width: 0 } }, { attr: { x: 0, width: 900 }, duration: 0.3, ease: 'power3.out' }, 0.5);
     tl.fromTo('#ls-kame-shape', { attr: { points: '900,398 900,412 900,408 900,402' } },
-      { attr: { points: '900,392 900,418 0,410 0,400' }, duration: 0.35, ease: 'power3.out' }, 2.0);
-    tl.to(lsKamehameha, { opacity: 0, duration: 0.4 }, 2.5);
+      { attr: { points: '900,392 900,418 0,410 0,400' }, duration: 0.3, ease: 'power3.out' }, 0.5);
+    tl.to(lsKamehameha, { opacity: 0, duration: 0.3 }, 1.1);
+    tl.to(lsSpiritBomb, { y: 560, duration: 0.55, ease: 'power2.in' }, 0.5);
+    tl.to('#ls-sb-core',  { attr: { r: 55 }, duration: 0.4, ease: 'power1.out' }, 0.5);
+    tl.to('#ls-sb-ring1', { attr: { r: 72 }, duration: 0.4, ease: 'power1.out' }, 0.5);
+    tl.to('#ls-sb-ring2', { attr: { r: 86 }, duration: 0.4, ease: 'power1.out' }, 0.5);
+    tl.to('#ls-sb-ring3', { attr: { r: 98 }, duration: 0.4, ease: 'power1.out' }, 0.5);
 
-    // ── 2.1s: Spirit Bomb drops from sky ────────────────────
-    tl.to(lsSpiritBomb, { y: 560, duration: 0.85, ease: 'power2.in' }, 2.1);
-    tl.to('#ls-sb-core',  { attr: { r: 55 }, duration: 0.6, ease: 'power1.out' }, 2.1);
-    tl.to('#ls-sb-ring1', { attr: { r: 72 }, duration: 0.6, ease: 'power1.out' }, 2.1);
-    tl.to('#ls-sb-ring2', { attr: { r: 86 }, duration: 0.6, ease: 'power1.out' }, 2.1);
-    tl.to('#ls-sb-ring3', { attr: { r: 98 }, duration: 0.6, ease: 'power1.out' }, 2.1);
+    // ── 0.65s: Mothership charges + fires planet buster ──────
+    tl.to(lsCannonGlow, { opacity: 0.9, duration: 0.18, ease: 'power3.in' }, 0.65);
+    tl.to(lsPlanetBeam, { opacity: 1, duration: 0.05 }, 0.85);
+    tl.fromTo('#ls-pb-beam', { attr: { height: 0 } }, { attr: { height: 620 }, duration: 0.28, ease: 'power3.out' }, 0.85);
+    tl.fromTo('#ls-pb-core', { attr: { height: 0 } }, { attr: { height: 620 }, duration: 0.28, ease: 'power3.out' }, 0.85);
+    tl.to(lsPlanetBeam, { opacity: 0, duration: 0.22 }, 1.3);
+    tl.to(lsCannonGlow, { opacity: 0, duration: 0.22 }, 1.3);
 
-    // ── 2.25s: Mothership charges + fires planet buster ──────
-    tl.to(lsCannonGlow, { opacity: 0.9, duration: 0.25, ease: 'power3.in' }, 2.25);
-    tl.to(lsPlanetBeam, { opacity: 1, duration: 0.05 }, 2.5);
-    tl.fromTo('#ls-pb-beam', { attr: { height: 0 } }, { attr: { height: 620 }, duration: 0.35, ease: 'power3.out' }, 2.5);
-    tl.fromTo('#ls-pb-core', { attr: { height: 0 } }, { attr: { height: 620 }, duration: 0.35, ease: 'power3.out' }, 2.5);
-    tl.to(lsPlanetBeam, { opacity: 0, duration: 0.3 }, 3.0);
-    tl.to(lsCannonGlow, { opacity: 0, duration: 0.3 }, 3.0);
-
-    // ── 2.4s: EXPLOSION CASCADE ──────────────────────────────
+    // ── 0.75s: EXPLOSION CASCADE ──────────────────────────────
     lsExps.forEach((exp, i) => {
       tl.fromTo(exp,
         { attr: { r: 0 }, opacity: 1 },
-        { attr: { r: 75 + i * 12 }, opacity: 0, duration: 0.65, ease: 'power2.out' },
-      2.4 + i * 0.08);
+        { attr: { r: 75 + i * 12 }, opacity: 0, duration: 0.55, ease: 'power2.out' },
+      0.75 + i * 0.07);
     });
-    // Smoke bursts for explosions
     tl.call(() => {
       const spots = [[36,46],[61,34],[47,63],[72,54],[26,32],[82,68],[17,40],[65,80]];
       spots.forEach(([x, y], i) => {
         setTimeout(() => {
           spawnSmoke(x + Math.random()*4, y + Math.random()*4, 'rgba(255,120,0,0.15)');
           spawnSmoke(x - 2, y - 2, 'rgba(255,200,50,0.1)');
-        }, i * 90);
+        }, i * 80);
       });
-    }, [], 2.4);
+    }, [], 0.75);
 
-    // ── 2.6s: MANGA SPEED LINES flash ───────────────────────
-    tl.to(lsSpeedlines, { opacity: 0.85, duration: 0.08 }, 2.6);
-    tl.to(lsSpeedlines, { opacity: 0,    duration: 0.25 }, 2.7);
-
-    // ── 2.65s: MEGA CENTRAL EXPLOSION + flash ────────────────
+    // ── 1.0s: MANGA SPEED LINES + MEGA EXPLOSION ─────────────
+    tl.to(lsSpeedlines, { opacity: 0.85, duration: 0.07 }, 1.0);
+    tl.to(lsSpeedlines, { opacity: 0,    duration: 0.2  }, 1.08);
     tl.fromTo(lsMegaExp, { attr: { r: 0 }, opacity: 0.9 },
-      { attr: { r: 380 }, opacity: 0, duration: 1.0, ease: 'power2.out' }, 2.65);
-    tl.to(lsFlash, { opacity: 0.98, duration: 0.12, ease: 'power4.in' }, 2.68);
-    tl.to(lsFlash, { opacity: 0,    duration: 0.55, ease: 'power2.out' }, 2.8);
-    // Screen shake
-    tl.to('#ls-scene', { x: 8, duration: 0.05, yoyo: true, repeat: 9, ease: 'none' }, 2.65);
+      { attr: { r: 380 }, opacity: 0, duration: 0.8, ease: 'power2.out' }, 1.0);
+    tl.to(lsFlash, { opacity: 0.98, duration: 0.1, ease: 'power4.in' }, 1.03);
+    tl.to(lsFlash, { opacity: 0,    duration: 0.4, ease: 'power2.out' }, 1.13);
+    tl.to('#ls-scene', { x: 8, duration: 0.05, yoyo: true, repeat: 9, ease: 'none' }, 1.0);
+    tl.to(lsShipLasers, { opacity: 0, duration: 0.15 }, 1.08);
 
-    // ── 2.7s: UFO lasers fade ────────────────────────────────
-    tl.to(lsShipLasers, { opacity: 0, duration: 0.15 }, 2.7);
-
-    // ── 2.8s: "POWER LEVEL: OVER 9000!!" flashes in ──────────
-    tl.to(lsOver9000, { attr: { 'font-size': 38 }, opacity: 1, duration: 0.12, ease: 'power3.out' }, 2.8);
-    tl.to(lsOver9000, { opacity: 0, duration: 0.08, repeat: 5, yoyo: true, ease: 'none' }, 3.1);
-    tl.set(lsOver9000, { opacity: 0 }, 3.45);
-
-    // ── 2.9s: OPM THE PUNCH ─────────────────────────────────
-    tl.to(lsOpm, { x: 40, duration: 0.12, ease: 'power4.out' }, 2.9);  // lunge forward
-    tl.to(lsOpmRings, { opacity: 1, duration: 0.05 }, 2.9);
+    // ── 1.2s: OPM THE PUNCH ──────────────────────────────────
+    tl.to(lsOpm, { x: 40, duration: 0.12, ease: 'power4.out' }, 1.2);
+    tl.to(lsOpmRings, { opacity: 1, duration: 0.05 }, 1.2);
     const opmRingEls = document.querySelectorAll('.ls-opm-ring');
     opmRingEls.forEach((r, i) => {
       tl.fromTo(r, { attr: { r: 0 }, opacity: 1 },
-        { attr: { r: 120 + i * 40 }, opacity: 0, duration: 0.7, ease: 'power2.out' },
-      2.9 + i * 0.06);
+        { attr: { r: 120 + i * 40 }, opacity: 0, duration: 0.6, ease: 'power2.out' },
+      1.2 + i * 0.05);
     });
-    // OPM shockwave mega ring
     tl.fromTo(lsOpmMega, { attr: { r: 0 }, opacity: 0.8 },
-      { attr: { r: 500 }, opacity: 0, duration: 1.2, ease: 'power2.out' }, 2.9);
-    // Secondary flash from the punch
-    tl.to(lsFlash, { opacity: 0.6, duration: 0.08 }, 2.92);
-    tl.to(lsFlash, { opacity: 0,   duration: 0.3  }, 3.0);
+      { attr: { r: 500 }, opacity: 0, duration: 0.9, ease: 'power2.out' }, 1.2);
+    tl.to(lsFlash, { opacity: 0.6, duration: 0.08 }, 1.22);
+    tl.to(lsFlash, { opacity: 0,   duration: 0.25 }, 1.3);
 
-    // ── 3.1s: SSJ final aura burst then scatter ──────────────
-    tl.to('.ls-ssj-aura', { opacity: 0.9, scaleX: 1.4, scaleY: 1.6, duration: 0.15, transformOrigin: '50% 50%' }, 3.1);
+    // ── 1.35s: SSJ final aura burst ──────────────────────────
+    tl.to('.ls-ssj-aura', { opacity: 0.9, scaleX: 1.4, scaleY: 1.6, duration: 0.15, transformOrigin: '50% 50%' }, 1.35);
 
-    // ── 3.3s: Title flicker off ──────────────────────────────
-    tl.to(lsTitle, { opacity: 0, duration: 0.08, repeat: 5, yoyo: true, ease: 'none' }, 3.3);
-    tl.set(lsTitle, { opacity: 0 }, 3.65);
+    // ── 1.5s: Title flicker off ───────────────────────────────
+    tl.to(lsTitle, { opacity: 0, duration: 0.07, repeat: 5, yoyo: true, ease: 'none' }, 1.5);
+    tl.set(lsTitle, { opacity: 0 }, 1.8);
 
-    // ── 3.5s: EVERYTHING SCATTERS ───────────────────────────
-    tl.to(lsRobot,      { y: 300,  opacity: 0, duration: 0.45, ease: 'power3.in' }, 3.5);
-    tl.to(lsSaiyan,     { y: -500, x: 200, opacity: 0, duration: 0.5, ease: 'power3.in' }, 3.5);
-    tl.to(lsOpm,        { y: -480, x: -150, opacity: 0, duration: 0.45, ease: 'power3.in' }, 3.52);
-    tl.to(lsMothership, { y: -350, opacity: 0, duration: 0.4, ease: 'power2.in' }, 3.5);
-    tl.to(lsShipGrp,    { y: -280, opacity: 0, duration: 0.4, ease: 'power2.in' }, 3.52);
-    tl.to(lsBioship,    { x: 300, y: -250, opacity: 0, duration: 0.4, ease: 'power2.in' }, 3.5);
-    tl.to(lsPlanet,     { x: -400, y: 900, opacity: 0, duration: 0.6, ease: 'power2.in' }, 3.5);
-    tl.to(lsSpiritBomb, { y: 200, opacity: 0, duration: 0.3 }, 3.5);
-    tl.to(lsUfo2,       { y: -250, opacity: 0, duration: 0.4 }, 3.55);
+    // ── 1.7s: EVERYTHING SCATTERS ────────────────────────────
+    tl.to(lsRobot,      { y: 300,  opacity: 0, duration: 0.35, ease: 'power3.in' }, 1.7);
+    tl.to(lsSaiyan,     { y: -500, x: 200, opacity: 0, duration: 0.4,  ease: 'power3.in' }, 1.7);
+    tl.to(lsOpm,        { y: -480, x: -150, opacity: 0, duration: 0.35, ease: 'power3.in' }, 1.72);
+    tl.to(lsMothership, { y: -350, opacity: 0, duration: 0.3,  ease: 'power2.in' }, 1.7);
+    tl.to(lsShipGrp,    { y: -280, opacity: 0, duration: 0.3,  ease: 'power2.in' }, 1.72);
+    tl.to(lsBioship,    { x: 300, y: -250, opacity: 0, duration: 0.3, ease: 'power2.in' }, 1.7);
+    tl.to(lsPlanet,     { x: -400, y: 900, opacity: 0, duration: 0.45, ease: 'power2.in' }, 1.7);
+    tl.to(lsSpiritBomb, { y: 200, opacity: 0, duration: 0.22 }, 1.7);
+    tl.to(lsUfo2,       { y: -250, opacity: 0, duration: 0.3  }, 1.75);
 
-    // Timeline ends ~4.2s → 0.55s fade → total ~4.75s
+    // Timeline ends ~2.1s → 0.55s fade → total ~2.65s
   })();
 
   function showModalDirectly(snippetEl: HTMLElement) {
