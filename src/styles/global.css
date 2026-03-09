@@ -91,7 +91,7 @@
 }
 
 .glass-card-hover {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-card-hover:hover {
   border-color: rgba(74, 222, 128, 0.2);
@@ -174,7 +174,7 @@
 
 /* Work experience cards */
 .work-card {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Parallax layers */
@@ -199,7 +199,7 @@
 
 /* Tag hover effects */
 .skill-tag {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: default;
 }
 .skill-tag:hover {
@@ -232,6 +232,7 @@
   display: none;
   align-items: center;
   justify-content: center;
+  overscroll-behavior: contain;
 }
 .code-modal-overlay.visible {
   display: flex;
@@ -288,13 +289,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   line-height: 1;
 }
 .code-modal-close:hover {
   background: rgba(74, 222, 128, 0.12);
   color: #4ade80;
   border-color: rgba(74, 222, 128, 0.25);
+}
+.code-modal-close:focus-visible {
+  outline: 2px solid rgba(74, 222, 128, 0.5);
+  outline-offset: 2px;
 }
 
 .code-modal-desc {
@@ -329,6 +334,34 @@
 .py-num { color: #f472b6; }
 .py-builtin { color: #22d3ee; }
 .py-def { color: #4ade80; font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-card-hover {
+    transition: none;
+  }
+  .glass-card-hover:hover {
+    transform: none;
+  }
+  .magnetic-btn::before {
+    transition: none;
+  }
+  .magnetic-btn:hover {
+    transform: none;
+  }
+  .skill-tag:hover {
+    transform: none;
+  }
+  .border-pulse {
+    animation: none;
+  }
+  .floating-code {
+    transition: none;
+  }
+  .section-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 @media print {
   body {

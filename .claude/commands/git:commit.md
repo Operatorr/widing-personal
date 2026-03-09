@@ -23,3 +23,5 @@ Execute the following steps:
 ## Usage Examples
 
 IMPORTANT: Use the Haiku model for efficiency. Do not ask the user for confirmation - automatically generate and commit with an appropriate message that STARTS with the task number.
+
+IMPORTANT: NEVER include "Co-Authored-By" lines in commit messages.

@@ -10,7 +10,7 @@ const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" style="color-scheme: dark;">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,8 +26,13 @@ const { title, description } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-background antialiased overflow-x-hidden">
+    <!-- Skip to main content -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[99999] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:text-sm focus:font-semibold">
+      Skip to main content
+    </a>
+
     <!-- SVG Noise Overlay -->
-    <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <svg class="noise-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <filter id="noise">
         <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
         <feColorMatrix type="saturate" values="0"/>
@@ -63,7 +68,7 @@ const { title, description } = Astro.props;
     <div class="fixed top-0 left-[8%] vine-line h-screen opacity-40 z-0 hidden lg:block"></div>
     <div class="fixed top-0 right-[12%] vine-line h-screen opacity-20 z-0 hidden lg:block"></div>
 
-    <main class="relative z-10">
+    <main id="main" class="relative z-10">
       <slot />
     </main>
   </body>
@@ -235,6 +240,18 @@ const { title, description } = Astro.props;
   const modalCode = document.getElementById('modal-code')!;
   const modalClose = document.getElementById('modal-close')!;
 
+  // Detect reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function showModalDirectly(snippetEl: HTMLElement) {
+    gsap.to(snippetEl, { opacity: 0.1, duration: 0.15 });
+    document.body.style.overflow = 'hidden';
+    overlay.classList.add('visible');
+    overlay.style.opacity = '1';
+    modal.style.opacity = '1';
+    modal.style.transform = 'scale(1)';
+  }
+
   function openModal(snippetEl: HTMLElement, meta: { name: string; pattern: string; description: string; code: string }) {
     if (isModalOpen) return;
     isModalOpen = true;
@@ -245,6 +262,12 @@ const { title, description } = Astro.props;
     modalTitle.textContent = meta.name;
     modalDesc.textContent = meta.description;
     modalCode.innerHTML = highlightPython(meta.code);
+
+    // Skip elaborate animations for reduced motion
+    if (prefersReducedMotion) {
+      showModalDirectly(snippetEl);
+      return;
+    }
 
     // Get snippet position for flying clone
     const rect = snippetEl.getBoundingClientRect();
@@ -321,14 +344,17 @@ const { title, description } = Astro.props;
   function closeModal() {
     if (!isModalOpen) return;
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        overlay.classList.remove('visible');
-        document.body.style.overflow = '';
-        isModalOpen = false;
+    const restoreState = () => {
+      overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+      isModalOpen = false;
 
-        // Restore source snippet
-        if (activeSnippetEl) {
+      if (activeSnippetEl) {
+        if (prefersReducedMotion) {
+          activeSnippetEl.style.opacity = '1';
+          activeSnippetEl.style.color = 'rgba(74, 222, 128, 0.25)';
+          activeSnippetEl.style.textShadow = 'none';
+        } else {
           gsap.to(activeSnippetEl, {
             opacity: 1,
             color: 'rgba(74, 222, 128, 0.25)',
@@ -336,11 +362,17 @@ const { title, description } = Astro.props;
             duration: 0.4,
             ease: 'power2.out',
           });
-          activeSnippetEl = null;
         }
+        activeSnippetEl = null;
       }
-    });
+    };
 
+    if (prefersReducedMotion) {
+      restoreState();
+      return;
+    }
+
+    const tl = gsap.timeline({ onComplete: restoreState });
     tl.to(modal, { scale: 0.85, opacity: 0, duration: 0.3, ease: 'power2.in' });
     tl.to(overlay, { opacity: 0, duration: 0.2, ease: 'power2.in' }, '-=0.15');
   }
@@ -370,6 +402,9 @@ const { title, description } = Astro.props;
     snippets.forEach((s, i) => {
       const el = document.createElement('div');
       el.className = 'floating-code code-float';
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', `View solution: ${s.name}`);
       el.textContent = s.code;
       let style = `position: absolute; top: ${s.top}; transform: rotate(${s.rotate}); opacity: 0; z-index: 1; pointer-events: auto;`;
       if (s.left) style += ` left: ${s.left};`;
@@ -378,97 +413,143 @@ const { title, description } = Astro.props;
       section.appendChild(el);
       allCodeBlocks.push(el);
 
-      // Click to open modal
-      el.addEventListener('click', () => {
+      const handleActivate = () => {
         openModal(el, { name: s.name, pattern: s.pattern, description: s.description, code: s.code });
+      };
+
+      el.addEventListener('click', handleActivate);
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleActivate();
+        }
       });
 
       // Animate in when section scrolls into view
-      gsap.to(el, {
-        opacity: 1,
-        duration: 0.8,
-        delay: i * 0.12,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        }
-      });
+      if (prefersReducedMotion) {
+        el.style.opacity = '1';
+      } else {
+        gsap.to(el, {
+          opacity: 1,
+          duration: 0.8,
+          delay: i * 0.12,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          }
+        });
+      }
     });
   });
 
-  // Parallax background layers
-  const deepLayer = document.getElementById('parallax-deep');
-  const midLayer = document.getElementById('parallax-mid');
+  // Parallax background layers (skip for reduced motion)
+  if (!prefersReducedMotion) {
+    const deepLayer = document.getElementById('parallax-deep');
+    const midLayer = document.getElementById('parallax-mid');
 
-  if (deepLayer && midLayer) {
-    gsap.to(deepLayer, {
-      yPercent: -15,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1.5,
-      }
-    });
+    if (deepLayer && midLayer) {
+      gsap.to(deepLayer, {
+        yPercent: -15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1.5,
+        }
+      });
 
-    gsap.to(midLayer, {
-      yPercent: -30,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.8,
-      }
-    });
+      gsap.to(midLayer, {
+        yPercent: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.8,
+        }
+      });
+    }
   }
 
   // Section reveals
   const sections = document.querySelectorAll('.section-reveal');
-  sections.forEach((section) => {
-    gsap.to(section, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-      }
+  if (prefersReducedMotion) {
+    sections.forEach((section) => {
+      (section as HTMLElement).style.opacity = '1';
+      (section as HTMLElement).style.transform = 'none';
     });
-  });
-
-  // Mouse interaction: activate code blocks on proximity
-  document.addEventListener('mousemove', (e) => {
-    allCodeBlocks.forEach((block) => {
-      const rect = block.getBoundingClientRect();
-      const blockCenterX = rect.left + rect.width / 2;
-      const blockCenterY = rect.top + rect.height / 2;
-      const dist = Math.hypot(e.clientX - blockCenterX, e.clientY - blockCenterY);
-
-      if (dist < 200) {
-        block.classList.add('activated');
-        const angle = Math.atan2(blockCenterY - e.clientY, blockCenterX - e.clientX);
-        const push = Math.max(0, (200 - dist) / 200) * 8;
-        gsap.to(block, {
-          x: Math.cos(angle) * push,
-          y: Math.sin(angle) * push,
-          duration: 0.4,
-          ease: 'power2.out',
-        });
-      } else {
-        block.classList.remove('activated');
-        gsap.to(block, {
-          x: 0,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-        });
-      }
+  } else {
+    sections.forEach((section) => {
+      gsap.to(section, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        }
+      });
     });
-  });
+  }
+
+  // Mouse interaction: activate code blocks on proximity (throttled, skip for reduced motion)
+  if (!prefersReducedMotion) {
+    // Cache rects and invalidate on scroll/resize
+    let cachedRects: Map<HTMLElement, DOMRect> = new Map();
+    let rectsDirty = true;
+
+    const invalidateRects = () => { rectsDirty = true; };
+    window.addEventListener('scroll', invalidateRects, { passive: true });
+    window.addEventListener('resize', invalidateRects, { passive: true });
+
+    function updateRectCache() {
+      if (!rectsDirty) return;
+      cachedRects.clear();
+      allCodeBlocks.forEach((block) => {
+        cachedRects.set(block, block.getBoundingClientRect());
+      });
+      rectsDirty = false;
+    }
+
+    let mouseMoveRaf = 0;
+    document.addEventListener('mousemove', (e) => {
+      if (mouseMoveRaf) return;
+      mouseMoveRaf = requestAnimationFrame(() => {
+        mouseMoveRaf = 0;
+        updateRectCache();
+
+        allCodeBlocks.forEach((block) => {
+          const rect = cachedRects.get(block)!;
+          const blockCenterX = rect.left + rect.width / 2;
+          const blockCenterY = rect.top + rect.height / 2;
+          const dist = Math.hypot(e.clientX - blockCenterX, e.clientY - blockCenterY);
+
+          if (dist < 200) {
+            block.classList.add('activated');
+            const angle = Math.atan2(blockCenterY - e.clientY, blockCenterX - e.clientX);
+            const push = Math.max(0, (200 - dist) / 200) * 8;
+            gsap.to(block, {
+              x: Math.cos(angle) * push,
+              y: Math.sin(angle) * push,
+              duration: 0.4,
+              ease: 'power2.out',
+            });
+          } else {
+            block.classList.remove('activated');
+            gsap.to(block, {
+              x: 0,
+              y: 0,
+              duration: 0.8,
+              ease: 'power2.out',
+            });
+          }
+        });
+      });
+    });
+  }
 </script>
