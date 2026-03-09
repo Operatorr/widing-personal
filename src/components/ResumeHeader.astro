@@ -29,113 +29,155 @@ const networkIcons: Record<string, string> = {
 	LinkedIn: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>`,
 	GitHub: `<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>`,
 };
+
 ---
 
-<header class="bg-zinc-950/20 text-white py-12 px-6">
-	<div class="max-w-4xl mx-auto">
-		<div class="flex flex-col md:flex-row md:items-center gap-6">
-			{
-				image && (
-					<div class="relative">
-						<img src={image} alt={name} class="w-32 h-32 border-4 border-zinc-700 object-cover ring-2 ring-primary/20" />
-					</div>
-				)
-			}
-			<div class="flex-1">
-				<h1 class="text-4xl md:text-5xl font-bold tracking-tight">{name}</h1>
-				<p class="text-xl md:text-2xl text-zinc-300 mt-2">{label}</p>
+<header class="relative overflow-hidden" id="hero">
+	<!-- Background image -->
+	<div class="absolute inset-0 z-0">
+		<img
+			src="https://images.unsplash.com/photo-1637037520639-109e60bbc4bc?w=1920&q=80"
+			alt=""
+			class="w-full h-full object-cover opacity-25"
+			loading="eager"
+		/>
+	</div>
+	<!-- Gradient overlay: Moss to Black -->
+	<div class="absolute inset-0 bg-gradient-to-b from-[#1a3318]/40 via-[#0a0f0a]/60 to-[#0a0f0a]"></div>
+	<div class="absolute inset-0 bg-gradient-to-r from-[#0a0f0a]/80 via-transparent to-[#0a0f0a]/80"></div>
 
-				<div class="flex flex-wrap gap-4 mt-4 text-sm text-zinc-300">
-					{
-						email && (
-							<a href={`mailto:${email}`} class="hover:text-white transition-colors flex items-center gap-1.5">
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<rect width="20" height="16" x="2" y="4" rx="2" />
-									<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-								</svg>
-								{email}
-							</a>
-						)
-					}
-					{
-						phone && (
-							<a href={`tel:${phone}`} class="hover:text-white transition-colors flex items-center gap-1.5">
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-								</svg>
-								{phone}
-							</a>
-						)
-					}
-					{
-						location && (
-							<span class="flex items-center gap-1.5">
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-									<circle cx="12" cy="10" r="3" />
-								</svg>
-								{location.city}, {location.countryCode}
-							</span>
-						)
-					}
-					{
-						url && (
-							<a id="website-link" href={url} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<circle cx="12" cy="12" r="10" />
-									<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-									<path d="M2 12h20" />
-								</svg>
-								Website
-							</a>
-						)
-					}
-					<a href="/cv" class="hover:text-white transition-colors flex items-center gap-1.5">
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+	<!-- Organic radial accents -->
+	<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(74,222,128,0.06),transparent_60%)] blur-3xl"></div>
+	<div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(192,132,252,0.04),transparent_60%)] blur-3xl"></div>
+
+	<!-- Content -->
+	<div class="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-20 w-full">
+		<div class="flex flex-col md:flex-row md:items-end gap-8">
+			{image && (
+				<div class="relative hero-element">
+					<img src={image} alt={name} class="w-32 h-32 border border-[#4ade80]/20 object-cover rounded-lg" />
+					<div class="absolute inset-0 rounded-lg border border-[#4ade80]/10"></div>
+				</div>
+			)}
+			<div class="flex-1">
+				<!-- Organic label -->
+				<!-- <p class="hero-element text-sm tracking-[0.3em] uppercase mb-4" style="font-family: var(--font-mono); color: rgba(74,222,128,0.5);">
+					Resume
+				</p> -->
+
+				<h1 class="hero-element text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.9]" style="font-family: var(--font-display);">
+					<span class="text-white">{name.split(' ')[0]}</span>
+					<br />
+					<span class="text-[#4ade80]">{name.split(' ').slice(1).join(' ')}</span>
+				</h1>
+
+				<p class="hero-element text-xl md:text-2xl mt-4 tracking-tight" style="font-family: var(--font-organic); font-style: italic; color: rgba(192,132,252,0.7);">
+					{label}
+				</p>
+
+				<!-- Contact row -->
+				<div class="hero-element flex flex-wrap gap-4 mt-8 text-xs tracking-wider" style="font-family: var(--font-mono);">
+					{email && (
+						<a href={`mailto:${email}`} class="text-white/50 hover:text-[#4ade80] transition-colors duration-300 flex items-center gap-1.5">
+							<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<rect width="20" height="16" x="2" y="4" rx="2" />
+								<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+							</svg>
+							{email}
+						</a>
+					)}
+					{location && (
+						<span class="text-white/50 flex items-center gap-1.5">
+							<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+								<circle cx="12" cy="10" r="3" />
+							</svg>
+							{location.city}, {location.countryCode}
+						</span>
+					)}
+					{url && (
+						<a id="website-link" href={url} target="_blank" rel="noopener noreferrer" class="text-white/50 hover:text-[#4ade80] transition-colors duration-300 flex items-center gap-1.5">
+							<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<circle cx="12" cy="12" r="10" />
+								<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+								<path d="M2 12h20" />
+							</svg>
+							Website
+						</a>
+					)}
+					<a href="/cv" class="text-white/50 hover:text-[#4ade80] transition-colors duration-300 flex items-center gap-1.5">
+						<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
 							<polyline points="14 2 14 8 20 8" />
-							<line x1="16" y1="13" x2="8" y2="13" />
-							<line x1="16" y1="17" x2="8" y2="17" />
-							<polyline points="10 9 9 9 8 9" />
 						</svg>
 						PDF
 					</a>
 				</div>
 
-				{
-					profiles && profiles.length > 0 && (
-						<div class="flex gap-2 mt-4">
-							{profiles.map((profile) => (
-								<a href={profile.url} target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-white transition-colors p-2 hover:bg-zinc-800" title={profile.network}>
-									<svg
-										class="w-5 h-5"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										set:html={networkIcons[profile.network] || ""}
-									/>
-								</a>
-							))}
-						</div>
-					)
-				}
+				<!-- Social profiles -->
+				{profiles && profiles.length > 0 && (
+					<div class="hero-element flex gap-2 mt-5">
+						{profiles.map((profile) => (
+							<a href={profile.url} target="_blank" rel="noopener noreferrer" class="text-white/30 hover:text-[#4ade80] transition-all duration-300 p-2 rounded-lg hover:bg-[#4ade80]/5" title={profile.network}>
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={networkIcons[profile.network] || ""} />
+							</a>
+						))}
+					</div>
+				)}
 			</div>
 		</div>
 
+		<!-- Executive Summary -->
 		{summary && (
-			<div class="mt-6 text-zinc-300 leading-relaxed max-w-3xl space-y-4">
-				{summary.split('\n\n').map((paragraph) => (
-					<p>{paragraph}</p>
-				))}
+			<div class="hero-element mt-12 max-w-3xl">
+				<div class="organic-divider mb-6"></div>
+				<p class="text-base leading-relaxed text-white/80" style="font-family: var(--font-sans); font-weight: 300;">
+					{summary}
+				</p>
 			</div>
 		)}
+
+		<!-- Scroll indicator -->
+		<div class="hero-element mt-16 flex flex-col items-center gap-2">
+			<span class="text-[10px] tracking-[0.4em] uppercase text-white/20" style="font-family: var(--font-mono);">scroll</span>
+			<div class="w-px h-8 bg-gradient-to-b from-[#4ade80]/30 to-transparent scroll-line"></div>
+		</div>
 	</div>
 </header>
 
 <script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	gsap.registerPlugin(ScrollTrigger);
+
+	// Hero staggered entrance
+	const heroElements = document.querySelectorAll('.hero-element');
+	gsap.fromTo(heroElements,
+		{ opacity: 0, y: 40 },
+		{
+			opacity: 1,
+			y: 0,
+			duration: 1,
+			stagger: 0.12,
+			ease: 'power3.out',
+			delay: 0.3,
+		}
+	);
+
+	// Scroll line pulse
+	const scrollLine = document.querySelector('.scroll-line');
+	if (scrollLine) {
+		gsap.to(scrollLine, {
+			opacity: 0.1,
+			scaleY: 0.5,
+			duration: 1.5,
+			repeat: -1,
+			yoyo: true,
+			ease: 'power2.inOut',
+		});
+	}
+
+	// Hide website link on widing.dev
 	if (window.location.hostname.includes('widing.dev')) {
 		const websiteLink = document.getElementById('website-link');
 		if (websiteLink) {

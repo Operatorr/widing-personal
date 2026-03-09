@@ -19,14 +19,51 @@ const { title, description } = Astro.props;
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#020403" />
+    <meta name="theme-color" content="#0a0f0a" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Outfit:wght@100..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-background font-sans antialiased">
-    <main>
+  <body class="min-h-screen bg-background antialiased overflow-x-hidden">
+    <!-- SVG Noise Overlay -->
+    <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+      <filter id="noise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#noise)"/>
+    </svg>
+
+    <!-- Parallax Background Layers -->
+    <div id="parallax-bg" class="parallax-layer" style="z-index: 0;">
+      <!-- Deep layer: organic mesh gradient -->
+      <div id="parallax-deep" class="absolute inset-0" style="will-change: transform;">
+        <div class="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(45,90,39,0.15),transparent_70%)]"></div>
+        <div class="absolute top-[40%] right-[10%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(192,132,252,0.08),transparent_70%)]"></div>
+        <div class="absolute top-[70%] left-[30%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(45,212,191,0.06),transparent_70%)]"></div>
+        <div class="absolute top-[120%] right-[20%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(74,222,128,0.1),transparent_70%)]"></div>
+        <div class="absolute top-[180%] left-[10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(192,132,252,0.06),transparent_70%)]"></div>
+      </div>
+
+      <!-- Mid layer: floating particles/spores -->
+      <div id="parallax-mid" class="absolute inset-0" style="will-change: transform;">
+        <div class="absolute top-[15%] left-[20%] w-1 h-1 rounded-full bg-[#4ade80] opacity-30"></div>
+        <div class="absolute top-[25%] right-[30%] w-1.5 h-1.5 rounded-full bg-[#c084fc] opacity-20"></div>
+        <div class="absolute top-[45%] left-[60%] w-1 h-1 rounded-full bg-[#2dd4bf] opacity-25"></div>
+        <div class="absolute top-[65%] left-[15%] w-1 h-1 rounded-full bg-[#4ade80] opacity-20"></div>
+        <div class="absolute top-[80%] right-[25%] w-1.5 h-1.5 rounded-full bg-[#f472b6] opacity-15"></div>
+        <div class="absolute top-[100%] left-[40%] w-1 h-1 rounded-full bg-[#22d3ee] opacity-20"></div>
+        <div class="absolute top-[130%] right-[50%] w-1 h-1 rounded-full bg-[#4ade80] opacity-25"></div>
+        <div class="absolute top-[160%] left-[70%] w-1.5 h-1.5 rounded-full bg-[#c084fc] opacity-15"></div>
+      </div>
+    </div>
+
+    <!-- Organic vine lines -->
+    <div class="fixed top-0 left-[8%] vine-line h-screen opacity-40 z-0 hidden lg:block"></div>
+    <div class="fixed top-0 right-[12%] vine-line h-screen opacity-20 z-0 hidden lg:block"></div>
+
+    <main class="relative z-10">
       <slot />
     </main>
   </body>
@@ -34,11 +71,19 @@ const { title, description } = Astro.props;
 
 <style is:global>
   :root {
-    --font-sans: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+    --font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-organic: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 
   body {
     font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
   }
 
   @media print {
@@ -54,3 +99,376 @@ const { title, description } = Astro.props;
     }
   }
 </style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Section-scoped floating code snippets — Python3 LeetCode solutions
+  interface Snippet {
+    code: string;
+    top: string;
+    left?: string;
+    right?: string;
+    rotate: string;
+    name: string;
+    pattern: string;
+    description: string;
+  }
+  const sectionSnippets: Record<string, Snippet[]> = {
+    '#hero': [
+      { code: '# Two Sum\ndef twoSum(nums, target):\n    seen = {}\n    for i, n in enumerate(nums):\n        if target - n in seen:\n            return [seen[target-n], i]\n        seen[n] = i', top: '10%', left: '3%', rotate: '-2deg', name: 'Two Sum', pattern: 'Hash Map', description: 'Use a hash map to store each number\'s index. For every element, check if the complement (target minus current) already exists in the map. Runs in O(n) time.' },
+      { code: '# Valid Parentheses\ndef isValid(s):\n    stack, m = [], {")":"(","]":"[","}":"{"}\n    for c in s:\n        if c in m:\n            if not stack or stack.pop() != m[c]:\n                return False\n        else: stack.append(c)\n    return not stack', top: '15%', right: '5%', rotate: '1deg', name: 'Valid Parentheses', pattern: 'Stack', description: 'Push opening brackets onto a stack. When a closing bracket appears, pop and check it matches. The string is valid if the stack is empty at the end.' },
+      { code: '# Best Time Buy Sell Stock\ndef maxProfit(prices):\n    mn, mx = float("inf"), 0\n    for p in prices:\n        mn = min(mn, p)\n        mx = max(mx, p - mn)\n    return mx', top: '45%', left: '55%', rotate: '-1deg', name: 'Best Time to Buy & Sell Stock', pattern: 'Greedy', description: 'Track the minimum price seen so far and the maximum profit at each step. A single pass yields the optimal buy-sell pair in O(n).' },
+      { code: '# Climbing Stairs\ndef climbStairs(n):\n    a, b = 1, 1\n    for _ in range(n - 1):\n        a, b = b, a + b\n    return b', top: '60%', right: '60%', rotate: '2deg', name: 'Climbing Stairs', pattern: 'DP', description: 'The number of ways to reach step n is the sum of ways to reach n-1 and n-2, forming a Fibonacci sequence. O(n) time, O(1) space.' },
+      { code: '# Contains Duplicate\ndef containsDuplicate(nums):\n    return len(nums) != len(set(nums))', top: '75%', left: '20%', rotate: '-1deg', name: 'Contains Duplicate', pattern: 'Hash Set', description: 'Convert the array to a set and compare lengths. If they differ, a duplicate exists. Elegant one-liner running in O(n) average time.' },
+      { code: '# Maximum Subarray - Kadane\ndef maxSubArray(nums):\n    cur = best = nums[0]\n    for n in nums[1:]:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best', top: '30%', right: '25%', rotate: '1deg', name: 'Maximum Subarray', pattern: 'Kadane\'s', description: 'Kadane\'s algorithm: at each position decide whether to extend the current subarray or start fresh. Tracks the running and global max in a single O(n) pass.' },
+    ],
+    '#experience': [
+      { code: '# Merge Two Sorted Lists\ndef mergeTwoLists(l1, l2):\n    if not l1: return l2\n    if not l2: return l1\n    if l1.val < l2.val:\n        l1.next = mergeTwoLists(l1.next, l2)\n        return l1\n    l2.next = mergeTwoLists(l1, l2.next)\n    return l2', top: '5%', left: '4%', rotate: '-2deg', name: 'Merge Two Sorted Lists', pattern: 'Recursion', description: 'Recursively pick the smaller head node and link its next to the merged result of the remaining lists. Classic divide-and-conquer on linked lists.' },
+      { code: '# Reverse Linked List\ndef reverseList(head):\n    prev = None\n    while head:\n        nxt = head.next\n        head.next = prev\n        prev = head\n        head = nxt\n    return prev', top: '20%', right: '6%', rotate: '1deg', name: 'Reverse Linked List', pattern: 'Linked List', description: 'Iteratively reverse pointers by maintaining a previous node reference. Each node\'s next pointer is redirected backwards. O(n) time, O(1) space.' },
+      { code: '# Binary Search\ndef search(nums, target):\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target: return mid\n        elif nums[mid] < target: lo = mid + 1\n        else: hi = mid - 1\n    return -1', top: '40%', left: '50%', rotate: '-1deg', name: 'Binary Search', pattern: 'Binary Search', description: 'Halve the search space each iteration by comparing the middle element to the target. The quintessential O(log n) algorithm for sorted arrays.' },
+      { code: '# Product Except Self\ndef productExceptSelf(nums):\n    n = len(nums)\n    ans = [1] * n\n    pre = 1\n    for i in range(n):\n        ans[i] = pre\n        pre *= nums[i]\n    post = 1\n    for i in range(n-1,-1,-1):\n        ans[i] *= post\n        post *= nums[i]\n    return ans', top: '55%', right: '55%', rotate: '2deg', name: 'Product of Array Except Self', pattern: 'Prefix/Suffix', description: 'Build prefix products in a forward pass, then multiply by suffix products in a backward pass. Avoids division and runs in O(n) with O(1) extra space.' },
+      { code: '# Valid Palindrome\ndef isPalindrome(s):\n    s = [c.lower() for c in s if c.isalnum()]\n    return s == s[::-1]', top: '75%', left: '15%', rotate: '-1deg', name: 'Valid Palindrome', pattern: 'Two Pointer', description: 'Filter out non-alphanumeric characters, lowercase everything, then check if the sequence reads the same forwards and backwards.' },
+      { code: '# 3Sum\ndef threeSum(nums):\n    nums.sort()\n    res = []\n    for i in range(len(nums)-2):\n        if i and nums[i]==nums[i-1]: continue\n        lo, hi = i+1, len(nums)-1\n        while lo < hi:\n            s = nums[i]+nums[lo]+nums[hi]\n            if s < 0: lo += 1\n            elif s > 0: hi -= 1\n            else:\n                res.append([nums[i],nums[lo],nums[hi]])\n                lo += 1\n                while lo<hi and nums[lo]==nums[lo-1]: lo+=1\n    return res', top: '10%', right: '30%', rotate: '1deg', name: '3Sum', pattern: 'Two Pointer', description: 'Sort the array, fix one element, then use two pointers to find pairs that sum to its negation. Skip duplicates to avoid repeated triplets. O(n\u00b2) time.' },
+    ],
+    '#skills': [
+      { code: '# Longest Substr No Repeat\ndef lengthOfLongestSubstring(s):\n    seen, start, mx = {}, 0, 0\n    for i, c in enumerate(s):\n        if c in seen and seen[c] >= start:\n            start = seen[c] + 1\n        seen[c] = i\n        mx = max(mx, i - start + 1)\n    return mx', top: '8%', left: '3%', rotate: '-2deg', name: 'Longest Substring Without Repeating Characters', pattern: 'Sliding Window', description: 'Expand a window by moving the right pointer. When a duplicate is found, jump the left pointer past the previous occurrence. Hash map tracks last seen indices.' },
+      { code: '# Container With Most Water\ndef maxArea(height):\n    l, r, mx = 0, len(height)-1, 0\n    while l < r:\n        mx = max(mx, min(height[l],height[r])*(r-l))\n        if height[l] < height[r]: l += 1\n        else: r -= 1\n    return mx', top: '25%', right: '8%', rotate: '1deg', name: 'Container With Most Water', pattern: 'Two Pointer', description: 'Start pointers at both ends and move the shorter line inward. The area is bounded by the shorter height, so moving it might find a taller line. O(n) time.' },
+      { code: '# Group Anagrams\ndef groupAnagrams(strs):\n    d = defaultdict(list)\n    for s in strs:\n        d[tuple(sorted(s))].append(s)\n    return list(d.values())', top: '45%', left: '45%', rotate: '-1deg', name: 'Group Anagrams', pattern: 'Hash Map', description: 'Use sorted characters as a canonical key to group words that are anagrams of each other. A defaultdict collects all strings sharing the same key.' },
+      { code: '# Merge Intervals\ndef merge(intervals):\n    intervals.sort()\n    res = [intervals[0]]\n    for s, e in intervals[1:]:\n        if s <= res[-1][1]:\n            res[-1][1] = max(res[-1][1], e)\n        else:\n            res.append([s, e])\n    return res', top: '60%', right: '50%', rotate: '2deg', name: 'Merge Intervals', pattern: 'Sorting', description: 'Sort intervals by start time, then greedily merge overlapping intervals by extending the end of the last merged interval. O(n log n) due to sorting.' },
+      { code: '# Search Rotated Array\ndef search(nums, target):\n    lo, hi = 0, len(nums)-1\n    while lo <= hi:\n        mid = (lo+hi)//2\n        if nums[mid] == target: return mid\n        if nums[lo] <= nums[mid]:\n            if nums[lo]<=target<nums[mid]: hi=mid-1\n            else: lo=mid+1\n        else:\n            if nums[mid]<target<=nums[hi]: lo=mid+1\n            else: hi=mid-1\n    return -1', top: '78%', left: '18%', rotate: '-1deg', name: 'Search in Rotated Sorted Array', pattern: 'Binary Search', description: 'Modified binary search that determines which half is sorted, then checks if the target lies in that sorted half. Maintains O(log n) despite the rotation.' },
+      { code: '# Min Stack\nclass MinStack:\n    def __init__(self):\n        self.stack = []\n    def push(self, val):\n        mn = min(val, self.stack[-1][1]\n            if self.stack else val)\n        self.stack.append((val, mn))\n    def getMin(self): return self.stack[-1][1]', top: '15%', right: '25%', rotate: '1deg', name: 'Min Stack', pattern: 'Stack', description: 'Store each element as a tuple with the current minimum. Every push records the min so far, enabling O(1) getMin by reading the top of the stack.' },
+    ],
+    '#projects': [
+      { code: '# Coin Change\ndef coinChange(coins, amount):\n    dp = [float("inf")]*(amount+1)\n    dp[0] = 0\n    for c in coins:\n        for a in range(c, amount+1):\n            dp[a] = min(dp[a], dp[a-c]+1)\n    return dp[amount] if dp[amount]!=float("inf") else -1', top: '8%', left: '5%', rotate: '-2deg', name: 'Coin Change', pattern: 'DP', description: 'Bottom-up dynamic programming: build the minimum coins needed for each amount from 0 to target. Each coin denomination updates all reachable amounts.' },
+      { code: '# House Robber\ndef rob(nums):\n    prev = curr = 0\n    for n in nums:\n        prev, curr = curr, max(curr, prev+n)\n    return curr', top: '25%', right: '7%', rotate: '1deg', name: 'House Robber', pattern: 'DP', description: 'At each house, choose to rob it (prev + current value) or skip it (keep curr). Two variables suffice since each state depends only on the previous two.' },
+      { code: '# Number of Islands\ndef numIslands(grid):\n    def dfs(i, j):\n        if i<0 or j<0 or i>=len(grid)\\\n           or j>=len(grid[0])\\\n           or grid[i][j]!="1": return\n        grid[i][j] = "0"\n        dfs(i+1,j); dfs(i-1,j)\n        dfs(i,j+1); dfs(i,j-1)\n    count = 0\n    for i in range(len(grid)):\n        for j in range(len(grid[0])):\n            if grid[i][j]=="1":\n                dfs(i,j); count+=1\n    return count', top: '50%', left: '48%', rotate: '-1deg', name: 'Number of Islands', pattern: 'DFS/BFS', description: 'Scan the grid for land cells. When found, DFS flood-fills the entire island by marking visited cells as water. Each DFS call discovers one connected island.' },
+      { code: '# Course Schedule\ndef canFinish(n, prereqs):\n    g = defaultdict(list)\n    for a,b in prereqs: g[a].append(b)\n    vis, path = set(), set()\n    def dfs(c):\n        if c in path: return False\n        if c in vis: return True\n        path.add(c)\n        for p in g[c]:\n            if not dfs(p): return False\n        path.remove(c); vis.add(c)\n        return True\n    return all(dfs(c) for c in range(n))', top: '65%', right: '45%', rotate: '2deg', name: 'Course Schedule', pattern: 'Topological Sort', description: 'Model courses as a directed graph. Use DFS cycle detection: if a node is revisited on the current path, a cycle exists and courses can\'t all be finished.' },
+      { code: '# Word Break\ndef wordBreak(s, wordDict):\n    dp = [False]*(len(s)+1)\n    dp[0] = True\n    for i in range(1, len(s)+1):\n        for w in wordDict:\n            if i>=len(w) and dp[i-len(w)]\\\n               and s[i-len(w):i]==w:\n                dp[i] = True\n    return dp[-1]', top: '80%', left: '12%', rotate: '-1deg', name: 'Word Break', pattern: 'DP', description: 'dp[i] is true if s[0:i] can be segmented into dictionary words. For each position, check all words that could end there and whether the prefix before them is valid.' },
+      { code: '# Trapping Rain Water\ndef trap(height):\n    l, r = 0, len(height)-1\n    lmax = rmax = water = 0\n    while l < r:\n        if height[l] < height[r]:\n            lmax = max(lmax, height[l])\n            water += lmax - height[l]\n            l += 1\n        else:\n            rmax = max(rmax, height[r])\n            water += rmax - height[r]\n            r -= 1\n    return water', top: '15%', right: '28%', rotate: '1deg', name: 'Trapping Rain Water', pattern: 'Two Pointer', description: 'Two pointers converge from both ends. Water at each position is determined by the minimum of the max heights from each side minus the current height. O(n) time.' },
+    ],
+    '#edu-certs-lang-bg': [
+      { code: '# LRU Cache\nclass LRUCache:\n    def __init__(self, cap):\n        self.cap = cap\n        self.cache = OrderedDict()\n    def get(self, key):\n        if key not in self.cache: return -1\n        self.cache.move_to_end(key)\n        return self.cache[key]\n    def put(self, key, val):\n        self.cache[key] = val\n        self.cache.move_to_end(key)\n        if len(self.cache)>self.cap:\n            self.cache.popitem(last=False)', top: '5%', left: '4%', rotate: '-2deg', name: 'LRU Cache', pattern: 'Design', description: 'OrderedDict provides O(1) access and insertion order. move_to_end marks recent use, popitem(last=False) evicts the least recently used entry.' },
+      { code: '# Validate BST\ndef isValidBST(root, lo=-inf, hi=inf):\n    if not root: return True\n    if root.val<=lo or root.val>=hi:\n        return False\n    return isValidBST(root.left, lo, root.val)\\\n       and isValidBST(root.right, root.val, hi)', top: '20%', right: '6%', rotate: '1deg', name: 'Validate Binary Search Tree', pattern: 'DFS', description: 'Recursively validate that each node falls within an allowed range. Left children tighten the upper bound, right children tighten the lower bound.' },
+      { code: '# Level Order Traversal\ndef levelOrder(root):\n    if not root: return []\n    res, q = [], deque([root])\n    while q:\n        level = []\n        for _ in range(len(q)):\n            node = q.popleft()\n            level.append(node.val)\n            if node.left: q.append(node.left)\n            if node.right: q.append(node.right)\n        res.append(level)\n    return res', top: '45%', left: '50%', rotate: '-1deg', name: 'Binary Tree Level Order Traversal', pattern: 'BFS', description: 'Use a queue to process nodes level by level. At each level, drain the current queue size and enqueue children for the next level.' },
+      { code: '# Longest Palindromic Substr\ndef longestPalindrome(s):\n    res = ""\n    for i in range(len(s)):\n        for l,r in [(i,i),(i,i+1)]:\n            while l>=0 and r<len(s)\\\n                  and s[l]==s[r]:\n                if r-l+1 > len(res):\n                    res = s[l:r+1]\n                l -= 1; r += 1\n    return res', top: '60%', right: '48%', rotate: '2deg', name: 'Longest Palindromic Substring', pattern: 'Expand Around Center', description: 'For each character (and each pair), expand outward while characters match. Tracks the longest palindrome found. Handles both odd and even length palindromes.' },
+      { code: '# Decode Ways\ndef numDecodings(s):\n    if not s or s[0]=="0": return 0\n    dp = [0]*(len(s)+1)\n    dp[0] = dp[1] = 1\n    for i in range(2, len(s)+1):\n        if s[i-1]!="0": dp[i]+=dp[i-1]\n        if 10<=int(s[i-2:i])<=26: dp[i]+=dp[i-2]\n    return dp[-1]', top: '78%', left: '20%', rotate: '-1deg', name: 'Decode Ways', pattern: 'DP', description: 'Each position can decode as a single digit (1-9) or two digits (10-26). The count at each position sums the valid one-step and two-step lookbacks.' },
+      { code: '# Rotate Image (90 deg)\ndef rotate(matrix):\n    n = len(matrix)\n    for i in range(n):\n        for j in range(i, n):\n            matrix[i][j], matrix[j][i] =\\\n                matrix[j][i], matrix[i][j]\n    for row in matrix:\n        row.reverse()', top: '35%', right: '30%', rotate: '1deg', name: 'Rotate Image', pattern: 'Matrix', description: 'Rotate a matrix 90 degrees clockwise in-place by transposing (swap across the diagonal) then reversing each row. No extra space needed.' },
+    ],
+    '#interests': [
+      { code: '# Max Product Subarray\ndef maxProduct(nums):\n    res = mx = mn = nums[0]\n    for n in nums[1:]:\n        if n < 0: mx, mn = mn, mx\n        mx = max(n, mx * n)\n        mn = min(n, mn * n)\n        res = max(res, mx)\n    return res', top: '15%', left: '8%', rotate: '-2deg', name: 'Maximum Product Subarray', pattern: 'DP', description: 'Track both the max and min product at each position, since a negative times a negative can become the new max. Swap them when a negative is encountered.' },
+      { code: '# Spiral Matrix\ndef spiralOrder(matrix):\n    res = []\n    while matrix:\n        res += matrix.pop(0)\n        matrix = list(zip(*matrix))[::-1]\n    return res', top: '55%', right: '10%', rotate: '1deg', name: 'Spiral Matrix', pattern: 'Matrix', description: 'Peel off the top row, then rotate the remaining matrix 90 degrees counter-clockwise (transpose + reverse). Repeat until empty. Elegant recursive decomposition.' },
+    ],
+  };
+
+  // Python syntax highlighter
+  function highlightPython(code: string): string {
+    // HTML-escape
+    let html = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    // Tokenize with ordered replacements (use placeholder system to avoid double-matching)
+    const tokens: { placeholder: string; replacement: string }[] = [];
+    let tokenId = 0;
+    function stash(match: string, cls: string): string {
+      const ph = `\x00T${tokenId++}\x00`;
+      tokens.push({ placeholder: ph, replacement: `<span class="${cls}">${match}</span>` });
+      return ph;
+    }
+
+    // Comments
+    html = html.replace(/#[^\n]*/g, m => stash(m, 'py-comment'));
+    // Strings (triple-quoted and single/double)
+    html = html.replace(/(&quot;{3}[\s\S]*?&quot;{3}|'{3}[\s\S]*?'{3}|&quot;(?:[^\\&]|\\.)*?&quot;|'(?:[^\\']|\\.)*?')/g, m => stash(m, 'py-str'));
+    // Also match regular double-quoted strings
+    html = html.replace(/"(?:[^\\"]|\\.)*?"/g, m => stash(m, 'py-str'));
+    // Keywords
+    const kws = 'def|class|return|if|elif|else|for|while|in|not|and|or|is|import|from|as|with|try|except|finally|raise|pass|break|continue|lambda|yield|True|False|None';
+    html = html.replace(new RegExp(`\\b(${kws})\\b`, 'g'), m => stash(m, 'py-kw'));
+    // Builtins
+    const builtins = 'print|len|range|enumerate|min|max|abs|sum|sorted|list|dict|set|tuple|int|float|str|bool|zip|map|filter|type|isinstance|hasattr|getattr|setattr|super|all|any|deque|defaultdict|OrderedDict|inf';
+    html = html.replace(new RegExp(`\\b(${builtins})\\b`, 'g'), m => stash(m, 'py-builtin'));
+    // Numbers
+    html = html.replace(/\b\d+(\.\d+)?\b/g, m => stash(m, 'py-num'));
+    // Function/class names after def/class keywords
+    html = html.replace(/(?<=\x00T\d+\x00\s)\w+/g, m => stash(m, 'py-def'));
+
+    // Restore tokens
+    tokens.forEach(t => {
+      html = html.replace(t.placeholder, t.replacement);
+    });
+
+    return html;
+  }
+
+  // Modal state
+  let isModalOpen = false;
+  let activeSnippetEl: HTMLElement | null = null;
+
+  // Create modal DOM
+  const overlay = document.createElement('div');
+  overlay.className = 'code-modal-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+
+  const modal = document.createElement('div');
+  modal.id = 'code-modal';
+  modal.innerHTML = `
+    <div class="code-modal-header">
+      <span class="code-modal-badge" id="modal-badge"></span>
+      <span class="code-modal-title" id="modal-title"></span>
+      <button class="code-modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="code-modal-desc" id="modal-desc"></div>
+    <div class="code-modal-code-wrap">
+      <pre id="modal-code"></pre>
+    </div>
+  `;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  const modalBadge = document.getElementById('modal-badge')!;
+  const modalTitle = document.getElementById('modal-title')!;
+  const modalDesc = document.getElementById('modal-desc')!;
+  const modalCode = document.getElementById('modal-code')!;
+  const modalClose = document.getElementById('modal-close')!;
+
+  function openModal(snippetEl: HTMLElement, meta: { name: string; pattern: string; description: string; code: string }) {
+    if (isModalOpen) return;
+    isModalOpen = true;
+    activeSnippetEl = snippetEl;
+
+    // Populate content
+    modalBadge.textContent = meta.pattern;
+    modalTitle.textContent = meta.name;
+    modalDesc.textContent = meta.description;
+    modalCode.innerHTML = highlightPython(meta.code);
+
+    // Get snippet position for flying clone
+    const rect = snippetEl.getBoundingClientRect();
+
+    // Step 1: Shake the snippet
+    const shakeTl = gsap.timeline();
+    shakeTl.to(snippetEl, { x: -6, duration: 0.05, ease: 'power2.inOut' })
+      .to(snippetEl, { x: 6, duration: 0.05, ease: 'power2.inOut' })
+      .to(snippetEl, { x: -4, duration: 0.05, ease: 'power2.inOut' })
+      .to(snippetEl, { x: 4, duration: 0.05, ease: 'power2.inOut' })
+      .to(snippetEl, { x: 0, duration: 0.05, ease: 'power2.inOut' });
+
+    // Step 2: Glow bright
+    shakeTl.to(snippetEl, {
+      color: 'rgba(74, 222, 128, 0.9)',
+      textShadow: '0 0 30px rgba(74, 222, 128, 0.6), 0 0 60px rgba(74, 222, 128, 0.3)',
+      duration: 0.2,
+      ease: 'power2.out',
+    }, '-=0.1');
+
+    // Step 3: Create flying clone
+    shakeTl.call(() => {
+      const clone = snippetEl.cloneNode(true) as HTMLElement;
+      clone.style.cssText = `
+        position: fixed;
+        top: ${rect.top}px;
+        left: ${rect.left}px;
+        width: ${rect.width}px;
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 11px;
+        line-height: 1.5;
+        color: rgba(74, 222, 128, 0.9);
+        text-shadow: 0 0 30px rgba(74, 222, 128, 0.6), 0 0 60px rgba(74, 222, 128, 0.3);
+        white-space: pre;
+        z-index: 10001;
+        pointer-events: none;
+      `;
+      document.body.appendChild(clone);
+
+      // Fade original
+      gsap.to(snippetEl, { opacity: 0.1, duration: 0.3 });
+
+      // Animate clone to center
+      const centerX = window.innerWidth / 2 - rect.width / 2;
+      const centerY = window.innerHeight / 2 - rect.height / 2;
+
+      gsap.to(clone, {
+        top: centerY,
+        left: centerX,
+        scale: 1.5,
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power3.in',
+        onComplete: () => {
+          clone.remove();
+
+          // Lock scroll
+          document.body.style.overflow = 'hidden';
+
+          // Show overlay + modal
+          overlay.classList.add('visible');
+          gsap.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' });
+          gsap.fromTo(modal, { scale: 0.8, opacity: 0 }, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: 'back.out(1.7)',
+          });
+        }
+      });
+    });
+  }
+
+  function closeModal() {
+    if (!isModalOpen) return;
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        overlay.classList.remove('visible');
+        document.body.style.overflow = '';
+        isModalOpen = false;
+
+        // Restore source snippet
+        if (activeSnippetEl) {
+          gsap.to(activeSnippetEl, {
+            opacity: 1,
+            color: 'rgba(74, 222, 128, 0.25)',
+            textShadow: 'none',
+            duration: 0.4,
+            ease: 'power2.out',
+          });
+          activeSnippetEl = null;
+        }
+      }
+    });
+
+    tl.to(modal, { scale: 0.85, opacity: 0, duration: 0.3, ease: 'power2.in' });
+    tl.to(overlay, { opacity: 0, duration: 0.2, ease: 'power2.in' }, '-=0.15');
+  }
+
+  // Close triggers
+  modalClose.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isModalOpen) closeModal();
+  });
+
+  // Inject snippets into each section as absolute-positioned children
+  const allCodeBlocks: HTMLElement[] = [];
+
+  Object.entries(sectionSnippets).forEach(([selector, snippets]) => {
+    const section = document.querySelector(selector) as HTMLElement;
+    if (!section) return;
+
+    // Ensure section has relative positioning for absolute children
+    const computedPos = getComputedStyle(section).position;
+    if (computedPos === 'static') {
+      section.style.position = 'relative';
+    }
+
+    snippets.forEach((s, i) => {
+      const el = document.createElement('div');
+      el.className = 'floating-code code-float';
+      el.textContent = s.code;
+      let style = `position: absolute; top: ${s.top}; transform: rotate(${s.rotate}); opacity: 0; z-index: 1; pointer-events: auto;`;
+      if (s.left) style += ` left: ${s.left};`;
+      if (s.right) style += ` right: ${s.right};`;
+      el.style.cssText = style;
+      section.appendChild(el);
+      allCodeBlocks.push(el);
+
+      // Click to open modal
+      el.addEventListener('click', () => {
+        openModal(el, { name: s.name, pattern: s.pattern, description: s.description, code: s.code });
+      });
+
+      // Animate in when section scrolls into view
+      gsap.to(el, {
+        opacity: 1,
+        duration: 0.8,
+        delay: i * 0.12,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        }
+      });
+    });
+  });
+
+  // Parallax background layers
+  const deepLayer = document.getElementById('parallax-deep');
+  const midLayer = document.getElementById('parallax-mid');
+
+  if (deepLayer && midLayer) {
+    gsap.to(deepLayer, {
+      yPercent: -15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1.5,
+      }
+    });
+
+    gsap.to(midLayer, {
+      yPercent: -30,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.8,
+      }
+    });
+  }
+
+  // Section reveals
+  const sections = document.querySelectorAll('.section-reveal');
+  sections.forEach((section) => {
+    gsap.to(section, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 85%',
+        toggleActions: 'play none none none',
+      }
+    });
+  });
+
+  // Mouse interaction: activate code blocks on proximity
+  document.addEventListener('mousemove', (e) => {
+    allCodeBlocks.forEach((block) => {
+      const rect = block.getBoundingClientRect();
+      const blockCenterX = rect.left + rect.width / 2;
+      const blockCenterY = rect.top + rect.height / 2;
+      const dist = Math.hypot(e.clientX - blockCenterX, e.clientY - blockCenterY);
+
+      if (dist < 200) {
+        block.classList.add('activated');
+        const angle = Math.atan2(blockCenterY - e.clientY, blockCenterX - e.clientX);
+        const push = Math.max(0, (200 - dist) / 200) * 8;
+        gsap.to(block, {
+          x: Math.cos(angle) * push,
+          y: Math.sin(angle) * push,
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      } else {
+        block.classList.remove('activated');
+        gsap.to(block, {
+          x: 0,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+        });
+      }
+    });
+  });
+</script>

@@ -1,0 +1,63 @@
+---
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+const initials = name.split(' ').map(n => n[0]).join('');
+---
+
+<nav id="navbar" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 px-6 py-3 rounded-full" style="background: transparent;">
+  <div class="flex items-center gap-6">
+    <span id="nav-logo" class="font-bold text-sm tracking-widest text-white/90 transition-colors duration-500" style="font-family: var(--font-display);">
+      {initials}
+    </span>
+    <div class="flex items-center gap-4">
+      <a href="#experience" class="nav-link text-xs tracking-wider uppercase text-white/60 hover:text-white transition-colors duration-300" style="font-family: var(--font-mono);">Experience</a>
+      <a href="#skills" class="nav-link text-xs tracking-wider uppercase text-white/60 hover:text-white transition-colors duration-300" style="font-family: var(--font-mono);">Skills</a>
+      <a href="#projects" class="nav-link text-xs tracking-wider uppercase text-white/60 hover:text-white transition-colors duration-300" style="font-family: var(--font-mono);">Projects</a>
+      <a href="/cv" class="magnetic-btn text-xs tracking-wider uppercase px-4 py-1.5 border border-white/20 rounded-full text-white/70 hover:text-white hover:border-[#4ade80]/40 transition-all duration-300" style="font-family: var(--font-mono);">PDF</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const navbar = document.getElementById('navbar');
+  const navLogo = document.getElementById('nav-logo');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  if (navbar) {
+    ScrollTrigger.create({
+      start: 'top -100',
+      onUpdate: (self) => {
+        if (self.direction === 1 && self.progress > 0.01) {
+          // Scrolling down — glassmorphic
+          navbar.style.background = 'rgba(10, 15, 10, 0.6)';
+          navbar.style.backdropFilter = 'blur(20px)';
+          navbar.style.webkitBackdropFilter = 'blur(20px)';
+          navbar.style.border = '1px solid rgba(74, 222, 128, 0.1)';
+          navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+          if (navLogo) navLogo.style.color = '#4ade80';
+          navLinks.forEach(l => {
+            (l as HTMLElement).style.color = 'rgba(74,222,128,0.5)';
+          });
+        }
+        if (self.progress < 0.01) {
+          // At the top — transparent
+          navbar.style.background = 'transparent';
+          navbar.style.backdropFilter = 'none';
+          navbar.style.webkitBackdropFilter = 'none';
+          navbar.style.border = 'none';
+          navbar.style.boxShadow = 'none';
+          if (navLogo) navLogo.style.color = 'rgba(255,255,255,0.9)';
+          navLinks.forEach(l => {
+            (l as HTMLElement).style.color = 'rgba(255,255,255,0.6)';
+          });
+        }
+      }
+    });
+  }
+</script>

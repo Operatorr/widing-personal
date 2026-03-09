@@ -11,60 +11,106 @@ interface Props {
 
 const { skills } = Astro.props;
 
-const getLevelVariant = (level?: string) => {
+const getLevelConfig = (level?: string) => {
   switch (level?.toLowerCase()) {
     case 'expert':
-      return 'bg-primary text-primary-foreground';
+      return { color: '#4ade80', bg: 'rgba(74,222,128,0.1)', border: 'rgba(74,222,128,0.25)' };
     case 'advanced':
-      return 'bg-blue-500/10 text-blue-600 border border-blue-500/20';
+      return { color: '#c084fc', bg: 'rgba(192,132,252,0.1)', border: 'rgba(192,132,252,0.2)' };
     case 'intermediate':
-      return 'bg-amber-500/10 text-amber-600 border border-amber-500/20';
+      return { color: '#2dd4bf', bg: 'rgba(45,212,191,0.1)', border: 'rgba(45,212,191,0.2)' };
     default:
-      return 'bg-secondary text-secondary-foreground';
+      return { color: '#60a5fa', bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.2)' };
   }
 };
 ---
 
-<section class="py-10 px-6 bg-muted/30">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
-      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2v4"/>
-        <path d="m6.343 7.757-2.828-2.829"/>
-        <path d="M2 13h4"/>
-        <path d="m6.343 18.243-2.828 2.829"/>
-        <path d="M12 18v4"/>
-        <path d="m17.657 18.243 2.828 2.829"/>
-        <path d="M18 13h4"/>
-        <path d="m17.657 7.757 2.828-2.829"/>
-        <circle cx="12" cy="13" r="3"/>
-      </svg>
-      Skills
-    </h2>
+<section class="relative py-24 px-6 overflow-hidden section-reveal" id="skills">
+  <!-- Background image -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1563387528570-dbede24161e0?w=1920&q=80"
+      alt=""
+      class="w-full h-full object-cover opacity-20"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0f0a] via-transparent to-transparent"></div>
+  </div>
 
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {skills.map((skill) => (
-        <div class="border border-border bg-card p-4 shadow-sm">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-semibold text-card-foreground">{skill.name}</h3>
-            {skill.level && (
-              <span class={`text-xs px-2 py-0.5 font-medium ${getLevelVariant(skill.level)}`}>
-                {skill.level}
-              </span>
+  <div class="relative z-10 max-w-4xl mx-auto">
+    <!-- Section header -->
+    <div class="flex items-center gap-4 mb-16">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-[#c084fc] shadow-[0_0_10px_rgba(192,132,252,0.5)]"></div>
+        <h2 class="text-3xl font-bold tracking-tight" style="font-family: var(--font-display);">
+          Technical <span style="font-family: var(--font-organic); font-style: italic; color: #4ade80;">Skills</span>
+        </h2>
+      </div>
+      <div class="flex-1 organic-divider"></div>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {skills.map((skill) => {
+        const config = getLevelConfig(skill.level);
+        return (
+          <div class="glass-card glass-card-hover rounded-xl p-5 skill-card" style={`border-color: ${config.border};`}>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-white text-sm tracking-tight" style="font-family: var(--font-display);">
+                {skill.name}
+              </h3>
+              {skill.level && (
+                <span
+                  class="text-[10px] tracking-[0.15em] uppercase px-2.5 py-1 rounded-full"
+                  style={`font-family: var(--font-mono); color: ${config.color}; background: ${config.bg}; border: 1px solid ${config.border};`}
+                >
+                  {skill.level}
+                </span>
+              )}
+            </div>
+
+            {skill.keywords && skill.keywords.length > 0 && (
+              <div class="flex flex-wrap gap-1.5">
+                {skill.keywords.map((keyword) => (
+                  <span
+                    class="skill-tag text-[11px] px-2 py-1 rounded-md text-white/90"
+                    style={`font-family: var(--font-mono); opacity: 0.9; background: rgba(255,255,255,0.02); border: 1px solid ${config.color}40;`}
+                  >
+                    {keyword}
+                  </span>
+                ))}
+              </div>
             )}
           </div>
-
-          {skill.keywords && skill.keywords.length > 0 && (
-            <div class="flex flex-wrap gap-1.5">
-              {skill.keywords.map((keyword) => (
-                <span class="text-xs bg-secondary text-secondary-foreground px-2 py-1">
-                  {keyword}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+        );
+      })}
     </div>
   </div>
+</div>
 </section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const skillCards = document.querySelectorAll('.skill-card');
+  skillCards.forEach((card, i) => {
+    gsap.fromTo(card,
+      { opacity: 0, y: 30, scale: 0.95 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        delay: i * 0.08,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+        }
+      }
+    );
+  });
+</script>

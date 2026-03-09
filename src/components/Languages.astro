@@ -23,40 +23,82 @@ const getFluencyLevel = (fluency?: string) => {
 
 const getBarColor = (language: string) => {
 	const lower = language.toLowerCase();
-	if (lower.includes("swedish")) return "bg-green-500";
-	if (lower.includes("english")) return "bg-blue-500";
-	if (lower.includes("thai")) return "bg-purple-500";
-	if (lower.includes("japanese")) return "bg-gray-500";
-	return "bg-primary";
+	if (lower.includes("swedish")) return '#4ade80';
+	if (lower.includes("english")) return '#60a5fa';
+	if (lower.includes("thai")) return '#c084fc';
+	if (lower.includes("japanese")) return '#f472b6';
+	return '#2dd4bf';
 };
 ---
 
-<section class="py-10 px-6 bg-muted/30">
+<section class="relative py-24 px-6 section-reveal" id="languages">
 	<div class="max-w-4xl mx-auto">
-		<h2 class="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
-			<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-				<path d="m5 8 6 6"></path>
-				<path d="m4 14 6-6 2-3"></path>
-				<path d="M2 5h12"></path>
-				<path d="M7 2h1"></path>
-				<path d="m22 22-5-10-5 10"></path>
-				<path d="M14 18h6"></path>
-			</svg>
-			Languages
-		</h2>
+		<!-- Section header -->
+		<div class="flex items-center gap-4 mb-16">
+			<div class="flex items-center gap-3">
+				<div class="w-2 h-2 rounded-full bg-[#22d3ee] shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+				<h2 class="text-3xl font-bold tracking-tight" style="font-family: var(--font-display);">
+					<span style="font-family: var(--font-organic); font-style: italic; color: #22d3ee;">Languages</span>
+				</h2>
+			</div>
+			<div class="flex-1 organic-divider"></div>
+		</div>
 
 		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-			{
-				languages.map((lang) => (
-					<div class="border border-border bg-card p-4 shadow-sm">
-						<h3 class="font-semibold text-card-foreground">{lang.language}</h3>
-						{lang.fluency && <span class="inline-flex items-center bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary mt-2">{lang.fluency}</span>}
-						<div class="mt-3 h-2 bg-secondary overflow-hidden">
-							<div class={`h-full ${getBarColor(lang.language)} transition-all duration-500`} style={`width: ${getFluencyLevel(lang.fluency)}%`} />
+			{languages.map((lang) => {
+				const color = getBarColor(lang.language);
+				const level = getFluencyLevel(lang.fluency);
+				return (
+					<div class="glass-card glass-card-hover rounded-xl p-5 lang-card">
+						<h3 class="font-bold text-white text-sm" style="font-family: var(--font-display);">{lang.language}</h3>
+						{lang.fluency && (
+							<span class="text-[10px] tracking-wider text-white/40 mt-1 block" style="font-family: var(--font-mono);">
+								{lang.fluency}
+							</span>
+						)}
+						<div class="mt-4 h-1 rounded-full overflow-hidden" style="background: rgba(255,255,255,0.05);">
+							<div
+								class="h-full rounded-full lang-bar"
+								style={`width: 0%; background: ${color}; box-shadow: 0 0 10px ${color}40;`}
+								data-width={level}
+							></div>
 						</div>
 					</div>
-				))
-			}
+				);
+			})}
 		</div>
 	</div>
 </section>
+
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	gsap.registerPlugin(ScrollTrigger);
+
+	// Animate language bars
+	document.querySelectorAll('.lang-bar').forEach((bar) => {
+		const targetWidth = (bar as HTMLElement).dataset.width + '%';
+		gsap.to(bar, {
+			width: targetWidth,
+			duration: 1.2,
+			ease: 'power3.out',
+			scrollTrigger: {
+				trigger: bar,
+				start: 'top 90%',
+				toggleActions: 'play none none none',
+			}
+		});
+	});
+
+	document.querySelectorAll('.lang-card').forEach((card, i) => {
+		gsap.fromTo(card,
+			{ opacity: 0, y: 20 },
+			{
+				opacity: 1, y: 0, duration: 0.5,
+				delay: i * 0.1,
+				ease: 'power3.out',
+				scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
+			}
+		);
+	});
+</script>

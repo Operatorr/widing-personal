@@ -21,59 +21,73 @@ const formatDate = (dateStr?: string) => {
 };
 ---
 
-<section class="py-10 px-6">
+<section class="relative py-24 px-6 section-reveal" id="certifications">
 	<div class="max-w-4xl mx-auto">
-		<h2 class="text-2xl font-semibold text-foreground mb-6 flex items-center gap-2">
-			<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-				<circle cx="12" cy="8" r="6"></circle>
-				<path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
-			</svg>
-			Certifications
-		</h2>
+		<!-- Section header -->
+		<div class="flex items-center gap-4 mb-16">
+			<div class="flex items-center gap-3">
+				<div class="w-2 h-2 rounded-full bg-[#f472b6] shadow-[0_0_10px_rgba(244,114,182,0.5)]"></div>
+				<h2 class="text-3xl font-bold tracking-tight" style="font-family: var(--font-display);">
+					<span style="font-family: var(--font-organic); font-style: italic; color: #f472b6;">Certifications</span>
+				</h2>
+			</div>
+			<div class="flex-1 organic-divider"></div>
+		</div>
 
-		<div class="grid gap-3 md:grid-cols-2">
-			{
-				certificates.map((cert) => (
-					<div class="border border-border bg-card p-4 shadow-sm flex items-start gap-3">
-						<div class="shrink-0 w-10 h-10 bg-none text-green-500 flex items-center justify-center">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-									<>
-										<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77a4 4 0 0 1 6.74 0a4 4 0 0 1 4.78 4.78a4 4 0 0 1 0 6.74a4 4 0 0 1-4.77 4.78a4 4 0 0 1-6.75 0a4 4 0 0 1-4.78-4.77a4 4 0 0 1 0-6.76" />
-										<path d="m9 12l2 2l4-4" />
-									</>
-								</g>
-							</svg>
-						</div>
-						<div class="flex-1 min-w-0">
-							<h3 class="font-medium text-card-foreground">
-								{cert.url ? (
-									<a href={cert.url} target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">
-										{cert.name}
-									</a>
-								) : (
-									cert.name
-								)}
-							</h3>
-							<div class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground mt-1">
-								{cert.issuer && <span>{cert.issuer}</span>}
-								{cert.issuer && cert.date && <span class="text-border">•</span>}
-								{cert.date && <span>{formatDate(cert.date)}</span>}
-							</div>
-							{cert.highlights && cert.highlights.length > 0 && (
-								<ul class="mt-2 text-sm text-muted-foreground">
-									{cert.highlights.map((highlight) => (
-										<li class="flex items-start gap-2">
-											<span class="text-primary">›</span>
-											<span>{highlight}</span>
-										</li>
-									))}
-								</ul>
-							)}
-						</div>
+		<div class="grid gap-4 md:grid-cols-2">
+			{certificates.map((cert) => (
+				<div class="glass-card glass-card-hover rounded-xl p-5 cert-card flex items-start gap-4">
+					<div class="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style="background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.15);">
+						<svg class="w-5 h-5 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77a4 4 0 0 1 6.74 0a4 4 0 0 1 4.78 4.78a4 4 0 0 1 0 6.74a4 4 0 0 1-4.77 4.78a4 4 0 0 1-6.75 0a4 4 0 0 1-4.78-4.77a4 4 0 0 1 0-6.76" />
+							<path d="m9 12l2 2l4-4" />
+						</svg>
 					</div>
-				))
-			}
+					<div class="flex-1 min-w-0">
+						<h3 class="font-bold text-white text-sm" style="font-family: var(--font-display);">
+							{cert.url ? (
+								<a href={cert.url} target="_blank" rel="noopener noreferrer" class="hover:text-[#4ade80] transition-colors">
+									{cert.name}
+								</a>
+							) : (
+								cert.name
+							)}
+						</h3>
+						<div class="flex flex-wrap items-center gap-2 text-xs text-white/70 mt-1" style="font-family: var(--font-mono);">
+							{cert.issuer && <span>{cert.issuer}</span>}
+							{cert.issuer && cert.date && <span class="text-white/10">|</span>}
+							{cert.date && <span>{formatDate(cert.date)}</span>}
+						</div>
+						{cert.highlights && cert.highlights.length > 0 && (
+							<ul class="mt-2">
+								{cert.highlights.map((highlight) => (
+									<li class="text-xs text-white/90 flex items-start gap-2">
+										<span class="text-[#4ade80] opacity-50">›</span>
+										<span>{highlight}</span>
+									</li>
+								))}
+							</ul>
+						)}
+					</div>
+				</div>
+			))}
 		</div>
 	</div>
 </section>
+
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	gsap.registerPlugin(ScrollTrigger);
+
+	document.querySelectorAll('.cert-card').forEach((card, i) => {
+		gsap.fromTo(card,
+			{ opacity: 0, x: i % 2 === 0 ? -30 : 30 },
+			{
+				opacity: 1, x: 0, duration: 0.6,
+				ease: 'power3.out',
+				scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
+			}
+		);
+	});
+</script>
