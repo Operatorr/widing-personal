@@ -42,8 +42,8 @@ const accentColors = [
       class="w-full h-full object-cover opacity-25"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0f0a] via-transparent to-transparent"></div>
+    <div class="absolute inset-0 bg-linear-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
+    <div class="absolute inset-0 bg-linear-to-t from-[#0a0f0a] via-transparent to-transparent"></div>
   </div>
 
   <div class="relative z-10 max-w-4xl mx-auto">
@@ -129,23 +129,11 @@ const accentColors = [
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  // Work card entrance animations
-  const workCards = document.querySelectorAll('.work-card');
-  workCards.forEach((card, i) => {
-    gsap.fromTo(card,
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        delay: i * 0.08,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        }
-      }
-    );
+  // Work card entrance animations — batched
+  gsap.set('.work-card', { opacity: 0, y: 40 });
+  ScrollTrigger.batch('.work-card', {
+    start: 'top 88%',
+    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out' }),
+    once: true,
   });
 </script>

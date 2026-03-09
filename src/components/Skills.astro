@@ -34,8 +34,8 @@ const getLevelConfig = (level?: string) => {
       class="w-full h-full object-cover opacity-20"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0f0a] via-transparent to-transparent"></div>
+    <div class="absolute inset-0 bg-linear-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
+    <div class="absolute inset-0 bg-linear-to-t from-[#0a0f0a] via-transparent to-transparent"></div>
   </div>
 
   <div class="relative z-10 max-w-4xl mx-auto">
@@ -94,23 +94,10 @@ const getLevelConfig = (level?: string) => {
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  const skillCards = document.querySelectorAll('.skill-card');
-  skillCards.forEach((card, i) => {
-    gsap.fromTo(card,
-      { opacity: 0, y: 30, scale: 0.95 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        delay: i * 0.08,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 90%',
-          toggleActions: 'play none none none',
-        }
-      }
-    );
+  gsap.set('.skill-card', { opacity: 0, y: 30 });
+  ScrollTrigger.batch('.skill-card', {
+    start: 'top 90%',
+    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out' }),
+    once: true,
   });
 </script>

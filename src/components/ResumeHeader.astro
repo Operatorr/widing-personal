@@ -43,8 +43,8 @@ const networkIcons: Record<string, string> = {
 		/>
 	</div>
 	<!-- Gradient overlay: Moss to Black -->
-	<div class="absolute inset-0 bg-gradient-to-b from-[#1a3318]/40 via-[#0a0f0a]/60 to-[#0a0f0a]"></div>
-	<div class="absolute inset-0 bg-gradient-to-r from-[#0a0f0a]/80 via-transparent to-[#0a0f0a]/80"></div>
+	<div class="absolute inset-0 bg-linear-to-b from-[#1a3318]/40 via-[#0a0f0a]/60 to-[#0a0f0a]"></div>
+	<div class="absolute inset-0 bg-linear-to-r from-[#0a0f0a]/80 via-transparent to-[#0a0f0a]/80"></div>
 
 	<!-- Organic radial accents -->
 	<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(74,222,128,0.06),transparent_60%)] blur-3xl"></div>
@@ -129,9 +129,9 @@ const networkIcons: Record<string, string> = {
 
 		<!-- Executive Summary -->
 		{summary && (
-			<div class="hero-element mt-12 max-w-3xl">
+			<div class="hero-element mt-12">
 				<div class="organic-divider mb-6"></div>
-				<p class="text-base leading-relaxed text-white/80" style="font-family: var(--font-sans); font-weight: 300;">
+				<p class="text-base leading-relaxed text-white/90" style="font-family: var(--font-sans); font-weight: 300;">
 					{summary}
 				</p>
 			</div>
@@ -140,7 +140,7 @@ const networkIcons: Record<string, string> = {
 		<!-- Scroll indicator -->
 		<div class="hero-element mt-16 flex flex-col items-center gap-2">
 			<span class="text-[10px] tracking-[0.4em] uppercase text-white/20" style="font-family: var(--font-mono);">scroll</span>
-			<div class="w-px h-8 bg-gradient-to-b from-[#4ade80]/30 to-transparent scroll-line"></div>
+			<div class="w-px h-8 bg-linear-to-b from-[#4ade80]/30 to-transparent scroll-line"></div>
 		</div>
 	</div>
 </header>

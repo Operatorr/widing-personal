@@ -32,8 +32,8 @@ const interestColors = ['#4ade80', '#c084fc', '#f472b6', '#22d3ee', '#60a5fa'];
 			class="w-full h-full object-cover opacity-30"
 			loading="lazy"
 		/>
-		<div class="absolute inset-0 bg-gradient-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
-		<div class="absolute inset-0 bg-gradient-to-t from-[#0a0f0a] via-transparent to-transparent opacity-80"></div>
+		<div class="absolute inset-0 bg-linear-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
+		<div class="absolute inset-0 bg-linear-to-t from-[#0a0f0a] via-transparent to-transparent opacity-80"></div>
 	</div>
 
 	<div class="relative z-10 max-w-4xl mx-auto">
@@ -120,30 +120,10 @@ const interestColors = ['#4ade80', '#c084fc', '#f472b6', '#22d3ee', '#60a5fa'];
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 
-	// Parallax on the background image
-	const bgImg = document.querySelector('#interests img');
-	if (bgImg) {
-		gsap.to(bgImg, {
-			yPercent: 20,
-			ease: 'none',
-			scrollTrigger: {
-				trigger: '#interests',
-				start: 'top bottom',
-				end: 'bottom top',
-				scrub: 1,
-			}
-		});
-	}
-
-	document.querySelectorAll('.interest-card').forEach((card, i) => {
-		gsap.fromTo(card,
-			{ opacity: 0, y: 30 },
-			{
-				opacity: 1, y: 0, duration: 0.6,
-				delay: (i % 2) * 0.1,
-				ease: 'power3.out',
-				scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
-			}
-		);
+	gsap.set('.interest-card', { opacity: 0, y: 30 });
+	ScrollTrigger.batch('.interest-card', {
+		start: 'top 88%',
+		onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }),
+		once: true,
 	});
 </script>

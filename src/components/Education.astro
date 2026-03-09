@@ -82,15 +82,10 @@ const formatYear = (dateStr?: string) => {
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  document.querySelectorAll('.edu-card').forEach((card, i) => {
-    gsap.fromTo(card,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1, y: 0, duration: 0.6,
-        delay: (i % 2) * 0.1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
-      }
-    );
+  gsap.set('.edu-card', { opacity: 0, y: 30 });
+  ScrollTrigger.batch('.edu-card', {
+    start: 'top 88%',
+    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }),
+    once: true,
   });
 </script>

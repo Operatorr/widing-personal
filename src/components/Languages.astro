@@ -75,30 +75,18 @@ const getBarColor = (language: string) => {
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 
-	// Animate language bars
-	document.querySelectorAll('.lang-bar').forEach((bar) => {
-		const targetWidth = (bar as HTMLElement).dataset.width + '%';
-		gsap.to(bar, {
-			width: targetWidth,
-			duration: 1.2,
-			ease: 'power3.out',
-			scrollTrigger: {
-				trigger: bar,
-				start: 'top 90%',
-				toggleActions: 'play none none none',
-			}
-		});
-	});
-
-	document.querySelectorAll('.lang-card').forEach((card, i) => {
-		gsap.fromTo(card,
-			{ opacity: 0, y: 20 },
-			{
-				opacity: 1, y: 0, duration: 0.5,
-				delay: i * 0.1,
-				ease: 'power3.out',
-				scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
-			}
-		);
+	// Batch language cards and bars into single triggers
+	gsap.set('.lang-card', { opacity: 0, y: 20 });
+	ScrollTrigger.batch('.lang-card', {
+		start: 'top 88%',
+		onEnter: (batch) => {
+			gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' });
+			// Animate bars inside entering cards
+			batch.forEach((card: Element) => {
+				const bar = card.querySelector('.lang-bar') as HTMLElement;
+				if (bar) gsap.to(bar, { width: bar.dataset.width + '%', duration: 1.2, ease: 'power3.out' });
+			});
+		},
+		once: true,
 	});
 </script>
