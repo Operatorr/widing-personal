@@ -191,6 +191,8 @@
 				"JWT Authentication",
 				"OAuth2",
 				"WorkOS",
+				"Clerk",
+				"Neon",
 				"Rate Limiting",
 				"API Security"
 			]
@@ -207,6 +209,7 @@
 				"Livewire",
 				"Next.js",
 				"Astro",
+				"TanStack Start",
 				"TailwindCSS",
 				"SSR/SSG",
 				"Vite",
@@ -241,7 +244,9 @@
 				"Docker",
 				"CI/CD",
 				"Vercel",
+				"Netlify",
 				"Cloudflare",
+				"Cloudflare Workers",
 				"SSL/TLS (Let's Encrypt)",
 				"Database Backups & Recovery",
 				"S3 Object Storage",
