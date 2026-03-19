@@ -98,6 +98,12 @@ const { title, description } = Astro.props;
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // Detect reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Feature flag — set to true to re-enable floating code snippets
+  const SHOW_SNIPPETS = false;
+
   // Section-scoped floating code snippets — Python3 LeetCode solutions
   interface Snippet {
     code: string;
@@ -195,6 +201,9 @@ const { title, description } = Astro.props;
     return html;
   }
 
+  // --- Everything below this line is gated on SHOW_SNIPPETS ---
+  if (SHOW_SNIPPETS) {
+
   // Modal state
   let isModalOpen = false;
   let activeSnippetEl: HTMLElement | null = null;
@@ -226,10 +235,6 @@ const { title, description } = Astro.props;
   const modalDesc = document.getElementById('modal-desc')!;
   const modalCode = document.getElementById('modal-code')!;
   const modalClose = document.getElementById('modal-close')!;
-
-  // Detect reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
 
   function showModalDirectly(snippetEl: HTMLElement) {
     gsap.to(snippetEl, { opacity: 0.1, duration: 0.15 });
@@ -431,41 +436,6 @@ const { title, description } = Astro.props;
     });
   }
 
-  // Parallax background layers — single timeline with one ScrollTrigger
-  if (!prefersReducedMotion) {
-    const deepLayer = document.getElementById('parallax-deep');
-    const midLayer = document.getElementById('parallax-mid');
-
-    if (deepLayer && midLayer) {
-      const parallaxTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: 'body',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-        }
-      });
-      parallaxTl.to(deepLayer, { yPercent: -15, ease: 'none' }, 0);
-      parallaxTl.to(midLayer, { yPercent: -30, ease: 'none' }, 0);
-    }
-  }
-
-  // Section reveals — batched
-  const sections = document.querySelectorAll('.section-reveal');
-  if (prefersReducedMotion) {
-    sections.forEach((section) => {
-      (section as HTMLElement).style.opacity = '1';
-      (section as HTMLElement).style.transform = 'none';
-    });
-  } else {
-    gsap.set('.section-reveal', { opacity: 0, y: 60 });
-    ScrollTrigger.batch('.section-reveal', {
-      start: 'top 85%',
-      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power3.out' }),
-      once: true,
-    });
-  }
-
   // Mouse interaction: activate code blocks on proximity (optimized, skip for reduced motion)
   if (!prefersReducedMotion) {
     // Track visible code blocks with IntersectionObserver
@@ -545,4 +515,43 @@ const { title, description } = Astro.props;
       });
     });
   }
+
+  } // end SHOW_SNIPPETS
+
+  // Parallax background layers — single timeline with one ScrollTrigger
+  if (!prefersReducedMotion) {
+    const deepLayer = document.getElementById('parallax-deep');
+    const midLayer = document.getElementById('parallax-mid');
+
+    if (deepLayer && midLayer) {
+      const parallaxTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1,
+        }
+      });
+      parallaxTl.to(deepLayer, { yPercent: -15, ease: 'none' }, 0);
+      parallaxTl.to(midLayer, { yPercent: -30, ease: 'none' }, 0);
+    }
+  }
+
+  // Section reveals — batched
+  const sections = document.querySelectorAll('.section-reveal');
+  if (prefersReducedMotion) {
+    sections.forEach((section) => {
+      (section as HTMLElement).style.opacity = '1';
+      (section as HTMLElement).style.transform = 'none';
+    });
+  } else {
+    gsap.set('.section-reveal', { opacity: 0, y: 60 });
+    ScrollTrigger.batch('.section-reveal', {
+      start: 'top 85%',
+      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power3.out' }),
+      once: true,
+    });
+  }
+
+
 </script>
