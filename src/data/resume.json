@@ -285,14 +285,6 @@
 				"Technical Documentation",
 				"Agile/Scrum"
 			]
-		},
-		{
-			"name": "CMS & Platforms",
-			"level": "Advanced",
-			"keywords": [
-				"WordPress",
-				"Custom CMS Development"
-			]
 		}
 	],
 	"languages": [

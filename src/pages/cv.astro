@@ -181,31 +181,44 @@ const mainWork = work;
     </section>
   )}
 
-  <!-- Controls (hidden in print) -->
-  <div class="no-print fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] border-t border-gray-200 p-3 space-y-2">
-    <div class="flex flex-wrap gap-2 items-center">
-      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide mr-auto">Contact Info (saved locally)</p>
-      <a href="/" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1.5 text-sm font-medium transition-colors">
-        ← Back
-      </a>
-      <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1.5 text-sm font-medium transition-colors">
-        Print / Save PDF
-      </button>
-    </div>
-    <div class="flex gap-2">
+  <!-- Floating controls (hidden in print) -->
+  <div class="no-print fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    <div id="contact-panel" class="hidden bg-white rounded-lg shadow-lg border border-gray-200 p-4 w-72 space-y-3">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide">Contact Info</p>
+      <p class="text-xs text-gray-400 -mt-1">This is for the site owner to add contact details before printing to PDF.</p>
       <input
         type="email"
         id="email-input"
         placeholder="Email"
-        class="text-sm border border-gray-300 px-2 py-1 flex-1 min-w-0 focus:outline-none focus:border-gray-500"
+        class="text-sm border border-gray-300 rounded px-2 py-1.5 w-full focus:outline-none focus:border-gray-500"
       />
       <input
         type="tel"
         id="phone-input"
         placeholder="Phone"
-        class="text-sm border border-gray-300 px-2 py-1 flex-1 min-w-0 focus:outline-none focus:border-gray-500"
+        class="text-sm border border-gray-300 rounded px-2 py-1.5 w-full focus:outline-none focus:border-gray-500"
       />
+      <div class="flex gap-2 pt-1">
+        <a href="/" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1.5 text-sm font-medium rounded transition-colors">
+          ← Back
+        </a>
+        <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1.5 text-sm font-medium rounded transition-colors ml-auto">
+          Print / Save PDF
+        </button>
+      </div>
     </div>
+    <button
+      id="contact-toggle"
+      class="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full shadow-lg flex items-center justify-center transition-colors"
+      aria-label="Toggle contact info"
+    >
+      <svg id="toggle-icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      </svg>
+      <svg id="toggle-icon-close" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
   </div>
 </PrintLayout>
 
@@ -217,6 +230,10 @@ const mainWork = work;
     const phoneDisplay = document.getElementById('phone-display');
     const emailValue = document.getElementById('email-value');
     const phoneValue = document.getElementById('phone-value');
+    const contactPanel = document.getElementById('contact-panel');
+    const contactToggle = document.getElementById('contact-toggle');
+    const iconOpen = document.getElementById('toggle-icon-open');
+    const iconClose = document.getElementById('toggle-icon-close');
 
     const savedEmail = localStorage.getItem('cv-email') || '';
     const savedPhone = localStorage.getItem('cv-phone') || '';
@@ -244,6 +261,12 @@ const mainWork = work;
     };
 
     updateDisplay();
+
+    contactToggle?.addEventListener('click', () => {
+      const opening = contactPanel?.classList.toggle('hidden') === false;
+      iconOpen?.classList.toggle('hidden', opening);
+      iconClose?.classList.toggle('hidden', !opening);
+    });
 
     emailInput?.addEventListener('input', () => {
       localStorage.setItem('cv-email', emailInput.value);
