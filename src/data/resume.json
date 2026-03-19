@@ -2,7 +2,7 @@
 	"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	"basics": {
 		"name": "Alexander Widing",
-		"label": "Lead Architect / Head of Engineering",
+		"label": "Lead Architect / Founding Engineer",
 		"image": "",
 		"url": "https://widing.dev/",
 		"summary": "Full-stack architect and engineering leader with over 11 years of experience owning end-to-end system architecture, from technology selection and design to production deployment. Currently focused on production AI engineering alongside SaaS architecture. Experience spanning enterprise platforms, multi-tenant systems, and leading cross-functional teams. I build systems and teams, from ERP suites and AI powered products to coaching athletes to national records.",
@@ -24,7 +24,7 @@
 			"name": "DxT Corporation Co., Ltd.",
 			"location": "Bangkok, Thailand",
 			"description": "SaaS startup developing Translation Management System",
-			"position": "Lead Architect / Head of Engineering",
+			"position": "Lead Architect / Founding Engineer",
 			"startDate": "2025-02",
 			"summary": "Leading technical vision and system architecture for enterprise-grade SaaS Translation Management System (TMS). Hands-on architect role combining system design with AI engineering implementation.",
 			"highlights": [

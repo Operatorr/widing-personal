@@ -15,125 +15,46 @@ const formatYear = (dateStr: string) => {
   return dateStr.split('-')[0];
 };
 
-// Show all work experience
 const mainWork = work;
-
-// Color scheme
-const primaryBg = 'bg-slate-600';
-const primaryText = 'text-slate-800';
-const accentBg = 'bg-teal-600';
-const accentText = 'text-teal-600';
-const accentLight = 'bg-teal-50';
 ---
 
 <PrintLayout title={`${basics.name} - CV`}>
-  <!-- Header with colored background -->
-  <header class={`${primaryBg} text-white px-4 py-4 mb-4`}>
-    <div class="max-w-none">
-      <div class="flex items-center gap-4">
-        <div class={`w-12 h-12 ${accentBg} flex items-center justify-center text-white text-xl font-bold shrink-0`}>
-          {basics.name.split(' ').map(n => n[0]).join('')}
-        </div>
-        <div class="flex-1">
-          <h1 class="text-2xl font-bold tracking-tight">{basics.name}</h1>
-          <p class="text-teal-300 font-medium">{basics.label}</p>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs text-slate-300">
-        <!-- Email (from localStorage) -->
-        <span id="email-display" class="hidden items-center gap-1 text-slate-100">
-          <svg class="w-3 h-3 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <rect width="20" height="16" x="2" y="4" rx="2"/>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-          </svg>
-          <span id="email-value"></span>
-        </span>
-        <!-- Phone (from localStorage) -->
-        <span id="phone-display" class="hidden items-center gap-1 text-slate-100">
-          <svg class="w-3 h-3 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          <span id="phone-value"></span>
-        </span>
-        {basics.location && (
-          <span class="flex items-center gap-1 text-slate-100">
-            <svg class="w-3 h-3 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            {basics.location.city}, {basics.location.countryCode}
-          </span>
-        )}
-        {basics.url && (
-          <a href={basics.url} class="flex items-center gap-1 text-slate-100 hover:text-white">
-            <svg class="w-3 h-3 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-              <path d="M2 12h20" />
-            </svg>
-            {basics.url.replace('https://', '')}
-          </a>
-        )}
-        {basics.profiles?.map((profile) => (
-          <a href={profile.url} class="flex items-center gap-1 text-slate-100 hover:text-white">
-            {profile.network === 'LinkedIn' && (
-              <svg class="w-3 h-3 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect width="4" height="12" x="2" y="9"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            )}
-            {profile.network === 'GitHub' && (
-              <svg class="w-3 h-3 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
-                <path d="M9 18c-4.51 2-5-2-7-2"/>
-              </svg>
-            )}
-            {profile.url.replace('https://', '').replace('linkedin.com/in/', 'linkedin.com/in/').replace('github.com/', 'github.com/')}
-          </a>
-        ))}
-      </div>
+  <!-- Header -->
+  <header class="mb-4 pb-3 border-b border-gray-300">
+    <h1 class="text-2xl font-bold text-black">{basics.name}</h1>
+    <p class="text-sm text-gray-600">{basics.label}</p>
+    <div class="mt-2 text-xs text-gray-700">
+      <span id="email-display" class="hidden"><span id="email-value"></span> | </span>
+      <span id="phone-display" class="hidden"><span id="phone-value"></span> | </span>
+      {basics.location && (
+        <span>{basics.location.city}, {basics.location.countryCode}</span>
+      )}
+      {basics.url && (
+        <span> | <a href={basics.url} class="text-gray-700">{basics.url.replace('https://', '')}</a></span>
+      )}
+      {basics.profiles?.map((profile) => (
+        <span> | <a href={profile.url} class="text-gray-700">{profile.url.replace('https://', '')}</a></span>
+      ))}
     </div>
   </header>
 
-  <!-- Summary with accent border -->
+  <!-- Summary -->
   {basics.summary && (
-    <section class={`mb-4 pl-3 border-l-4 border-teal-500 ${accentLight} py-2 pr-3 -mr-2`}>
-      <p class="text-sm text-zinc-700 leading-relaxed">{basics.summary}</p>
+    <section class="mb-4">
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Summary</h2>
+      <p class="text-xs text-black leading-relaxed">{basics.summary}</p>
     </section>
   )}
 
-  <!-- Skills with colored tags -->
+  <!-- Technical Skills -->
   {skills && skills.length > 0 && (
     <section class="mb-4">
-      <h2 class={`text-xs font-bold ${primaryText} uppercase tracking-wide mb-2 flex items-center gap-2`}>
-        <span class={`w-4 h-4 ${accentBg} flex items-center justify-center`}>
-          <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-            <path d="M12 2v4M6.343 7.757l-2.828-2.829M2 13h4M6.343 18.243l-2.828 2.829M12 18v4M17.657 18.243l2.828 2.829M18 13h4M17.657 7.757l2.828-2.829"/>
-          </svg>
-        </span>
-        Technical Skills
-      </h2>
-      <div class="grid grid-cols-3 gap-2">
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Technical Skills</h2>
+      <div class="space-y-1">
         {skills.map((skill) => (
-          <div class="space-y-0.5">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-slate-800">{skill.name}</span>
-              {skill.level && (
-                <span class={`text-xs px-1 py-0 ${
-                  skill.level === 'Expert' ? 'bg-teal-100 text-teal-700' :
-                  skill.level === 'Advanced' ? 'bg-blue-100 text-blue-700' :
-                  'bg-amber-100 text-amber-700'
-                }`}>{skill.level}</span>
-              )}
-            </div>
-            <div class="flex flex-wrap gap-0.5">
-              {skill.keywords?.map((keyword) => (
-                <span class="text-xs bg-slate-100 text-slate-600 px-1 py-0">{keyword}</span>
-              ))}
-            </div>
-          </div>
+          <p class="text-xs text-black">
+            <span class="font-semibold">{skill.name}:</span> {skill.keywords?.join(', ')}
+          </p>
         ))}
       </div>
     </section>
@@ -142,41 +63,26 @@ const accentLight = 'bg-teal-50';
   <!-- Work Experience -->
   {mainWork && mainWork.length > 0 && (
     <section class="mb-4">
-      <h2 class={`text-xs font-bold ${primaryText} uppercase tracking-wide mb-2 flex items-center gap-2`}>
-        <span class={`w-4 h-4 ${accentBg} flex items-center justify-center`}>
-          <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-            <rect width="18" height="14" x="3" y="6" rx="2"/>
-            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-          </svg>
-        </span>
-        Work Experience
-      </h2>
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Work Experience</h2>
       <div class="space-y-3">
-        {mainWork.map((job, index) => (
-          <div class={`avoid-break relative pl-3 border-l-2 border-slate-200 ${index < mainWork.length - 1 ? 'pb-3' : ''}`}>
-            <div class={`absolute -left-[5px] top-1 w-2 h-2 ${accentBg} rounded-full`}></div>
+        {mainWork.map((job) => (
+          <div class="avoid-break">
             <div class="flex justify-between items-start">
-              <div>
-                <h3 class="font-semibold text-zinc-900 text-sm">{job.position}</h3>
-                <p class="text-xs">
-                  <span class={`font-medium ${accentText}`}>{job.name}</span>
-                  {job.location && <span class="text-zinc-400"> · {job.location}</span>}
-                </p>
-              </div>
-              <span class={`text-xs text-white font-medium whitespace-nowrap ml-4 ${primaryBg} px-2 py-0.5`}>
+              <h3 class="font-semibold text-black text-sm">{job.position}</h3>
+              <span class="text-xs text-gray-600 whitespace-nowrap ml-4">
                 {formatDate(job.startDate)} – {job.endDate ? formatDate(job.endDate) : 'Present'}
               </span>
             </div>
+            <p class="text-xs text-gray-700">
+              {job.name}{job.location && ` · ${job.location}`}
+            </p>
             {job.summary && (
-              <p class="text-xs text-zinc-600 mt-0.5">{job.summary}</p>
+              <p class="text-xs text-gray-700 mt-0.5">{job.summary}</p>
             )}
             {job.highlights && job.highlights.length > 0 && (
-              <ul class="mt-1 text-xs text-zinc-600 space-y-0">
+              <ul class="list-disc list-outside ml-4 mt-1 text-xs text-gray-700 space-y-0">
                 {job.highlights.map((highlight) => (
-                  <li class="flex items-start gap-1.5">
-                    <span class={`${accentText} mt-0.5 font-bold`}>›</span>
-                    <span>{highlight}</span>
-                  </li>
+                  <li>{highlight}</li>
                 ))}
               </ul>
             )}
@@ -186,49 +92,37 @@ const accentLight = 'bg-teal-50';
     </section>
   )}
 
-  <!-- Projects -->
+  <!-- Selected Projects -->
   {projects && projects.length > 0 && (
     <section class="mb-4">
-      <h2 class={`text-xs font-bold ${primaryText} uppercase tracking-wide mb-2 flex items-center gap-2`}>
-        <span class={`w-4 h-4 ${accentBg} flex items-center justify-center`}>
-          <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-        </span>
-        Selected Projects
-      </h2>
-      <div class="space-y-2.5">
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Selected Projects</h2>
+      <div class="space-y-3">
         {projects.slice(0, 4).map((project) => (
-          <div class={`avoid-break p-2 border border-slate-200 bg-slate-50/50`}>
+          <div class="avoid-break">
             <div class="flex justify-between items-start">
               <div>
-                <h3 class={`font-semibold ${primaryText} text-xs inline`}>{project.name}</h3>
-                {project.entity && <span class="text-xs text-zinc-500"> at {project.entity}</span>}
+                <h3 class="font-semibold text-black text-xs inline">{project.name}</h3>
+                {project.entity && <span class="text-xs text-gray-600"> at {project.entity}</span>}
                 {project.roles && project.roles.length > 0 && (
-                  <span class={`text-xs ${accentText} font-medium`}> — {project.roles.join(', ')}</span>
+                  <span class="text-xs text-gray-600"> — {project.roles.join(', ')}</span>
                 )}
               </div>
-              <span class="text-xs text-zinc-500 whitespace-nowrap ml-4">
+              <span class="text-xs text-gray-600 whitespace-nowrap ml-4">
                 {formatYear(project.startDate)}{project.endDate && ` – ${formatYear(project.endDate)}`}
               </span>
             </div>
-            <p class="text-xs text-zinc-600 mt-0.5">{project.description}</p>
+            <p class="text-xs text-gray-700 mt-0.5">{project.description}</p>
             {project.highlights && project.highlights.length > 0 && (
-              <ul class="mt-0.5 text-xs text-zinc-600 space-y-0">
+              <ul class="list-disc list-outside ml-4 mt-1 text-xs text-gray-700 space-y-0">
                 {project.highlights.map((highlight) => (
-                  <li class="flex items-start gap-1.5">
-                    <span class={`${accentText} mt-0.5 font-bold`}>›</span>
-                    <span>{highlight}</span>
-                  </li>
+                  <li>{highlight}</li>
                 ))}
               </ul>
             )}
             {project.keywords && project.keywords.length > 0 && (
-              <div class="flex flex-wrap gap-1 mt-1">
-                {project.keywords.map((keyword) => (
-                  <span class={`text-xs ${accentLight} ${accentText} px-1.5 py-0.5 font-medium`}>{keyword}</span>
-                ))}
-              </div>
+              <p class="text-xs text-gray-600 mt-1">
+                <span class="font-semibold">Technologies:</span> {project.keywords.join(', ')}
+              </p>
             )}
           </div>
         ))}
@@ -236,129 +130,86 @@ const accentLight = 'bg-teal-50';
     </section>
   )}
 
-  <!-- Education & Certifications side by side -->
-  <div class="grid grid-cols-2 gap-6 mb-3">
-    <!-- Education -->
-    {education && education.length > 0 && (
-      <section>
-        <h2 class={`text-xs font-bold ${primaryText} uppercase tracking-wide mb-2 flex items-center gap-2`}>
-          <span class={`w-4 h-4 ${accentBg} flex items-center justify-center`}>
-            <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-              <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
-            </svg>
-          </span>
-          Education
-        </h2>
-        <div class="space-y-2">
-          {education.slice(0, 3).map((edu) => (
-            <div class="avoid-break pl-3 border-l-2 border-teal-200">
-              <h3 class="font-medium text-zinc-900 text-xs">{edu.studyType}</h3>
-              <p class={`text-xs ${accentText}`}>{edu.area}</p>
-              <p class="text-xs text-zinc-500">{edu.institution} · {formatYear(edu.startDate)}–{formatYear(edu.endDate)}</p>
+  <!-- Education -->
+  {education && education.length > 0 && (
+    <section class="mb-4">
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Education</h2>
+      <div class="space-y-2">
+        {education.slice(0, 3).map((edu) => (
+          <div class="avoid-break flex justify-between items-start">
+            <div>
+              <h3 class="font-medium text-black text-xs">{edu.studyType} in {edu.area}</h3>
+              <p class="text-xs text-gray-600">{edu.institution}</p>
             </div>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- Certifications -->
-    {certificates && certificates.length > 0 && (
-      <section>
-        <h2 class={`text-xs font-bold ${primaryText} uppercase tracking-wide mb-2 flex items-center gap-2`}>
-          <span class={`w-4 h-4 ${accentBg} flex items-center justify-center`}>
-            <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-              <circle cx="12" cy="8" r="6"/>
-              <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
-            </svg>
-          </span>
-          Certifications
-        </h2>
-        <div class="space-y-2">
-          {certificates.map((cert) => (
-            <div class="avoid-break pl-3 border-l-2 border-teal-200">
-              <h3 class="font-medium text-zinc-900 text-xs">{cert.name}</h3>
-              <p class="text-xs text-zinc-500">{cert.issuer} · {formatYear(cert.date)}</p>
-              {cert.highlights && cert.highlights.length > 0 && (
-                <p class={`text-xs ${accentText}`}>{cert.highlights.join(', ')}</p>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-    )}
-  </div>
-
-  <!-- Languages -->
-  {languages && languages.length > 0 && (
-    <section class="mb-3">
-      <h2 class={`text-xs font-bold ${primaryText} uppercase tracking-wide mb-2 flex items-center gap-2`}>
-        <span class={`w-4 h-4 ${accentBg} flex items-center justify-center`}>
-          <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-            <path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/>
-          </svg>
-        </span>
-        Languages
-      </h2>
-      <div class="flex flex-wrap gap-2">
-        {languages.map((lang) => (
-          <span class={`text-xs text-black px-2 py-1 ${
-            lang.language === 'Swedish' ? 'bg-green-500/30' :
-            lang.language === 'English' ? 'bg-blue-500/30' :
-            lang.language === 'Thai' ? 'bg-purple-500/30' :
-            'bg-gray-500/30'
-          }`}>
-            <span class="font-medium">{lang.language}</span>
-            <span class="opacity-80"> · {lang.fluency}</span>
-          </span>
+            <span class="text-xs text-gray-600 whitespace-nowrap ml-4">{formatYear(edu.startDate)} – {formatYear(edu.endDate)}</span>
+          </div>
         ))}
       </div>
     </section>
   )}
 
-  <!-- Contact info inputs (hidden in print) -->
-  <div class="no-print fixed bottom-6 left-6 bg-white shadow-lg border border-zinc-200 p-4 space-y-3">
-    <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide">Contact Info (saved locally)</p>
-    <div class="flex gap-3">
-      <div class="flex items-center gap-2">
-        <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <rect width="20" height="16" x="2" y="4" rx="2"/>
-          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-        </svg>
-        <input
-          type="email"
-          id="email-input"
-          placeholder="Email"
-          class="text-sm border border-zinc-300 px-2 py-1 w-44 focus:outline-none focus:border-teal-500"
-        />
+  <!-- Certifications -->
+  {certificates && certificates.length > 0 && (
+    <section class="mb-4">
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Certifications</h2>
+      <div class="space-y-2">
+        {certificates.map((cert) => (
+          <div class="avoid-break flex justify-between items-start">
+            <div>
+              <h3 class="font-medium text-black text-xs">{cert.name}</h3>
+              <p class="text-xs text-gray-600">{cert.issuer}</p>
+              {cert.highlights && cert.highlights.length > 0 && (
+                <p class="text-xs text-gray-600">{cert.highlights.join(', ')}</p>
+              )}
+            </div>
+            <span class="text-xs text-gray-600 whitespace-nowrap ml-4">{formatYear(cert.date)}</span>
+          </div>
+        ))}
       </div>
-      <div class="flex items-center gap-2">
-        <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
-        <input
-          type="tel"
-          id="phone-input"
-          placeholder="Phone"
-          class="text-sm border border-zinc-300 px-2 py-1 w-36 focus:outline-none focus:border-teal-500"
-        />
-      </div>
-    </div>
-  </div>
+    </section>
+  )}
 
-  <!-- Print button (hidden in print) -->
-  <div class="no-print fixed bottom-6 right-6 flex gap-2">
-    <a href="/" class="bg-zinc-200 hover:bg-zinc-300 text-zinc-800 px-4 py-2 text-sm font-medium shadow-lg transition-colors">
-      ← Back to site
-    </a>
-    <button onclick="window.print()" class={`${accentBg} hover:bg-teal-700 text-white px-4 py-2 text-sm font-medium shadow-lg transition-colors`}>
-      Print / Save PDF
-    </button>
+  <!-- Languages -->
+  {languages && languages.length > 0 && (
+    <section class="mb-3">
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Languages</h2>
+      <p class="text-xs text-black">
+        {languages.map((lang, i) => (
+          <span>{lang.language} ({lang.fluency}){i < languages.length - 1 ? ' | ' : ''}</span>
+        ))}
+      </p>
+    </section>
+  )}
+
+  <!-- Controls (hidden in print) -->
+  <div class="no-print fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] border-t border-gray-200 p-3 space-y-2">
+    <div class="flex flex-wrap gap-2 items-center">
+      <p class="text-xs font-medium text-gray-500 uppercase tracking-wide mr-auto">Contact Info (saved locally)</p>
+      <a href="/" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1.5 text-sm font-medium transition-colors">
+        ← Back
+      </a>
+      <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1.5 text-sm font-medium transition-colors">
+        Print / Save PDF
+      </button>
+    </div>
+    <div class="flex gap-2">
+      <input
+        type="email"
+        id="email-input"
+        placeholder="Email"
+        class="text-sm border border-gray-300 px-2 py-1 flex-1 min-w-0 focus:outline-none focus:border-gray-500"
+      />
+      <input
+        type="tel"
+        id="phone-input"
+        placeholder="Phone"
+        class="text-sm border border-gray-300 px-2 py-1 flex-1 min-w-0 focus:outline-none focus:border-gray-500"
+      />
+    </div>
   </div>
 </PrintLayout>
 
 <script>
-  // Load from localStorage on page load
   document.addEventListener('DOMContentLoaded', () => {
     const emailInput = document.getElementById('email-input') as HTMLInputElement;
     const phoneInput = document.getElementById('phone-input') as HTMLInputElement;
@@ -367,41 +218,33 @@ const accentLight = 'bg-teal-50';
     const emailValue = document.getElementById('email-value');
     const phoneValue = document.getElementById('phone-value');
 
-    // Load saved values
     const savedEmail = localStorage.getItem('cv-email') || '';
     const savedPhone = localStorage.getItem('cv-phone') || '';
 
     if (emailInput) emailInput.value = savedEmail;
     if (phoneInput) phoneInput.value = savedPhone;
 
-    // Update display
     const updateDisplay = () => {
       const email = emailInput?.value || '';
       const phone = phoneInput?.value || '';
 
       if (email && emailDisplay && emailValue) {
-        emailDisplay.classList.remove('hidden');
-        emailDisplay.classList.add('flex');
+        emailDisplay.style.display = 'inline';
         emailValue.textContent = email;
       } else if (emailDisplay) {
-        emailDisplay.classList.add('hidden');
-        emailDisplay.classList.remove('flex');
+        emailDisplay.style.display = 'none';
       }
 
       if (phone && phoneDisplay && phoneValue) {
-        phoneDisplay.classList.remove('hidden');
-        phoneDisplay.classList.add('flex');
+        phoneDisplay.style.display = 'inline';
         phoneValue.textContent = phone;
       } else if (phoneDisplay) {
-        phoneDisplay.classList.add('hidden');
-        phoneDisplay.classList.remove('flex');
+        phoneDisplay.style.display = 'none';
       }
     };
 
-    // Initial display update
     updateDisplay();
 
-    // Save to localStorage and update display on input
     emailInput?.addEventListener('input', () => {
       localStorage.setItem('cv-email', emailInput.value);
       updateDisplay();
