@@ -2,10 +2,10 @@
 	"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	"basics": {
 		"name": "Alexander Widing",
-		"label": "Lead Architect / Founding Engineer",
+		"label": "Solutions Architect / Founding Engineer",
 		"image": "",
 		"url": "https://widing.dev/",
-		"summary": "Full-stack architect and engineering leader with over 11 years of experience owning end-to-end system architecture, from technology selection and design to production deployment. Currently focused on production AI engineering alongside SaaS architecture. Experience spanning enterprise platforms, multi-tenant systems, and leading cross-functional teams. I build systems and teams, from ERP suites and AI powered products to coaching athletes to national records.",
+		"summary": "Solutions Architect and engineering leader with over 11 years of experience owning end-to-end system architecture — from technology and cloud platform selection to production deployment. Currently focused on designing and delivering production AI/ML solutions (RAG, LLMs, and AI agents) alongside scalable, maintainable multi-tenant SaaS architecture. Experience spanning enterprise platforms, client-facing consulting, and leading cross-functional teams. I build systems and teams, from ERP suites and AI powered products to coaching athletes to national records.",
 		"location": {
 			"city": "Bangkok",
 			"countryCode": "TH",
@@ -28,14 +28,14 @@
 			"startDate": "2025-02",
 			"summary": "Leading technical vision and system architecture for enterprise-grade SaaS Translation Management System (TMS). Hands-on architect role combining system design with AI engineering implementation.",
 			"highlights": [
-				"Designed end-to-end system architecture including technology stack selection, data models, API design, and functional workflows",
-				"Set organization-wide technical direction and architecture standards as strategic partner to CEO",
-				"Built production RAG pipeline integrating vector search with LLM generation for AI-powered workflows",
-				"Implemented evaluation frameworks to score and measure LLM output quality, with human evaluation loops",
-				"Engineered prompt versioning system and hallucination mitigation strategies for reliable LLM outputs",
-				"Define technology stack, coding standards, and CI/CD pipelines for scalable multi-tenant SaaS architecture",
-				"Own full product lifecycle from requirements to production monitoring, hands-on with code daily",
-				"Lead cross-functional team of 5 spanning engineering, product, QA, and project management"
+				"Led the architecture design and implementation of an end-to-end AI/ML solution, owning technology stack and cloud platform selection, data models, and API design to integrate data, models, and infrastructure into a cohesive system",
+				"Provided cross-team architectural leadership as strategic partner to the CEO, setting technical direction, design principles, and standards to ensure consistency across the engineering team",
+				"Designed and delivered production RAG pipelines and agentic AI workflows (LLM-driven AI agents) to automate core client workflows, integrating vector retrieval, context injection, and LLM generation",
+				"Built evaluation frameworks with human-in-the-loop review to score and continuously improve LLM output quality",
+				"Engineered a prompt-versioning system and hallucination-mitigation strategies to deliver reliable, production-grade LLM outputs",
+				"Drove adoption of engineering methodologies, frameworks, and standards (coding standards, CI/CD) to build a scalable and maintainable multi-tenant SaaS architecture",
+				"Balanced hands-on technical execution with long-term architectural vision, owning the full solution lifecycle from requirements to production monitoring",
+				"Mentored and guided a cross-functional team of 5 across engineering, product, QA, and project management, translating business needs into robust technical solutions"
 			]
 		},
 		{
@@ -47,11 +47,11 @@
 			"endDate": "2025-01",
 			"summary": "Led development team at digital agency, delivering custom systems and websites for clients across diverse industries.",
 			"highlights": [
-				"Architected and delivered web solutions and custom e-commerce platforms for clients, integrating third-party APIs and payment systems",
-				"Designed and deployed infrastructure architecture for regional airline websites serving China and Taiwan markets",
-				"Built and documented full REST API with OpenAPI/Swagger specification for airline client",
-				"Led technical direction for small engineering team while remaining hands-on with code",
-				"Managed DevOps responsibilities including server or compute provisioning, deployment automation, and production monitoring"
+				"Led client-facing solution architecture and delivery of web and custom e-commerce platforms, integrating third-party APIs and payment systems to meet client business objectives",
+				"Designed and deployed scalable cloud infrastructure for regional airline websites serving the China and Taiwan markets, delivering across multiple geographies and cultures",
+				"Built and documented a full REST API with OpenAPI/Swagger specification, aligning the technical design with client stakeholders",
+				"Provided technical and architectural leadership for a small engineering team while remaining hands-on with code",
+				"Owned DevOps delivery including compute provisioning, deployment automation, and production monitoring across client solutions"
 			]
 		},
 		{
@@ -63,7 +63,7 @@
 			"endDate": "2021-01",
 			"summary": "Designed and developed suite of internal corporate systems and client-facing applications.",
 			"highlights": [
-				"Designed and developed suite of internal corporate systems including ERP, CRM, Accounting, Project Management, and HRM modules — adopted company-wide, reducing operational overhead by 90% for executive, sales, and project management teams",
+				"Translated business needs from executive, sales, and project-management stakeholders into an integrated suite of corporate systems (ERP, CRM, Accounting, Project Management, and HRM) — adopted company-wide with clear business impact, reducing operational overhead by 90%",
 				"Gained hands-on corporate finance and accounting knowledge through mentorship while building an accounting system, learning financial workflows, reporting, and compliance requirements",
 				"Migrated legacy systems to modern frameworks, reducing maintenance overhead and improving performance",
 				"Managed production databases with business-critical data, implementing backup and recovery procedures"
@@ -222,6 +222,8 @@
 			"level": "Advanced",
 			"keywords": [
 				"RAG Pipelines",
+				"AI Agents",
+				"Agentic Workflows",
 				"LLM Integration (Production)",
 				"Prompt Engineering",
 				"Prompt Versioning",
@@ -522,7 +524,7 @@
 	],
 	"meta": {
 		"version": "v1.0.0",
-		"lastModified": "2025-12-19",
+		"lastModified": "2026-06-02",
 		"theme": "elegant"
 	}
 }
