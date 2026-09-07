@@ -1,0 +1,38 @@
+---
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume, techWork, dateRange, duration, formatDate } from '../../../lib/resume';
+import { DEPTHS, roleDepth, depthLabel } from '../depth';
+const work = techWork();
+const prior = resume.work.find((w) => w.name === 'Prior non-tech experience');
+---
+
+<Section id="experience" depth={DEPTHS.experienceTop} from={DEPTHS.experienceTop} to={DEPTHS.projects}>
+  <SectionHead id="experience-h" title="Experience" depth={DEPTHS.experienceTop} lead="Each role a little deeper. The current one is at the top." />
+  <ol class="descent list">
+    {work.map((w, i) => {
+      const d = roleDepth(i, work.length);
+      const current = !w.endDate;
+      return (
+        <li class={`role ${current ? 'is-current' : 'is-past'}`} data-depth={d}>
+          <p class="role-top">
+            <span class="depth">{depthLabel(d)}</span>
+            <span class="dates">{dateRange(w.startDate, w.endDate)}</span>
+            <span class="dur">{duration(w.startDate, w.endDate)}</span>
+          </p>
+          <h3>{w.position}</h3>
+          <p class="org"><strong>{w.name}</strong> · {w.location}{w.description && ` · ${w.description}`}</p>
+          {w.summary && <p class="role-sum">{w.summary}</p>}
+          {w.highlights && (
+            <ul>
+              {w.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+  {prior && (
+    <p class="prior">Before software: {prior.position}, {prior.location}, {formatDate(prior.startDate)} to {formatDate(prior.endDate)}.</p>
+  )}
+</Section>

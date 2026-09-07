@@ -1,0 +1,15 @@
+---
+import { resume } from '../../../lib/resume';
+const year = new Date().getFullYear();
+---
+
+<footer class="foot zone" style="--from:#020509;--to:#020509">
+  <div class="wrap">
+    <p style="margin:0">© {year} {resume.basics.name}</p>
+    <p style="margin:0">
+      Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>.
+      Data in <a href="https://jsonresume.org" target="_blank" rel="noopener noreferrer">JSON Resume</a> format.
+      <a href="/cv">Print version</a>.
+    </p>
+  </div>
+</footer>

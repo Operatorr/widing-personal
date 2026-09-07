@@ -54,12 +54,23 @@ Edit `src/data/resume.json` to update your CV content. The file follows the [JSO
 
 ```
 src/
-  pages/index.astro       Main page
+  pages/index.astro       Main page (current live design)
+  pages/cv.astro          Print page
+  pages/versions.astro    Picker for the three candidate redesigns
+  pages/v/                One route per candidate redesign
+  versions/               Candidate redesigns: ledger, depth, blueprint, descent
   layouts/                Page layouts
   components/             Resume section components
+  lib/resume.ts           Typed resume data and date helpers
   data/resume.json        CV data
   styles/global.css       Global styles
 ```
+
+## Candidate redesigns
+
+Four full redesigns live at `/v/ledger`, `/v/depth`, `/v/blueprint` and `/v/descent`, with a picker at
+`/versions`. See [docs/redesign-versions.md](docs/redesign-versions.md) for the direction of each
+and the steps to keep one.
 
 ## License
 

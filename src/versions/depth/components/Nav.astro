@@ -1,0 +1,36 @@
+---
+import { Icon } from 'astro-icon/components';
+interface Props { linkedin: string }
+const { linkedin } = Astro.props;
+const links = [
+  { href: '#experience', label: 'Experience', depth: '10 m' },
+  { href: '#projects', label: 'Projects', depth: '50 m' },
+  { href: '#skills', label: 'Skills', depth: '70 m' },
+  { href: '#contact', label: 'Contact', depth: '100 m' },
+];
+---
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="#top" aria-label="Alexander Widing, back to top">AW</a>
+    <nav aria-label="Sections" class="flex items-center gap-6">
+      <ul class="nav-links">
+        {links.map((l) => (<li><a href={l.href}>{l.label}</a></li>))}
+      </ul>
+      <a class="btn btn-coral btn-sm" href={linkedin} target="_blank" rel="noopener noreferrer">
+        Get in touch
+        <Icon name="solar:arrow-right-up-linear" aria-hidden="true" />
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <Icon name="solar:hamburger-menu-linear" class="ico-open" aria-hidden="true" />
+        <Icon name="solar:close-circle-linear" class="ico-close" aria-hidden="true" />
+      </button>
+    </nav>
+  </div>
+</header>
+<div id="nav-menu" class="nav-menu" hidden>
+  <ul>
+    {links.map((l) => (<li><a href={l.href}>{l.label}<span>{l.depth}</span></a></li>))}
+    <li><a href="/cv">Print résumé<span>PDF</span></a></li>
+  </ul>
+</div>

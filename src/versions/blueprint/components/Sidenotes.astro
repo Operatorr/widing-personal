@@ -1,0 +1,36 @@
+---
+import { resume } from '../../../lib/resume';
+import SectionHead from './SectionHead.astro';
+
+const { languages, interests } = resume;
+---
+
+<section id="languages" class="section" aria-labelledby="languages-h">
+  <div class="wrap">
+    <SectionHead id="languages-h" ref="NOTE 2" title="Notes" note="languages and off-hours" />
+    <div class="cols">
+      <div data-reveal>
+        <h3 class="h3 t-label">Languages</h3>
+        <dl class="dl">
+          {languages.map((l) => (
+            <div>
+              <dt>{l.language}</dt>
+              <dd>{l.fluency}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <div data-reveal>
+        <h3 class="h3 t-label">Interests</h3>
+        <dl class="dl">
+          {interests.map((i) => (
+            <div>
+              <dt>{i.name}</dt>
+              <dd>{i.keywords.join('; ')}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

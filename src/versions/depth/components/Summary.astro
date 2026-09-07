@@ -1,0 +1,19 @@
+---
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume, yearsOfExperience, techWork } from '../../../lib/resume';
+import { DEPTHS } from '../depth';
+const years = yearsOfExperience();
+const roles = techWork().length;
+const records = 2;
+---
+
+<Section id="summary" depth={DEPTHS.summary} from={DEPTHS.hero} to={DEPTHS.experienceTop}>
+  <SectionHead id="summary-h" title="Summary" depth={DEPTHS.summary} />
+  <p class="lede">{resume.basics.summary}</p>
+  <dl class="summary-facts">
+    <div><dt>Years in software</dt><dd>{years}+</dd></div>
+    <div><dt>Roles</dt><dd>{roles}</dd></div>
+    <div><dt>National records coached</dt><dd>{records}</dd></div>
+  </dl>
+</Section>

@@ -1,0 +1,29 @@
+---
+import SectionHead from './SectionHead.astro';
+import { resume } from '../../../lib/resume';
+import { DEPTHS, zoneStyle } from '../depth';
+---
+<section
+  class="sheet zone"
+  id="skills"
+  aria-labelledby="skills-title"
+  data-depth={DEPTHS.skills}
+  style={zoneStyle(DEPTHS.skills, DEPTHS.education)}
+>
+  <div class="wrap">
+    <SectionHead id="skills-title" title="Skills" depth={DEPTHS.skills} />
+    <div class="index">
+      {resume.skills.map((s) => (
+        <div class="index__group" data-reveal>
+          <div class="index__head">
+            <h3 class="index__name">{s.name}</h3>
+            <span class="index__level">{s.level}</span>
+          </div>
+          <ul class="index__list">
+            {s.keywords.map((k) => <li>{k}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

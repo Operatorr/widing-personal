@@ -1,0 +1,33 @@
+---
+import SectionHead from './SectionHead.astro';
+import { resume, dateRange } from '../../../lib/resume';
+
+const spans = [7, 5, 4, 8, 6, 6];
+const projects = resume.projects;
+---
+<section class="sheet" id="projects" aria-labelledby="projects-title">
+  <div class="wrap">
+    <SectionHead id="projects-title" number="03" title="Projects" total="07" />
+    <div class="projects">
+      {projects.map((p, i) => (
+        <article class="project" style={`--span:${spans[i % spans.length]}`} data-reveal>
+          <div class="project__top">
+            <span class="mono">No. {String(i + 1).padStart(2, '0')}</span>
+            <span class="mono">{dateRange(p.startDate, p.endDate, 'ongoing')}</span>
+          </div>
+          <h3 class="project__name">{p.name}</h3>
+          <p class="project__by">
+            {p.roles.join(', ')}{p.entity ? ` · ${p.entity}` : ''}
+          </p>
+          <p class="project__desc">{p.description}</p>
+          <ul class="hl">
+            {p.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+          <ul class="tags" aria-label="Keywords">
+            {p.keywords.map((k) => <li>{k}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+---
+import SectionHead from './SectionHead.astro';
+import { resume } from '../../../lib/resume';
+---
+<section class="sheet" id="skills" aria-labelledby="skills-title">
+  <div class="wrap">
+    <SectionHead id="skills-title" number="04" title="Skills" total="07" />
+    <div class="index">
+      {resume.skills.map((s) => (
+        <div class="index__group" data-reveal>
+          <div class="index__head">
+            <h3 class="index__name">{s.name}</h3>
+            <span class="index__level">{s.level}</span>
+          </div>
+          <ul class="index__list">
+            {s.keywords.map((k) => <li>{k}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

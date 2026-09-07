@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon/components';
+import { resume, splitName, techWork, yearsOfExperience } from '../../../lib/resume';
+
+const { basics } = resume;
+const [first, last] = splitName(basics.name);
+const linkedin = basics.profiles.find((p) => p.network === 'LinkedIn');
+const firstYear = techWork().reduce((min, w) => (w.startDate < min ? w.startDate : min), '9999').slice(0, 4);
+const years = yearsOfExperience();
+const edition = new Date(resume.meta.lastModified).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+---
+<section class="hero wrap" aria-labelledby="masthead">
+  <div>
+    <div class="hero__dateline">
+      <span class="mono">Résumé · {edition} edition</span>
+      <span class="mono">{basics.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
+    </div>
+    <hr class="rule rule--ink hero__rule" data-hero-rule />
+    <h1 class="masthead" id="masthead" aria-label={basics.name}>
+      <span class="w" aria-hidden="true"><span class="wi" data-masthead-word>{first}</span></span>
+      <span class="w" aria-hidden="true"><span class="wi" data-masthead-word>{last}</span></span>
+    </h1>
+    <hr class="rule rule--accent hero__rule" data-hero-rule />
+  </div>
+
+  <div class="hero__meta" data-hero-meta>
+    <p class="hero__label">{basics.label}</p>
+    <div class="hero__edition">
+      <span class="mono"><Icon name="solar:map-point-linear" aria-hidden="true" /> {basics.location.city}, Thailand</span>
+      <span class="mono">Est. {firstYear} · {years} years in software</span>
+    </div>
+    <div class="hero__actions">
+      {linkedin && (
+        <a class="btn btn--accent" href={linkedin.url} target="_blank" rel="noopener noreferrer">
+          LinkedIn <Icon name="solar:arrow-right-up-linear" aria-hidden="true" />
+        </a>
+      )}
+      <a class="btn" href="/cv">
+        <Icon name="solar:printer-linear" aria-hidden="true" /> Print / PDF
+      </a>
+    </div>
+  </div>
+</section>

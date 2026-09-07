@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume, formatDate } from '../../../lib/resume';
+import { DEPTHS } from '../depth';
+const { education, certificates } = resume;
+const isFreediving = (name: string) => /freediving/i.test(name);
+---
+
+<Section id="education" depth={DEPTHS.education} from={DEPTHS.education} to={DEPTHS.extras}>
+  <SectionHead id="education-h" title="Education and certificates" depth={DEPTHS.education} />
+  <div class="two-col">
+    <div>
+      <h3 class="sub-h">Education</h3>
+      <ul class="list">
+        {education.map((e) => (
+          <li class="entry">
+            <span class="when">{e.startDate === e.endDate ? e.startDate : `${e.startDate}–${e.endDate}`}</span>
+            <div>
+              <h4>{e.url ? <a href={e.url} target="_blank" rel="noopener noreferrer">{e.institution}</a> : e.institution}</h4>
+              <p class="sub">{e.studyType}, {e.area}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-h">Certificates</h3>
+      <ul class="list">
+        {certificates.map((c) => (
+          <li class={`entry ${isFreediving(c.name) ? 'spot' : ''}`}>
+            <span class="when">{formatDate(c.date)}</span>
+            <div>
+              <h4>{c.url ? <a href={c.url} target="_blank" rel="noopener noreferrer">{c.name}</a> : c.name}</h4>
+              <p class="sub">{c.issuer}</p>
+              {c.highlights && isFreediving(c.name) && (
+                <p class="spot-note"><Icon name="solar:medal-star-linear" aria-hidden="true" />{c.highlights.join('. ')}</p>
+              )}
+              {c.highlights && !isFreediving(c.name) && (
+                <p class="note">{c.highlights.join('. ')}</p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Section>

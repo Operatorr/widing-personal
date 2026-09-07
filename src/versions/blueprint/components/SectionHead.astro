@@ -1,0 +1,18 @@
+---
+import SplitHeading from './SplitHeading.astro';
+interface Props {
+  ref: string;
+  title: string;
+  note?: string;
+  id?: string;
+}
+const { ref, title, note, id } = Astro.props;
+---
+
+<div class="section-head">
+  <SplitHeading text={title} class="h2 t-expanded" id={id} />
+  <div class="t-mono" data-reveal>
+    <span>{ref}</span>
+    {note && <span> &middot; {note}</span>}
+  </div>
+</div>

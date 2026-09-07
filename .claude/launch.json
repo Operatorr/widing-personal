@@ -1,0 +1,27 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "astro",
+        "preview",
+        "--port",
+        "4340"
+      ],
+      "port": 4340
+    },
+    {
+      "name": "dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "astro",
+        "dev",
+        "--port",
+        "4341"
+      ],
+      "port": 4341
+    }
+  ]
+}

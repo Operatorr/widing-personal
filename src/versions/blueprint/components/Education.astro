@@ -1,0 +1,46 @@
+---
+import { resume, formatDate } from '../../../lib/resume';
+import SectionHead from './SectionHead.astro';
+
+const { education, certificates } = resume;
+---
+
+<section id="education" class="section paper" aria-labelledby="education-h">
+  <div class="wrap">
+    <SectionHead id="education-h" ref="SCHEDULE" title="Certifications and schedule" />
+    <div class="cols">
+      <div data-reveal>
+        <h3 class="h3 t-label">Education</h3>
+        <ul class="sched">
+          {education.map((e) => (
+            <li>
+              <span class="when t-mono">{e.startDate === e.endDate ? e.startDate : `${e.startDate}–${e.endDate}`}</span>
+              <span class="what">
+                <strong>{e.area}</strong>
+                <span class="sub t-serif">{e.studyType}</span>
+                <span class="sub t-label">
+                  {e.url ? <a class="link-ul" href={e.url} rel="noopener" target="_blank">{e.institution}</a> : e.institution}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div data-reveal>
+        <h3 class="h3 t-label">Certificates</h3>
+        <ul class="sched">
+          {certificates.map((c) => (
+            <li>
+              <span class="when t-mono">{formatDate(c.date)}</span>
+              <span class="what">
+                <strong>{c.url ? <a class="link-ul" href={c.url} rel="noopener" target="_blank">{c.name}</a> : c.name}</strong>
+                <span class="sub t-label">{c.issuer}</span>
+                {'highlights' in c && c.highlights?.map((h) => <span class="sub t-serif">{h}</span>)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

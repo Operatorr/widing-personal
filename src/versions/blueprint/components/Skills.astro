@@ -1,0 +1,36 @@
+---
+import { resume, allKeywords } from '../../../lib/resume';
+import { slug } from '../graph';
+import SectionHead from './SectionHead.astro';
+
+const skills = resume.skills;
+const total = allKeywords().length;
+---
+
+<section id="skills" class="section" aria-labelledby="skills-h">
+  <div class="wrap">
+    <SectionHead id="skills-h" ref="BOM" title="Bill of materials" note={`${skills.length} categories, ${total} items`} />
+    <div data-reveal>
+      <table class="bom">
+        <thead>
+          <tr class="t-label">
+            <th scope="col">Category</th>
+            <th scope="col">Level</th>
+            <th scope="col">Items</th>
+          </tr>
+        </thead>
+        <tbody>
+          {skills.map((s) => (
+            <tr id={`skill-${slug(s.name)}`}>
+              <td class="cat" data-label="Category">{s.name}</td>
+              <td class="lvl" data-label="Level"><span class="t-label" data-level={s.level}>{s.level}</span></td>
+              <td class="items" data-label="Items">
+                {s.keywords.map((k) => <span>{k}</span>)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

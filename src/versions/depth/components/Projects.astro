@@ -1,0 +1,30 @@
+---
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume, dateRange } from '../../../lib/resume';
+import { DEPTHS } from '../depth';
+const { projects } = resume;
+---
+
+<Section id="projects" depth={DEPTHS.projects} from={DEPTHS.projects} to={DEPTHS.skills}>
+  <SectionHead id="projects-h" title="Projects" depth={DEPTHS.projects} lead="Systems built for employers, for university, and for my own curiosity." />
+  <ul class="projects list">
+    {projects.map((p) => (
+      <li class="card">
+        <p class="card-meta">
+          {p.entity && <span class="entity">{p.entity}</span>}
+          <span>{dateRange(p.startDate, p.endDate, 'ongoing')}</span>
+        </p>
+        <h3>{p.name}</h3>
+        <p>{p.description}</p>
+        <ul>
+          {p.highlights.map((h) => <li>{h}</li>)}
+        </ul>
+        <ul class="chips" aria-label="Technologies">
+          {p.keywords.map((k) => <li class="chip">{k}</li>)}
+        </ul>
+        {p.roles && <p class="card-roles">{p.roles.join(' · ')}</p>}
+      </li>
+    ))}
+  </ul>
+</Section>

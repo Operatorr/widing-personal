@@ -1,0 +1,51 @@
+---
+import { Icon } from 'astro-icon/components';
+import SplitWords from './SplitWords.astro';
+import { resume } from '../../../lib/resume';
+import { DEPTHS, NOTES, zoneStyle } from '../depth';
+
+const linkedin = resume.basics.profiles.find((p) => p.network === 'LinkedIn');
+const title = "Let's talk";
+---
+<section
+  class="cta zone"
+  id="contact"
+  aria-labelledby="contact-title"
+  data-depth={DEPTHS.contact}
+  style={zoneStyle(DEPTHS.contact, DEPTHS.contact)}
+>
+  <div class="wrap">
+    <div class="sheet__head cta__head">
+      <div class="depth" aria-hidden="true">
+        <span class="depth__m">{DEPTHS.contact}<small>m</small></span>
+        <span class="depth__line"></span>
+        <span class="depth__note">{NOTES[DEPTHS.contact]}</span>
+      </div>
+      <h2 class="cta__title" id="contact-title" aria-label={title} data-split-head>
+        <SplitWords text={title} />
+      </h2>
+    </div>
+    <div class="cta__grid">
+      <div class="cta__body" data-reveal>
+        <p>
+          I'm in Bangkok and work across time zones. LinkedIn is the quickest way to reach me.
+          If you need a copy on paper, use the print page.
+        </p>
+        <div class="hero__actions">
+          {linkedin && (
+            <a class="btn btn--accent" href={linkedin.url} target="_blank" rel="noopener noreferrer">
+              Message on LinkedIn <Icon name="solar:arrow-right-up-linear" aria-hidden="true" />
+            </a>
+          )}
+          <a class="btn" href="/cv">
+            <Icon name="solar:printer-linear" aria-hidden="true" /> Print / PDF
+          </a>
+        </div>
+      </div>
+      <a class="cta__surface" href="#top" data-scroll-to>
+        <Icon name="solar:arrow-up-linear" aria-hidden="true" />
+        <span class="mono">Surface</span>
+      </a>
+    </div>
+  </div>
+</section>

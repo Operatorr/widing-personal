@@ -1,0 +1,30 @@
+---
+import { Icon } from 'astro-icon/components';
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume } from '../../../lib/resume';
+import { DEPTHS } from '../depth';
+const { basics } = resume;
+const linkedin = basics.profiles.find((p) => p.network === 'LinkedIn')?.url ?? '#';
+const site = basics.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+---
+
+<Section id="contact" depth={DEPTHS.contact} from={DEPTHS.contact} to={DEPTHS.contact} class="contact">
+  <SectionHead id="contact-h" title="Bottom of the page" depth={DEPTHS.contact} />
+  <p>That is the whole résumé. If you are hiring a solutions architect or a founding engineer, or want to talk about a system you are building, I am in {basics.location.city} and happy to take a call.</p>
+  <div class="hero-actions">
+    <a class="btn btn-coral" href={linkedin} target="_blank" rel="noopener noreferrer">
+      Get in touch
+      <Icon name="solar:arrow-right-up-linear" aria-hidden="true" />
+    </a>
+    <a class="btn btn-ghost" href="/cv">
+      <Icon name="solar:printer-linear" aria-hidden="true" />
+      Print résumé
+    </a>
+  </div>
+  <ul class="contact-lines">
+    <li>LinkedIn: <a href={linkedin} target="_blank" rel="noopener noreferrer">{linkedin.replace(/^https?:\/\//, '')}</a></li>
+    <li>Site: <a href={basics.url}>{site}</a></li>
+    <li>{basics.location.city}, {basics.location.countryCode}</li>
+  </ul>
+</Section>

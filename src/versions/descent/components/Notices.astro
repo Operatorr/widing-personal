@@ -1,0 +1,57 @@
+---
+import SectionHead from './SectionHead.astro';
+import { resume } from '../../../lib/resume';
+import { DEPTHS, zoneStyle } from '../depth';
+
+const { languages, interests } = resume;
+
+/** Bar length and colour tier, read off the fluency wording. */
+function tier(fluency: string): { pct: number; tone: string } {
+  const f = fluency.toLowerCase();
+  if (f.includes('native')) return { pct: 100, tone: 'native' };
+  if (f.includes('fluent')) return { pct: 88, tone: 'fluent' };
+  if (f.includes('conversational')) return { pct: 52, tone: 'working' };
+  return { pct: 26, tone: 'basic' };
+}
+---
+<section
+  class="sheet zone"
+  id="notices"
+  aria-labelledby="notices-title"
+  data-depth={DEPTHS.notices}
+  style={zoneStyle(DEPTHS.notices, DEPTHS.contact)}
+>
+  <div class="wrap">
+    <SectionHead id="notices-title" title="Languages and interests" depth={DEPTHS.notices} />
+    <div class="twocol">
+      <div data-reveal>
+        <h3 class="col__head">Languages</h3>
+        <ul class="notice__lang">
+          {languages.map((l) => {
+            const { pct, tone } = tier(l.fluency);
+            return (
+              <li>
+                <span class="notice__lang-name">{l.language}</span>
+                <span class="notice__lang-fluency">{l.fluency}</span>
+                <span class="notice__lang-bar" data-tone={tone} aria-hidden="true">
+                  <span class="notice__lang-fill" style={`--pct:${pct}%`}></span>
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div data-reveal>
+        <h3 class="col__head">Personal notices</h3>
+        <ul class="entries">
+          {interests.map((i) => (
+            <li class="notice">
+              <p class="notice__name">{i.name}</p>
+              <p class="notice__body">{i.keywords.join(' · ')}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+---
+import SectionHead from './SectionHead.astro';
+import { resume } from '../../../lib/resume';
+
+const { languages, interests } = resume;
+---
+<section class="sheet" id="notices" aria-labelledby="notices-title">
+  <div class="wrap">
+    <SectionHead id="notices-title" number="06" title="Languages and interests" total="07" />
+    <div class="twocol">
+      <div data-reveal>
+        <h3 class="col__head">Languages</h3>
+        <table class="notice__lang">
+          <tbody>
+            {languages.map((l) => (
+              <tr>
+                <th scope="row">{l.language}</th>
+                <td>{l.fluency}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div data-reveal>
+        <h3 class="col__head">Personal notices</h3>
+        <ul class="entries">
+          {interests.map((i) => (
+            <li class="notice">
+              <p class="notice__name">{i.name}</p>
+              <p class="notice__body">{i.keywords.join(' · ')}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

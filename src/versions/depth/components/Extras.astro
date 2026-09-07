@@ -1,0 +1,32 @@
+---
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume } from '../../../lib/resume';
+import { DEPTHS } from '../depth';
+const { languages, interests } = resume;
+---
+
+<Section id="extras" depth={DEPTHS.extras} from={DEPTHS.extras} to={DEPTHS.contact}>
+  <SectionHead id="extras-h" title="Languages and interests" depth={DEPTHS.extras} />
+  <div class="two-col">
+    <div>
+      <h3 class="sub-h">Languages</h3>
+      <ul class="langs">
+        {languages.map((l) => (
+          <li><span class="lang">{l.language}</span><span class="flu">{l.fluency}</span></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-h">Interests</h3>
+      <ul class="interests">
+        {interests.map((i) => (
+          <li>
+            <h4>{i.name}</h4>
+            <p>{i.keywords.join(' · ')}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Section>

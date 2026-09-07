@@ -1,0 +1,143 @@
+---
+import { resume, splitName, yearsOfExperience } from '../../../lib/resume';
+import { buildGraph, SHEET } from '../graph';
+import SplitHeading from './SplitHeading.astro';
+
+const { basics, meta } = resume;
+const [first, last] = splitName(basics.name);
+const { nodes, edges } = buildGraph();
+const roles = nodes.filter((n) => n.kind === 'role');
+const projects = nodes.filter((n) => n.kind === 'project');
+const system = nodes.find((n) => n.kind === 'system')!;
+const loose = projects.filter((p) => !p.parent);
+const years = yearsOfExperience();
+const location = `${basics.location.city}, ${basics.location.countryCode}`;
+---
+
+<section id="top" class="hero paper crop" aria-labelledby="hero-name">
+  <div class="crop-b"></div>
+
+  <div class="hero__lead">
+    <h1 id="hero-name" class="hero__name t-expanded" aria-label={basics.name} data-split>
+      <span class="w" aria-hidden="true"><span class="wi">{first}</span></span>
+      <span class="w" aria-hidden="true"><span class="wi">{last}</span></span>
+    </h1>
+  </div>
+
+  <div class="hero__stage">
+    <div class="diagram" data-diagram>
+      <svg
+        class="diagram__svg"
+        viewBox={`0 0 ${SHEET.w} ${SHEET.h}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <marker id="bp-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0.5 L7.5 4 L0 7.5 z" class="edge-arrow" />
+          </marker>
+        </defs>
+        {edges.map((e) => (
+          <path
+            class="edge"
+            d={e.d}
+            data-from={e.from}
+            data-to={e.to}
+            marker-end={e.to.startsWith('r-') && e.from.startsWith('p-') ? 'url(#bp-arrow)' : undefined}
+          />
+        ))}
+        {edges.map((e) => {
+          // a small dot where each connector leaves its source node
+          const m = e.d.match(/^M\s*([\d.]+)\s+([\d.]+)/);
+          return m ? <circle class="edge-dot" cx={m[1]} cy={m[2]} r="3" data-from={e.from} /> : null;
+        })}
+      </svg>
+
+      <a
+        class="node node--system"
+        href={system.href}
+        data-node={system.id}
+        data-parent={system.parent}
+        style={`--x:${system.x};--y:${system.y};--w:${system.w};--h:${system.h}`}
+      >
+        <span class="node__id">{system.id.toUpperCase()}</span>
+        <span class="node__title">{system.title}</span>
+        <span class="node__sub">{system.sub}</span>
+      </a>
+
+      {roles.map((r) => (
+        <div class="group">
+          <a
+            class="node node--role"
+            href={r.href}
+            data-node={r.id}
+            style={`--x:${r.x};--y:${r.y};--w:${r.w};--h:${r.h}`}
+          >
+            <span class="node__id">{r.id.toUpperCase()}</span>
+            <span class="node__title">{r.title}</span>
+            <span class="node__sub">{r.sub}</span>
+          </a>
+          {projects
+            .filter((p) => p.parent === r.id)
+            .map((p) => (
+              <a
+                class="node node--project"
+                href={p.href}
+                data-node={p.id}
+                data-parent={p.parent}
+                style={`--x:${p.x};--y:${p.y};--w:${p.w};--h:${p.h}`}
+              >
+                <span class="node__id">{p.id.toUpperCase()}</span>
+                <span class="node__title">{p.title}</span>
+                <span class="node__sub">{p.sub}</span>
+              </a>
+            ))}
+        </div>
+      ))}
+
+      {loose.length > 0 && (
+        <div class="group group--loose">
+          {loose.map((p) => (
+            <a
+              class="node node--project node--loose"
+              href={p.href}
+              data-node={p.id}
+              style={`--x:${p.x};--y:${p.y};--w:${p.w};--h:${p.h}`}
+            >
+              <span class="node__id">{p.id.toUpperCase()}</span>
+              <span class="node__title">{p.title}</span>
+              <span class="node__sub">{p.sub}</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      <div class="diagram__legend t-label" aria-hidden="true">
+        <span>R: role</span>
+        <span>P: project</span>
+        <span>S: system</span>
+        <span>Arrow: built by</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__foot">
+    <div>
+      <p class="t-label" style="margin:0 0 0.4rem">{basics.label}</p>
+      <p class="t-serif" style="margin:0; max-width: 34rem">
+        {years}+ years drawing and building systems, from ERP suites to production RAG pipelines.
+        Nodes above link to the matching section.
+      </p>
+    </div>
+
+    <dl class="tblock t-mono" aria-label="Title block">
+      <div class="span2"><dt class="k t-label">Name</dt><dd class="v">{basics.name}</dd></div>
+      <div class="span2"><dt class="k t-label">Title</dt><dd class="v">{basics.label}</dd></div>
+      <div><dt class="k t-label">Location</dt><dd class="v">{location}</dd></div>
+      <div><dt class="k t-label">Rev</dt><dd class="v">{meta.version}</dd></div>
+      <div><dt class="k t-label">Date</dt><dd class="v">{meta.lastModified}</dd></div>
+      <div><dt class="k t-label">Sheet</dt><dd class="v">1 of 1</dd></div>
+    </dl>
+  </div>
+</section>

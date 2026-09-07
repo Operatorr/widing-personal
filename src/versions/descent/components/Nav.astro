@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import { resume } from '../../../lib/resume';
+
+const linkedin = resume.basics.profiles.find((p) => p.network === 'LinkedIn');
+const links = [
+  { href: '#summary', label: 'Summary' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#education', label: 'Education' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+<div data-folio-sentinel aria-hidden="true" style="height:1px"></div>
+<header class="folio" data-folio>
+  <div class="wrap folio__row">
+    <a class="folio__mark" href="#main" aria-label="Alexander Widing, back to top">A<em>.</em>W<em>.</em></a>
+    <nav class="folio__nav" id="folio-nav" aria-label="Sections">
+      <ul class="folio__links">
+        {links.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <a class="folio__print" href="/cv">
+      <Icon name="solar:printer-linear" aria-hidden="true" />
+      <span>Print / PDF</span>
+      <span class="sr-only">version of this résumé</span>
+    </a>
+    {linkedin && (
+      <a class="folio__pill" href={linkedin.url} target="_blank" rel="noopener noreferrer">
+        Get in touch
+        <span class="sr-only">on LinkedIn</span>
+      </a>
+    )}
+    <button
+      class="folio__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="folio-nav"
+      data-folio-toggle
+    >
+      <span class="sr-only">Menu</span>
+      <Icon class="ico-open" name="solar:hamburger-menu-linear" aria-hidden="true" />
+      <Icon class="ico-close" name="solar:close-circle-linear" aria-hidden="true" />
+    </button>
+  </div>
+</header>

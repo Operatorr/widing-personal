@@ -1,0 +1,18 @@
+---
+import SplitWords from './SplitWords.astro';
+
+interface Props {
+  id: string;
+  number: string;
+  title: string;
+  total: string;
+}
+const { id, number, title, total } = Astro.props;
+---
+<div class="sheet__head">
+  <span class="sheet__no">§ {number}</span>
+  <h2 class="sheet__title" id={id} aria-label={title} data-split-head>
+    <SplitWords text={title} />
+  </h2>
+  <span class="sheet__folio" aria-hidden="true">{number} / {total}</span>
+</div>

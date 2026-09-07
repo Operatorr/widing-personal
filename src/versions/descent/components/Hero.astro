@@ -1,0 +1,68 @@
+---
+import { Icon } from 'astro-icon/components';
+import { resume, splitName, techWork, yearsOfExperience } from '../../../lib/resume';
+import { DEPTHS, zoneStyle } from '../depth';
+
+const { basics } = resume;
+const [first, last] = splitName(basics.name);
+const linkedin = basics.profiles.find((p) => p.network === 'LinkedIn');
+const firstYear = techWork().reduce((min, w) => (w.startDate < min ? w.startDate : min), '9999').slice(0, 4);
+const years = yearsOfExperience();
+const edition = new Date(resume.meta.lastModified).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+---
+<section
+  class="hero zone"
+  id="top"
+  aria-labelledby="masthead"
+  data-depth={DEPTHS.hero}
+  style={zoneStyle(DEPTHS.hero, DEPTHS.summary)}
+>
+  <div class="hero__poster" aria-hidden="true"></div>
+  <canvas class="hero__canvas" aria-hidden="true"></canvas>
+  <div class="hero__waterline" aria-hidden="true"></div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
+    <div>
+      <div class="hero__dateline">
+        <span class="mono hero__surface">
+          <svg class="hero__wave" viewBox="0 0 48 12" aria-hidden="true" focusable="false">
+            <path d="M0 8c4-6 8-6 12 0s8 6 12 0 8-6 12 0 8 6 12 0" />
+            <path class="hero__wave-under" d="M0 12c4-6 8-6 12 0s8 6 12 0 8-6 12 0 8 6 12 0" />
+          </svg>
+          Résumé · {edition} edition · at the surface
+        </span>
+        <span class="mono">{basics.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
+      </div>
+      <hr class="rule rule--ink hero__rule" data-hero-rule />
+      <h1 class="masthead" id="masthead" aria-label={basics.name}>
+        <span class="w" aria-hidden="true"><span class="wi" data-masthead-word>{first}</span></span>
+        <span class="w" aria-hidden="true"><span class="wi" data-masthead-word>{last}</span></span>
+      </h1>
+      <hr class="rule rule--accent hero__rule" data-hero-rule />
+    </div>
+
+    <div class="hero__meta" data-hero-meta>
+      <p class="hero__label">{basics.label}</p>
+      <div class="hero__edition">
+        <span class="mono"><Icon name="solar:map-point-linear" aria-hidden="true" /> {basics.location.city}, Thailand</span>
+        <span class="mono">Est. {firstYear} · {years} years in software</span>
+      </div>
+      <div class="hero__actions">
+        {linkedin && (
+          <a class="btn btn--accent" href={linkedin.url} target="_blank" rel="noopener noreferrer">
+            LinkedIn <Icon name="solar:arrow-right-up-linear" aria-hidden="true" />
+          </a>
+        )}
+        <a class="btn" href="/cv">
+          <Icon name="solar:printer-linear" aria-hidden="true" /> Print / PDF
+        </a>
+      </div>
+    </div>
+
+    <a class="hero__descend" href="#summary" data-scroll-to>
+      <span class="mono">Descend</span>
+      <Icon name="solar:arrow-down-linear" aria-hidden="true" />
+    </a>
+  </div>
+</section>

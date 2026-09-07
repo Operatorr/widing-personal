@@ -1,0 +1,50 @@
+---
+import './styles.css';
+import Nav from './components/Nav.astro';
+import Gauge from './components/Gauge.astro';
+import { resume } from '../../lib/resume';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const linkedin = resume.basics.profiles.find((p) => p.network === 'LinkedIn')?.url ?? '#';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#06101c" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Figtree:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#summary">Skip to content</a>
+    <Nav linkedin={linkedin} />
+    <main id="main">
+      <slot />
+    </main>
+    <Gauge />
+    <script>
+      import { mountMotion } from './scripts/motion';
+      mountMotion();
+      // Three.js only loads when it will actually render.
+      const hero = document.querySelector<HTMLElement>('.hero');
+      const canvas = document.querySelector<HTMLCanvasElement>('.hero-canvas');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (hero && canvas && !reduced) {
+        import('./scripts/hero').then((m) => m.mountHero(hero, canvas));
+      }
+    </script>
+  </body>
+</html>

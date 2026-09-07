@@ -1,0 +1,14 @@
+---
+// A metre scale from 0 to 100. Decoration: the sections carry their own headings and depths.
+const ticks = Array.from({ length: 21 }, (_, i) => i * 5);
+---
+
+<div class="gauge" aria-hidden="true">
+  <div class="gauge-scale">
+    {ticks.map((t) => (
+      <i>{t % 25 === 0 && <span class="num" style={`top:${t}%`}>{t}</span>}</i>
+    ))}
+    <span class="gauge-fill"></span>
+  </div>
+  <div class="gauge-read"><span class="val">0</span> <span class="unit">m</span></div>
+</div>

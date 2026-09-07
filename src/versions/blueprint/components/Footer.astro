@@ -1,0 +1,28 @@
+---
+import { resume } from '../../../lib/resume';
+const { basics, meta } = resume;
+const linkedin = basics.profiles.find((p) => p.network === 'LinkedIn')?.url ?? '#';
+const yearNow = new Date().getFullYear();
+---
+
+<footer class="footer on-slate">
+  <div class="wrap footer__grid t-mono">
+    <div>
+      <div class="t-label" style="margin-bottom:0.4rem">Sheet</div>
+      {basics.name} &middot; {meta.version} &middot; {meta.lastModified}
+    </div>
+    <div>
+      <div class="t-label" style="margin-bottom:0.4rem">Built with</div>
+      <a class="link-ul" href="https://astro.build" rel="noopener" target="_blank">Astro</a>, Tailwind, GSAP and Lenis,
+      from a <a class="link-ul" href="https://jsonresume.org" rel="noopener" target="_blank">JSON Resume</a> file.
+      Type: Archivo, Source Serif 4, Martian Mono.
+    </div>
+    <div>
+      <div class="t-label" style="margin-bottom:0.4rem">Links</div>
+      <a class="link-ul" href={linkedin} rel="me noopener" target="_blank">LinkedIn</a> &middot;
+      <a class="link-ul" href="/cv">Print version</a> &middot;
+      <a class="link-ul" href="/versions">Other versions</a>
+      <div style="margin-top:0.5rem">&copy; {yearNow} {basics.name}</div>
+    </div>
+  </div>
+</footer>
