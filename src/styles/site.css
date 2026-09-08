@@ -232,6 +232,7 @@ a:hover {
   --nav-muted: var(--sky-muted);
   --nav-accent: var(--sky-accent);
   --nav-rule: var(--sky-rule);
+  --toggle-size: 2.25rem;
   color: var(--nav-ink);
   transition: color 0.45s ease;
 }
@@ -257,10 +258,10 @@ a:hover {
 }
 .folio__row {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: minmax(var(--nav-h), auto);
   align-items: center;
   gap: 1rem;
-  min-height: var(--nav-h);
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s;
 }
@@ -269,11 +270,22 @@ a:hover {
   border-image: var(--rule-fade) 1;
 }
 .folio__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-family: var(--font-display);
   font-variation-settings: "opsz" 24, "SOFT" 30;
   font-size: 1.15rem;
   text-decoration: none;
   letter-spacing: 0.02em;
+}
+.folio__wave {
+  width: 1.45rem;
+  height: 1.45rem;
+  color: var(--nav-accent);
+  overflow: visible;
+  flex-shrink: 0;
+  transition: color 0.45s ease;
 }
 .folio__mark em {
   color: var(--nav-accent);
@@ -302,26 +314,11 @@ a:hover {
 .folio__links a:hover {
   color: var(--nav-ink);
 }
-.folio__print {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.folio__print svg {
-  width: 1rem;
-  height: 1rem;
-}
 .folio__pill {
   display: inline-flex;
   align-items: center;
   padding: 0.4rem 0.85rem;
-  border-radius: 999px;
+  border-radius: 2px;
   background: var(--coral);
   color: var(--abyss);
   font-family: var(--font-mono);
@@ -340,13 +337,13 @@ a:hover {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid var(--nav-rule);
+  width: var(--toggle-size);
+  height: var(--toggle-size);
+  padding: 0;
+  border: 0;
   background: transparent;
   color: var(--nav-ink);
   cursor: pointer;
-  border-radius: 2px;
 }
 .folio__toggle svg {
   width: 1.2rem;
@@ -363,18 +360,48 @@ a:hover {
 }
 
 @media (max-width: 47.9rem) {
+  /* Named areas so hiding the nav (display: none) does not leave an extra
+     column — that leftover column still costs `gap`, which inset the toggle. */
+  .folio .wrap {
+    width: 100%;
+    padding-left: var(--gutter);
+    padding-right: calc((var(--nav-h) - var(--toggle-size)) / 2);
+  }
   .folio__row {
-    grid-template-columns: auto 1fr auto auto auto;
-    gap: 0.75rem;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: minmax(var(--nav-h), auto) auto;
+    grid-template-areas:
+      "mark . pill"
+      "nav nav nav";
+    column-gap: 0.5rem;
+    row-gap: 0;
+  }
+  .js .folio__row {
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas:
+      "mark . pill toggle"
+      "nav nav nav nav";
+  }
+  .folio__mark {
+    grid-area: mark;
+  }
+  .folio__pill {
+    grid-area: pill;
+    padding-inline: 0.65rem;
+  }
+  .folio__toggle {
+    grid-area: toggle;
+    justify-self: end;
   }
   .folio__nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
+    grid-area: nav;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    margin-inline: calc(-1 * var(--gutter));
-    padding-inline: var(--gutter);
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * (var(--nav-h) - var(--toggle-size)) / 2);
+    padding-left: var(--gutter);
+    padding-right: calc((var(--nav-h) - var(--toggle-size)) / 2);
     border-top: 1px solid var(--nav-rule);
   }
   .folio__nav::-webkit-scrollbar {
@@ -382,11 +409,9 @@ a:hover {
   }
   .folio__links {
     justify-content: flex-start;
-    gap: 1.25rem;
-    padding-block: 0.35rem;
-  }
-  .folio__print span {
-    display: none;
+    flex-wrap: wrap;
+    gap: 0.15rem 1.25rem;
+    padding-block: 0.4rem 0.55rem;
   }
   .js .folio__toggle {
     display: inline-flex;
@@ -466,6 +491,7 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: flex-end;
   gap: 0.35rem 1rem;
   padding-bottom: 0.6rem;
 }
@@ -474,22 +500,22 @@ a:hover {
 }
 .hero__surface {
   display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: flex-end;
+  gap: 0.45em;
+}
+.hero__kicker {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.28rem;
 }
 /* A two-crest wave that rolls slowly, like the surface overhead. */
 .hero__wave {
   width: 2.5rem;
   height: 0.75rem;
   overflow: visible;
-  fill: none;
-  stroke: var(--cyan);
-  stroke-width: 1.4;
-  stroke-linecap: round;
+  color: var(--cyan);
   animation: hero-wave 6s ease-in-out infinite;
-}
-.hero__wave-under {
-  stroke: var(--cyan-30);
 }
 @keyframes hero-wave {
   0%, 100% { transform: translateY(0); }

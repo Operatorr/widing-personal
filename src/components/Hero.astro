@@ -26,11 +26,11 @@ const edition = new Date(resume.meta.lastModified).toLocaleDateString('en-GB', {
     <div>
       <div class="hero__dateline">
         <span class="mono hero__surface">
-          <svg class="hero__wave" viewBox="0 0 48 12" aria-hidden="true" focusable="false">
-            <path d="M0 8c4-6 8-6 12 0s8 6 12 0 8-6 12 0 8 6 12 0" />
-            <path class="hero__wave-under" d="M0 12c4-6 8-6 12 0s8 6 12 0 8-6 12 0 8 6 12 0" />
-          </svg>
-          Résumé · {edition} edition · at the surface
+          <span class="hero__kicker">
+            <Icon class="hero__wave" name="wave" aria-hidden="true" />
+            Résumé
+          </span>
+          <span>· {edition} edition · at the surface</span>
         </span>
         <span class="mono">{basics.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
       </div>
