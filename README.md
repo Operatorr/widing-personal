@@ -1,6 +1,8 @@
 # Alexander Widing - Personal CV
 
-A modern, responsive CV/portfolio website built with Astro and Tailwind CSS.
+A CV/portfolio site built with Astro and Tailwind CSS. The live page is a
+dark descent: scrolling maps to depth, with a metre gauge and a WebGL
+light-shaft hero. Content comes from JSON Resume data.
 
 ## Live Demo
 
@@ -8,19 +10,18 @@ A modern, responsive CV/portfolio website built with Astro and Tailwind CSS.
 
 ## Tech Stack
 
-- **Framework**: [Astro](https://astro.build/) - Static site generator
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
-- **Components**: [shadcn/ui](https://ui.shadcn.com/) - Accessible component library
-- **Data Format**: [JSON Resume](https://jsonresume.org/) standard
+- **Framework**: [Astro](https://astro.build/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Motion**: GSAP, Lenis, and a Three.js hero shader
+- **Data Format**: [JSON Resume](https://jsonresume.org/)
 - **Language**: TypeScript
 
 ## Features
 
 - Responsive design (mobile, tablet, desktop)
-- Print-friendly styling for PDF export
+- Print-friendly page at `/cv` for PDF export
 - Data-driven content via `resume.json`
-- No JavaScript runtime (static HTML)
-- Type-safe components
+- Reduced-motion fallbacks (no Lenis, no WebGL, final states on first paint)
 
 ## Getting Started
 
@@ -48,29 +49,26 @@ npm run dev
 
 ## Customization
 
-Edit `src/data/resume.json` to update your CV content. The file follows the [JSON Resume schema](https://jsonresume.org/schema/).
+Edit `src/data/resume.json` to update the CV content. The file follows the
+[JSON Resume schema](https://jsonresume.org/schema/).
 
 ## Project Structure
 
 ```
 src/
-  pages/index.astro       Main page (current live design)
+  pages/index.astro       Main page
   pages/cv.astro          Print page
-  pages/versions.astro    Picker for the three candidate redesigns
-  pages/v/                One route per candidate redesign
-  versions/               Candidate redesigns: ledger, depth, blueprint, descent
   layouts/                Page layouts
-  components/             Resume section components
+  components/             Resume sections, nav, gauge
+  scripts/                Motion, hero WebGL
   lib/resume.ts           Typed resume data and date helpers
+  lib/depth.ts            Section depths and zone colours
   data/resume.json        CV data
-  styles/global.css       Global styles
+  styles/site.css         Live-page tokens and styles
+  styles/print.css        Print-page Tailwind
 ```
 
-## Candidate redesigns
-
-Four full redesigns live at `/v/ledger`, `/v/depth`, `/v/blueprint` and `/v/descent`, with a picker at
-`/versions`. See [docs/redesign-versions.md](docs/redesign-versions.md) for the direction of each
-and the steps to keep one.
+See [docs/redesign-versions.md](docs/redesign-versions.md) for the art direction.
 
 ## License
 

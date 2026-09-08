@@ -1,103 +1,27 @@
 ---
-interface Skill {
-  name: string;
-  level?: string;
-  keywords?: string[];
-}
-
-interface Props {
-  skills: Skill[];
-}
-
-const { skills } = Astro.props;
-
-const getLevelConfig = (level?: string) => {
-  switch (level?.toLowerCase()) {
-    case 'expert':
-      return { color: '#4ade80', bg: 'rgba(74,222,128,0.1)', border: 'rgba(74,222,128,0.25)' };
-    case 'advanced':
-      return { color: '#c084fc', bg: 'rgba(192,132,252,0.1)', border: 'rgba(192,132,252,0.2)' };
-    case 'intermediate':
-      return { color: '#2dd4bf', bg: 'rgba(45,212,191,0.1)', border: 'rgba(45,212,191,0.2)' };
-    default:
-      return { color: '#60a5fa', bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.2)' };
-  }
-};
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume } from '../lib/resume';
+import { DEPTHS } from '../lib/depth';
+const { skills } = resume;
 ---
 
-<section class="relative py-24 px-6 overflow-hidden section-reveal" id="skills">
-  <!-- Background image -->
-  <div class="absolute inset-0 z-0">
-    <img
-      src="https://images.unsplash.com/photo-1563387528570-dbede24161e0?w=1920&q=80"
-      alt=""
-      class="w-full h-full object-cover opacity-20"
-      loading="lazy"
-    />
-    <div class="absolute inset-0 bg-linear-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
-    <div class="absolute inset-0 bg-linear-to-t from-[#0a0f0a] via-transparent to-transparent"></div>
-  </div>
-
-  <div class="relative z-10 max-w-4xl mx-auto">
-    <!-- Section header -->
-    <div class="flex items-center gap-4 mb-16">
-      <div class="flex items-center gap-3">
-        <div class="w-2 h-2 rounded-full bg-[#c084fc] shadow-[0_0_10px_rgba(192,132,252,0.5)]"></div>
-        <h2 class="text-3xl font-bold tracking-tight" style="font-family: var(--font-display);">
-          Technical <span style="font-family: var(--font-organic); font-style: italic; color: #4ade80;">Skills</span>
-        </h2>
-      </div>
-      <div class="flex-1 organic-divider"></div>
-    </div>
-
-    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {skills.map((skill) => {
-        const config = getLevelConfig(skill.level);
-        return (
-          <div class="glass-card glass-card-hover rounded-xl p-5 skill-card" style={`border-color: ${config.border};`}>
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-bold text-white text-sm tracking-tight" style="font-family: var(--font-display);">
-                {skill.name}
-              </h3>
-              {skill.level && (
-                <span
-                  class="text-[10px] tracking-[0.15em] uppercase px-2.5 py-1 rounded-full"
-                  style={`font-family: var(--font-mono); color: ${config.color}; background: ${config.bg}; border: 1px solid ${config.border};`}
-                >
-                  {skill.level}
-                </span>
-              )}
-            </div>
-
-            {skill.keywords && skill.keywords.length > 0 && (
-              <div class="flex flex-wrap gap-1.5">
-                {skill.keywords.map((keyword) => (
-                  <span
-                    class="skill-tag text-[11px] px-2 py-1 rounded-md text-white/90"
-                    style={`font-family: var(--font-mono); opacity: 0.9; background: rgba(255,255,255,0.02); border: 1px solid ${config.color}40;`}
-                  >
-                    {keyword}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  </div>
-</div>
-</section>
-
-<script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.set('.skill-card', { opacity: 0, y: 30 });
-  ScrollTrigger.batch('.skill-card', {
-    start: 'top 90%',
-    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out' }),
-    once: true,
-  });
-</script>
+<Section id="skills" depth={DEPTHS.skills} from={DEPTHS.skills} to={DEPTHS.education}>
+  <SectionHead id="skills-h" title="Skills" depth={DEPTHS.skills} />
+  <ul class="skills list">
+    {skills.map((s) => (
+      <li class="skill">
+        <div class="skill-top">
+          <h3>{s.name}</h3>
+          <span class="level" data-level={s.level}>
+            <i aria-hidden="true"><b></b><b></b><b></b><b></b></i>
+            {s.level}
+          </span>
+        </div>
+        <ul class="chips">
+          {s.keywords.map((k) => <li class="chip">{k}</li>)}
+        </ul>
+      </li>
+    ))}
+  </ul>
+</Section>

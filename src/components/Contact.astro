@@ -2,8 +2,8 @@
 import { Icon } from 'astro-icon/components';
 import Section from './Section.astro';
 import SectionHead from './SectionHead.astro';
-import { resume } from '../../../lib/resume';
-import { DEPTHS } from '../depth';
+import { resume } from '../lib/resume';
+import { DEPTHS } from '../lib/depth';
 const { basics } = resume;
 const linkedin = basics.profiles.find((p) => p.network === 'LinkedIn')?.url ?? '#';
 const site = basics.url.replace(/^https?:\/\//, '').replace(/\/$/, '');

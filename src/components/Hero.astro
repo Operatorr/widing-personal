@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { resume, splitName } from '../../../lib/resume';
+import { resume, splitName } from '../lib/resume';
 const { basics } = resume;
 const [first, rest] = splitName(basics.name);
 const linkedin = basics.profiles.find((p) => p.network === 'LinkedIn')?.url ?? '#';

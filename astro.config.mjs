@@ -2,8 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
-
-import react from '@astrojs/react';
 import icon from 'astro-icon';
 
 // https://astro.build/config
@@ -12,5 +10,13 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [react(), icon()]
+  integrations: [icon()],
+
+  redirects: {
+    '/versions': '/',
+    '/v/depth': '/',
+    '/v/ledger': '/',
+    '/v/blueprint': '/',
+    '/v/descent': '/',
+  },
 });

@@ -1,77 +1,26 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
-import ResumeHeader from '../components/ResumeHeader.astro';
-import WorkExperience from '../components/WorkExperience.astro';
-import Education from '../components/Education.astro';
-import Skills from '../components/Skills.astro';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Summary from '../components/Summary.astro';
+import Experience from '../components/Experience.astro';
 import Projects from '../components/Projects.astro';
-import Certificates from '../components/Certificates.astro';
-import Languages from '../components/Languages.astro';
-import Interests from '../components/Interests.astro';
-
-import resume from '../data/resume.json';
-
-const { basics, work, education, skills, projects, certificates, languages, interests } = resume;
+import Skills from '../components/Skills.astro';
+import Education from '../components/Education.astro';
+import Extras from '../components/Extras.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { resume } from '../lib/resume';
+const { basics } = resume;
 ---
 
-<BaseLayout
-  title={`${basics.name} - ${basics.label}`}
-  description={basics.summary}
->
-  <Navbar name={basics.name} />
-
-  <ResumeHeader
-    name={basics.name}
-    label={basics.label}
-    url={basics.url}
-    summary={basics.summary}
-    location={basics.location}
-    profiles={basics.profiles}
-    image={basics.image}
-  />
-
-  {work && work.length > 0 && <WorkExperience work={work} />}
-
-  {skills && skills.length > 0 && <Skills skills={skills} />}
-
-  {projects && projects.length > 0 && <Projects projects={projects} />}
-
-  <!-- Shared background spanning Education, Certifications, Languages -->
-  <div class="relative overflow-hidden" id="edu-certs-lang-bg">
-    <div class="absolute inset-0 z-0">
-      <img
-        src="https://images.unsplash.com/photo-1727558729775-83c4ab8d55a8?w=1920&q=80"
-        alt=""
-        width="1920"
-        height="1080"
-        class="w-full h-full object-cover opacity-25"
-        loading="lazy"
-      />
-      <div class="absolute inset-0 bg-linear-to-b from-[#0a0f0a] via-[#0a0f0a]/50 to-[#0a0f0a]"></div>
-      <div class="absolute inset-0 bg-linear-to-t from-[#0a0f0a] via-transparent to-transparent"></div>
-    </div>
-    <div class="relative z-10">
-      {education && education.length > 0 && <Education education={education} />}
-
-      {certificates && certificates.length > 0 && <Certificates certificates={certificates} />}
-
-      {languages && languages.length > 0 && <Languages languages={languages} />}
-    </div>
-  </div>
-
-  {interests && interests.length > 0 && <Interests interests={interests} />}
-
-  <footer class="relative py-16 px-6">
-    <div class="organic-divider mb-8"></div>
-    <div class="max-w-4xl mx-auto text-center">
-      <p class="text-sm text-white/30">
-        Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4ade80]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0f0a] rounded-sm">Astro</a>
-        <span class="mx-2 text-white/10">&bull;</span>
-        Styled with <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4ade80]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0f0a] rounded-sm">shadcn/ui</a>
-        <span class="mx-2 text-white/10">&bull;</span>
-        Resume data follows <a href="https://jsonresume.org" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4ade80]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0f0a] rounded-sm">JSON Resume</a> standard
-      </p>
-    </div>
-  </footer>
-</BaseLayout>
+<Layout title={`${basics.name} – ${basics.label}`} description={basics.summary}>
+  <Hero />
+  <Summary />
+  <Experience />
+  <Projects />
+  <Skills />
+  <Education />
+  <Extras />
+  <Contact />
+  <Footer />
+</Layout>

@@ -1,5 +1,5 @@
 ---
-import { depthLabel } from '../depth';
+import { depthLabel } from '../lib/depth';
 interface Props { title: string; depth: number; id: string; lead?: string }
 const { title, depth, id, lead } = Astro.props;
 const words = title.split(' ');

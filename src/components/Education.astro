@@ -1,91 +1,49 @@
 ---
-interface EducationItem {
-  institution: string;
-  url?: string;
-  area: string;
-  studyType: string;
-  startDate: string;
-  endDate?: string;
-  score?: string;
-  courses?: string[];
-}
-
-interface Props {
-  education: EducationItem[];
-}
-
-const { education } = Astro.props;
-
-const formatYear = (dateStr?: string) => {
-  if (!dateStr) return '';
-  return dateStr.substring(0, 4);
-};
+import { Icon } from 'astro-icon/components';
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+import { resume, formatDate } from '../lib/resume';
+import { DEPTHS } from '../lib/depth';
+const { education, certificates } = resume;
+const isFreediving = (name: string) => /freediving/i.test(name);
 ---
 
-<section class="relative py-24 px-6 section-reveal" id="education">
-  <div class="max-w-4xl mx-auto">
-    <!-- Section header -->
-    <div class="flex items-center gap-4 mb-16">
-      <div class="flex items-center gap-3">
-        <div class="w-2 h-2 rounded-full bg-[#60a5fa] shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>
-        <h2 class="text-3xl font-bold tracking-tight" style="font-family: var(--font-display);">
-          <span style="font-family: var(--font-organic); font-style: italic; color: #60a5fa;">Education</span>
-        </h2>
-      </div>
-      <div class="flex-1 organic-divider"></div>
-    </div>
-
-    <div class="grid gap-4 md:grid-cols-2">
-      {education.map((edu) => (
-        <div class="glass-card glass-card-hover rounded-xl p-5 edu-card">
-          <div class="flex justify-between items-start gap-2">
+<Section id="education" depth={DEPTHS.education} from={DEPTHS.education} to={DEPTHS.extras}>
+  <SectionHead id="education-h" title="Education and certificates" depth={DEPTHS.education} />
+  <div class="two-col">
+    <div>
+      <h3 class="sub-h">Education</h3>
+      <ul class="list">
+        {education.map((e) => (
+          <li class="entry">
+            <span class="when">{e.startDate === e.endDate ? e.startDate : `${e.startDate}–${e.endDate}`}</span>
             <div>
-              <h3 class="font-bold text-white text-sm tracking-tight" style="font-family: var(--font-display);">
-                {edu.studyType}
-              </h3>
-              <p class="text-sm text-white/90 mt-0.5">
-                {edu.area}
-              </p>
+              <h4>{e.url ? <a href={e.url} target="_blank" rel="noopener noreferrer">{e.institution}</a> : e.institution}</h4>
+              <p class="sub">{e.studyType}, {e.area}</p>
             </div>
-            <span class="text-[10px] tracking-wider text-white/40 whitespace-nowrap" style="font-family: var(--font-mono);">
-              {formatYear(edu.startDate)} — {formatYear(edu.endDate)}
-            </span>
-          </div>
-
-          <div class="mt-3 pt-3" style="border-top: 1px solid rgba(96,165,250,0.08);">
-            {edu.url ? (
-              <a href={edu.url} target="_blank" rel="noopener noreferrer" class="text-sm text-[#60a5fa] hover:underline transition-colors">
-                {edu.institution}
-              </a>
-            ) : (
-              <span class="text-sm text-white/75">{edu.institution}</span>
-            )}
-          </div>
-
-          {edu.courses && edu.courses.length > 0 && (
-            <div class="mt-3 flex flex-wrap gap-1">
-              {edu.courses.map((course) => (
-                <span class="text-[10px] px-2 py-0.5 rounded text-white/65 bg-white/[0.03] border border-white/[0.05]" style="font-family: var(--font-mono);">
-                  {course}
-                </span>
-              ))}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-h">Certificates</h3>
+      <ul class="list">
+        {certificates.map((c) => (
+          <li class={`entry ${isFreediving(c.name) ? 'spot' : ''}`}>
+            <span class="when">{formatDate(c.date)}</span>
+            <div>
+              <h4>{c.url ? <a href={c.url} target="_blank" rel="noopener noreferrer">{c.name}</a> : c.name}</h4>
+              <p class="sub">{c.issuer}</p>
+              {c.highlights && isFreediving(c.name) && (
+                <p class="spot-note"><Icon name="solar:medal-star-linear" aria-hidden="true" />{c.highlights.join('. ')}</p>
+              )}
+              {c.highlights && !isFreediving(c.name) && (
+                <p class="note">{c.highlights.join('. ')}</p>
+              )}
             </div>
-          )}
-        </div>
-      ))}
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
-</section>
-
-<script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.set('.edu-card', { opacity: 0, y: 30 });
-  ScrollTrigger.batch('.edu-card', {
-    start: 'top 88%',
-    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }),
-    once: true,
-  });
-</script>
+</Section>

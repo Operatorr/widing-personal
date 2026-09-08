@@ -1,8 +1,8 @@
 ---
 import Section from './Section.astro';
 import SectionHead from './SectionHead.astro';
-import { resume, techWork, dateRange, duration, formatDate } from '../../../lib/resume';
-import { DEPTHS, roleDepth, depthLabel } from '../depth';
+import { resume, techWork, dateRange, duration, formatDate } from '../lib/resume';
+import { DEPTHS, roleDepth, depthLabel } from '../lib/depth';
 const work = techWork();
 const prior = resume.work.find((w) => w.name === 'Prior non-tech experience');
 ---
