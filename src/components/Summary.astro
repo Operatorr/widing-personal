@@ -1,19 +1,36 @@
 ---
-import Section from './Section.astro';
 import SectionHead from './SectionHead.astro';
-import { resume, yearsOfExperience, techWork } from '../lib/resume';
-import { DEPTHS } from '../lib/depth';
-const years = yearsOfExperience();
-const roles = techWork().length;
-const records = 2;
----
+import { resume, techWork, yearsOfExperience } from '../lib/resume';
+import { DEPTHS, zoneStyle } from '../lib/depth';
 
-<Section id="summary" depth={DEPTHS.summary} from={DEPTHS.hero} to={DEPTHS.experienceTop}>
-  <SectionHead id="summary-h" title="Summary" depth={DEPTHS.summary} />
-  <p class="lede">{resume.basics.summary}</p>
-  <dl class="summary-facts">
-    <div><dt>Years in software</dt><dd>{years}+</dd></div>
-    <div><dt>Roles</dt><dd>{roles}</dd></div>
-    <div><dt>National records coached</dt><dd>{records}</dd></div>
-  </dl>
-</Section>
+const { basics } = resume;
+const current = techWork()[0];
+const languages = resume.languages.map((l) => l.language).join(', ');
+---
+<section
+  class="sheet zone"
+  id="summary"
+  aria-labelledby="summary-title"
+  data-depth={DEPTHS.summary}
+  style={zoneStyle(DEPTHS.summary, DEPTHS.experienceTop)}
+>
+  <div class="wrap">
+    <SectionHead id="summary-title" title="Summary" depth={DEPTHS.summary} />
+    <div class="summary__grid">
+      <p class="lede" data-reveal>{basics.summary}</p>
+      <aside class="summary__aside" data-reveal aria-label="At a glance">
+        <span class="mono">At a glance</span>
+        <dl>
+          <dt>Now</dt>
+          <dd>{current.position} at {current.name}</dd>
+          <dt>Since</dt>
+          <dd>{yearsOfExperience()} years in software, first paid work in 2014</dd>
+          <dt>Based</dt>
+          <dd>{basics.location.city}, Thailand</dd>
+          <dt>Speaks</dt>
+          <dd>{languages}</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,14 +1,20 @@
 ---
-// A metre scale from 0 to 100. Decoration: the sections carry their own headings and depths.
+// A metre ruler from 0 to 100: a tick every 5 m, a number every 10 m.
+// Decoration only: the section heads carry their own depths.
 const ticks = Array.from({ length: 21 }, (_, i) => i * 5);
 ---
-
-<div class="gauge" aria-hidden="true">
-  <div class="gauge-scale">
+<div class="gauge" aria-hidden="true" data-gauge>
+  <div class="gauge__scale">
+    <span class="gauge__surface"><span class="gauge__surface-label">Surface</span></span>
+    <span class="gauge__spine"></span>
+    <span class="gauge__fill"></span>
     {ticks.map((t) => (
-      <i>{t % 25 === 0 && <span class="num" style={`top:${t}%`}>{t}</span>}</i>
+      <i class:list={['gauge__tick', { 'gauge__tick--major': t % 10 === 0 }]} style={`--t:${t}`}>
+        {t % 10 === 0 && <span class="gauge__num">{t}</span>}
+      </i>
     ))}
-    <span class="gauge-fill"></span>
   </div>
-  <div class="gauge-read"><span class="val">0</span> <span class="unit">m</span></div>
+  <div class="gauge__read">
+    <span class="gauge__val" data-gauge-val>0</span><span class="gauge__unit">m</span>
+  </div>
 </div>

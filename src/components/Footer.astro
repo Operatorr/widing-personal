@@ -1,15 +1,24 @@
 ---
 import { resume } from '../lib/resume';
-const year = new Date().getFullYear();
----
 
-<footer class="foot zone" style="--from:#020509;--to:#020509">
-  <div class="wrap">
-    <p style="margin:0">© {year} {resume.basics.name}</p>
-    <p style="margin:0">
-      Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>.
-      Data in <a href="https://jsonresume.org" target="_blank" rel="noopener noreferrer">JSON Resume</a> format.
-      <a href="/cv">Print version</a>.
+const yearNow = new Date().getFullYear();
+const updated = new Date(resume.meta.lastModified).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+const host = resume.basics.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+---
+<footer class="colophon-wrap">
+  <div class="wrap colophon">
+    <p>
+      <span class="mono">Colophon</span>
+      Set in Fraunces, Instrument Sans and IBM Plex Mono. Built with Astro from a single JSON Resume file.
+      The light in the header is a small WebGL shader; it stays off when you ask for reduced motion.
+    </p>
+    <p>
+      <span class="mono">Edition</span>
+      Last updated {updated}. The print version lives at <a href="/cv">/cv</a>.
+    </p>
+    <p>
+      <span class="mono">Imprint</span>
+      © {yearNow} {resume.basics.name} · <a href={resume.basics.url}>{host}</a>
     </p>
   </div>
 </footer>

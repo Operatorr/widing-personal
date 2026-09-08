@@ -14,9 +14,9 @@ export default defineConfig({
 
   redirects: {
     '/versions': '/',
+    '/v/descent': '/',
     '/v/depth': '/',
     '/v/ledger': '/',
     '/v/blueprint': '/',
-    '/v/descent': '/',
   },
 });

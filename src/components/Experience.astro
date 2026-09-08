@@ -1,38 +1,81 @@
 ---
-import Section from './Section.astro';
 import SectionHead from './SectionHead.astro';
-import { resume, techWork, dateRange, duration, formatDate } from '../lib/resume';
-import { DEPTHS, roleDepth, depthLabel } from '../lib/depth';
-const work = techWork();
-const prior = resume.work.find((w) => w.name === 'Prior non-tech experience');
----
+import { resume, techWork, dateRange, duration, year } from '../lib/resume';
+import { DEPTHS, roleDepth, zoneStyle } from '../lib/depth';
 
-<Section id="experience" depth={DEPTHS.experienceTop} from={DEPTHS.experienceTop} to={DEPTHS.projects}>
-  <SectionHead id="experience-h" title="Experience" depth={DEPTHS.experienceTop} lead="Each role a little deeper. The current one is at the top." />
-  <ol class="descent list">
-    {work.map((w, i) => {
-      const d = roleDepth(i, work.length);
-      const current = !w.endDate;
-      return (
-        <li class={`role ${current ? 'is-current' : 'is-past'}`} data-depth={d}>
-          <p class="role-top">
-            <span class="depth">{depthLabel(d)}</span>
-            <span class="dates">{dateRange(w.startDate, w.endDate)}</span>
-            <span class="dur">{duration(w.startDate, w.endDate)}</span>
+const roles = techWork();
+const prior = resume.work.find((w) => w.name === 'Prior non-tech experience');
+
+const thisYear = new Date().getFullYear();
+const firstYear = Math.min(...roles.map((r) => Number(year(r.startDate))));
+const years: number[] = [];
+for (let y = thisYear; y >= firstYear; y--) years.push(y);
+---
+<section
+  class="sheet zone"
+  id="experience"
+  aria-labelledby="experience-title"
+  data-depth={DEPTHS.experienceTop}
+  style={zoneStyle(DEPTHS.experienceTop, DEPTHS.projects)}
+>
+  <div class="wrap">
+    <SectionHead id="experience-title" title="Experience" depth={DEPTHS.experienceTop} />
+    <div class="xp">
+      <aside class="rail" aria-hidden="true" data-rail>
+        <ol class="rail__list">
+          <span class="rail__progress" data-rail-progress></span>
+          <span class="rail__bracket" data-rail-bracket></span>
+          {years.map((y) => (
+            <li class="rail__year" data-year={y}>{y}</li>
+          ))}
+        </ol>
+        <p class="rail__caption" data-rail-caption></p>
+      </aside>
+
+      <div class="roles" data-roles>
+        {roles.map((w, i) => {
+          const start = year(w.startDate);
+          const end = w.endDate ? year(w.endDate) : String(thisYear);
+          const depth = roleDepth(i, roles.length);
+          return (
+            <article
+              class="role"
+              data-role
+              data-start={start}
+              data-end={end}
+              data-company={w.name}
+              data-depth={depth}
+            >
+              <div class="role__year">
+                <span>{start}{start !== end ? ` – ${w.endDate ? end : 'now'}` : ''}</span>
+              </div>
+              <div class="role__meta" data-reveal>
+                <p class="role__company">{w.name}</p>
+                <p class="role__desc">{w.description}</p>
+                <p class="role__desc">{w.location}</p>
+                <div class="role__dates">
+                  <span class="mono">{dateRange(w.startDate, w.endDate)}</span>
+                  <span class="mono">{duration(w.startDate, w.endDate)}</span>
+                </div>
+              </div>
+              <div data-reveal>
+                <h3 class="role__title">{w.position}</h3>
+                {w.summary && <p class="role__summary">{w.summary}</p>}
+                {w.highlights && (
+                  <ul class="hl">
+                    {w.highlights.map((h) => <li>{h}</li>)}
+                  </ul>
+                )}
+              </div>
+            </article>
+          );
+        })}
+        {prior && (
+          <p class="xp__prior" data-reveal>
+            Before software: {prior.position}, {prior.location}, {dateRange(prior.startDate, prior.endDate)}.
           </p>
-          <h3>{w.position}</h3>
-          <p class="org"><strong>{w.name}</strong> · {w.location}{w.description && ` · ${w.description}`}</p>
-          {w.summary && <p class="role-sum">{w.summary}</p>}
-          {w.highlights && (
-            <ul>
-              {w.highlights.map((h) => <li>{h}</li>)}
-            </ul>
-          )}
-        </li>
-      );
-    })}
-  </ol>
-  {prior && (
-    <p class="prior">Before software: {prior.position}, {prior.location}, {formatDate(prior.startDate)} to {formatDate(prior.endDate)}.</p>
-  )}
-</Section>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

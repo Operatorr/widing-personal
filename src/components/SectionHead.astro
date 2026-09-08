@@ -1,14 +1,22 @@
 ---
-import { depthLabel } from '../lib/depth';
-interface Props { title: string; depth: number; id: string; lead?: string }
-const { title, depth, id, lead } = Astro.props;
-const words = title.split(' ');
----
+import SplitWords from './SplitWords.astro';
+import { NOTES } from '../lib/depth';
 
-<header class="sec-head">
-  <p class="depth-tag">{depthLabel(depth)}</p>
-  <h2 id={id} class="split" aria-label={title}>
-    {words.map((w) => (<span class="w" aria-hidden="true"><span>{w}</span></span>))}
+interface Props {
+  id: string;
+  title: string;
+  depth: number;
+}
+const { id, title, depth } = Astro.props;
+const note = NOTES[depth];
+---
+<div class="sheet__head">
+  <div class="depth" aria-hidden="true">
+    <span class="depth__m">{depth}<small>m</small></span>
+    <span class="depth__line"></span>
+    {note && <span class="depth__note">{note}</span>}
+  </div>
+  <h2 class="sheet__title" id={id} aria-label={title} data-split-head>
+    <SplitWords text={title} />
   </h2>
-  {lead && <p class="sec-lead">{lead}</p>}
-</header>
+</div>

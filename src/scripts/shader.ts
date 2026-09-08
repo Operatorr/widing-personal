@@ -1,4 +1,4 @@
-// Hero light-shaft shader. One job: depth.
+// Hero light-shaft shader. One job: the lit surface above a dark descent.
 // Value noise and hash are written here so no noise library is needed.
 
 export const vertexShader = /* glsl */ `
@@ -56,25 +56,34 @@ void main() {
   float s1 = vnoise(vec2(x * 5.0, t));
   float s2 = vnoise(vec2(x * 11.0 + 3.1, t * 1.4 + 2.0));
   float s3 = vnoise(vec2(x * 2.2 - 7.0, t * 0.5 + 5.0));
-  float shafts = pow(clamp(s1 * 0.5 + s2 * 0.2 + s3 * 0.45, 0.0, 1.0), 2.6);
+  float shafts = pow(clamp(s1 * 0.5 + s2 * 0.2 + s3 * 0.45, 0.0, 1.0), 2.2);
 
   // Bright near the surface (top), gone by the bottom of the hero.
-  float fromSurface = pow(uv.y, 1.7);
+  float fromSurface = pow(uv.y, 1.5);
 
-  // Caustic shimmer just under the surface.
+  // Caustic shimmer just under the surface: two layers, sharper near the top.
   float c = fbm(vec2(uv.x * aspect * 6.0 + t * 2.0, uv.y * 6.0 - t * 1.2));
   float c2 = fbm(vec2(uv.x * aspect * 9.0 - t * 1.5 + 4.0, uv.y * 9.0 + t));
-  float caustic = smoothstep(0.52, 0.8, c * 0.6 + c2 * 0.4) * smoothstep(0.55, 1.0, uv.y);
+  float caustic = smoothstep(0.48, 0.78, c * 0.6 + c2 * 0.4) * smoothstep(0.45, 1.0, uv.y);
 
-  vec3 surface = vec3(0.024, 0.063, 0.110);
+  // The water itself: a lit surface band that drops to the abyss.
+  vec3 surface = vec3(0.14, 0.37, 0.53);
   vec3 abyss = vec3(0.008, 0.020, 0.035);
   vec3 cyan = vec3(0.373, 0.827, 1.000);
+  vec3 white = vec3(0.905, 0.960, 0.985);
 
-  vec3 col = mix(abyss, surface, uv.y);
+  vec3 col = mix(abyss, surface, pow(uv.y, 1.35));
 
   float descent = 1.0 - uScroll;
-  float light = (shafts * fromSurface * 0.6 + caustic * 0.22) * descent;
-  col += cyan * light * 0.42;
+  // Shafts go whiter the closer they are to the surface.
+  vec3 shaftColor = mix(cyan, white, fromSurface * 0.7);
+  float light = (shafts * fromSurface * 1.0 + caustic * 0.5) * descent;
+  col += shaftColor * light * 0.55;
+
+  // Waterline: a soft pale band along the very top, rippling with the caustics.
+  float ripple = 0.015 * sin(uv.x * aspect * 14.0 + t * 6.0) + 0.01 * sin(uv.x * aspect * 31.0 - t * 9.0);
+  float waterline = smoothstep(0.86 + ripple, 1.0, uv.y);
+  col = mix(col, white, waterline * 0.4 * descent);
 
   // A faint glow where the pointer is, as if a torch under water.
   vec2 pd = (uv - uPointer) * vec2(aspect, 1.0);

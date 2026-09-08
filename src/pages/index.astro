@@ -6,21 +6,17 @@ import Experience from '../components/Experience.astro';
 import Projects from '../components/Projects.astro';
 import Skills from '../components/Skills.astro';
 import Education from '../components/Education.astro';
-import Extras from '../components/Extras.astro';
+import Notices from '../components/Notices.astro';
 import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
 import { resume } from '../lib/resume';
-const { basics } = resume;
 ---
-
-<Layout title={`${basics.name} – ${basics.label}`} description={basics.summary}>
+<Layout title={`${resume.basics.name} – ${resume.basics.label}`} description={resume.basics.summary}>
   <Hero />
   <Summary />
   <Experience />
   <Projects />
   <Skills />
   <Education />
-  <Extras />
+  <Notices />
   <Contact />
-  <Footer />
 </Layout>

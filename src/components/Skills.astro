@@ -1,27 +1,29 @@
 ---
-import Section from './Section.astro';
 import SectionHead from './SectionHead.astro';
 import { resume } from '../lib/resume';
-import { DEPTHS } from '../lib/depth';
-const { skills } = resume;
+import { DEPTHS, zoneStyle } from '../lib/depth';
 ---
-
-<Section id="skills" depth={DEPTHS.skills} from={DEPTHS.skills} to={DEPTHS.education}>
-  <SectionHead id="skills-h" title="Skills" depth={DEPTHS.skills} />
-  <ul class="skills list">
-    {skills.map((s) => (
-      <li class="skill">
-        <div class="skill-top">
-          <h3>{s.name}</h3>
-          <span class="level" data-level={s.level}>
-            <i aria-hidden="true"><b></b><b></b><b></b><b></b></i>
-            {s.level}
-          </span>
+<section
+  class="sheet zone"
+  id="skills"
+  aria-labelledby="skills-title"
+  data-depth={DEPTHS.skills}
+  style={zoneStyle(DEPTHS.skills, DEPTHS.education)}
+>
+  <div class="wrap">
+    <SectionHead id="skills-title" title="Skills" depth={DEPTHS.skills} />
+    <div class="index">
+      {resume.skills.map((s) => (
+        <div class="index__group" data-reveal>
+          <div class="index__head">
+            <h3 class="index__name">{s.name}</h3>
+            <span class="index__level">{s.level}</span>
+          </div>
+          <ul class="index__list">
+            {s.keywords.map((k) => <li>{k}</li>)}
+          </ul>
         </div>
-        <ul class="chips">
-          {s.keywords.map((k) => <li class="chip">{k}</li>)}
-        </ul>
-      </li>
-    ))}
-  </ul>
-</Section>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,8 +1,9 @@
 # Alexander Widing - Personal CV
 
 A CV/portfolio site built with Astro and Tailwind CSS. The live page is a
-dark descent: scrolling maps to depth, with a metre gauge and a WebGL
-light-shaft hero. Content comes from JSON Resume data.
+dark descent: Ledger's editorial type and layouts in deep water, with a
+metre gauge and a WebGL light-shaft hero. Content comes from JSON Resume
+data.
 
 ## Live Demo
 
@@ -60,7 +61,7 @@ src/
   pages/cv.astro          Print page
   layouts/                Page layouts
   components/             Resume sections, nav, gauge
-  scripts/                Motion, hero WebGL
+  scripts/                Motion, hero WebGL, marine snow
   lib/resume.ts           Typed resume data and date helpers
   lib/depth.ts            Section depths and zone colours
   data/resume.json        CV data

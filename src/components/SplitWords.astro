@@ -1,0 +1,11 @@
+---
+/** Wraps each word in an aria-hidden span so it can be staggered. The parent carries aria-label. */
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+const words = text.split(' ');
+---
+{words.map((word, i) => (
+  <><span class="w" aria-hidden="true"><span class="wi">{word}</span></span>{i < words.length - 1 ? ' ' : ''}</>
+))}
