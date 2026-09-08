@@ -196,6 +196,23 @@
       ]
     },
     {
+      "name": "Architecture & Practices",
+      "level": "Expert",
+      "keywords": [
+        "System Design",
+        "RESTful APIs",
+        "API Documentation",
+        "SaaS Multi-tenancy",
+        "Event-Driven Architecture",
+        "Database Design",
+        "Caching Strategies (Redis, CDN, HTTP)",
+        "MVC",
+        "Microservices",
+        "Technical Documentation",
+        "Agile/Scrum"
+      ]
+    },
+    {
       "name": "Frontend Development",
       "level": "Advanced",
       "keywords": [
@@ -254,6 +271,11 @@
       ]
     },
     {
+      "name": "Testing & Quality",
+      "level": "Advanced",
+      "keywords": ["TDD", "Unit Testing", "Pest", "Automated Testing"]
+    },
+    {
       "name": "Observability & Monitoring",
       "level": "Intermediate",
       "keywords": [
@@ -262,28 +284,6 @@
         "Nightwatch",
         "Production Monitoring",
         "Error Tracking"
-      ]
-    },
-    {
-      "name": "Testing & Quality",
-      "level": "Advanced",
-      "keywords": ["TDD", "Unit Testing", "Pest", "Automated Testing"]
-    },
-    {
-      "name": "Architecture & Practices",
-      "level": "Expert",
-      "keywords": [
-        "System Design",
-        "RESTful APIs",
-        "API Documentation",
-        "SaaS Multi-tenancy",
-        "Event-Driven Architecture",
-        "Database Design",
-        "Caching Strategies (Redis, CDN, HTTP)",
-        "MVC",
-        "Microservices",
-        "Technical Documentation",
-        "Agile/Scrum"
       ]
     }
   ],
