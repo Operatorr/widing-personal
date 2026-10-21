@@ -50,11 +50,9 @@ export function duration(start: string, end?: string): string {
   return parts.join(' ');
 }
 
-/** Years of professional software work, counted from the first tech role. */
+/** Whole years since the confirmed professional start; excludes earlier freelance and telecom work. */
 export function yearsOfExperience(): number {
-  const tech = resume.work.filter((w) => w.name !== 'Prior non-tech experience');
-  const earliest = tech.reduce((min, w) => (w.startDate < min ? w.startDate : min), tech[0].startDate);
-  return Math.floor(monthsBetween(earliest) / 12);
+  return Math.floor(monthsBetween(resume.meta.professionalStartDate) / 12);
 }
 
 /** Split a full name into [first, rest]. */

@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sync:contributions": "node scripts/sync-contributions.mjs",
+    "test:contributions": "node --test scripts/contribution-utils.test.mjs"
   },
   "dependencies": {
     "@iconify-json/solar": "^1.2.10",
@@ -15,7 +17,6 @@
     "astro": "^5.16.5",
     "astro-icon": "^1.2.0",
     "gsap": "^3.14.2",
-    "lenis": "^1.3.26",
     "tailwindcss": "^4.1.18",
     "three": "^0.185.1"
   }

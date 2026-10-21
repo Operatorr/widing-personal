@@ -11,6 +11,7 @@ function tier(fluency: string): { pct: number; tone: string } {
   if (f.includes('native')) return { pct: 100, tone: 'native' };
   if (f.includes('fluent')) return { pct: 88, tone: 'fluent' };
   if (f.includes('conversational')) return { pct: 52, tone: 'working' };
+  if (f.includes('beginner')) return { pct: 4, tone: 'beginner' };
   return { pct: 26, tone: 'basic' };
 }
 ---

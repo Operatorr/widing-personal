@@ -1,0 +1,36 @@
+---
+import { Icon } from 'astro-icon/components';
+import { resume, dateRange } from '../../lib/resume';
+---
+<section id="experience" class="career section-pad">
+  <div class="shell section-head"><p class="eyebrow">02 / The experience</p><div><h2>A career spent<br /><span>close to the code.</span></h2><p>From a first freelance project to owning the architecture.<br class="desktop-only" /> More responsibility, still hands-on.</p></div></div>
+  <div class="shell career-list">
+    {resume.work.map((job, i) => <details class="career-row" open={i === 0}>
+      <summary><span class="career-date">{dateRange(job.startDate, job.endDate)}{!job.endDate && <span class="current-label">Current</span>}</span><span class="career-role"><h3>{job.position}</h3><span>{job.name}</span></span><span class="career-toggle" aria-hidden="true"><Icon name="solar:add-linear" /></span></summary>
+      <div class="career-detail"><span>{job.location}{job.description && <><br /><br />{job.description}</>}</span><div>{job.summary && <p>{job.summary}</p>}{job.highlights?.length > 0 && <ul>{job.highlights.map(h => <li>{h}</li>)}</ul>}</div></div>
+    </details>)}
+  </div>
+</section>
+<section class="projects section-pad" id="work">
+  <div class="shell section-head"><p class="eyebrow">03 / Projects</p><div><h2>Things I've<br /><em>put into the world.</em></h2><p>Open a project to read about the work behind it.</p></div></div>
+  <div class="shell project-list">
+    {resume.projects.map((project, i) => <details class="project-row">
+      <summary><span class="project-index">0{i + 1}</span><div><p class="eyebrow">{project.entity || 'Independent project'} / {dateRange(project.startDate, project.endDate, 'Ongoing')}</p><h3>{project.name}</h3></div><span class="project-open" aria-hidden="true"><Icon name="solar:add-linear" /></span></summary>
+      <div class="project-detail"><p>{project.description}</p><p class="project-roles">{project.roles.join(' · ')} · {project.type}</p><div class="tags">{project.keywords.map(k => <span>{k}</span>)}</div><ul>{project.highlights.map(h => <li>{h}</li>)}</ul></div>
+    </details>)}
+  </div>
+</section>
+<section class="expertise section-pad" id="expertise">
+  <div class="shell section-head"><p class="eyebrow">04 / The toolkit</p><div><h2>From architecture<br /><span>to implementation.</span></h2><p>Open a category to explore the full toolkit.</p></div></div>
+  <div class="shell skill-list">
+    {resume.skills.map((group, i) => <details class="skill-row">
+      <summary>
+        <span class="skill-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <span class="skill-heading"><h3>{group.name}</h3><span>{group.level} · {group.keywords.length} skills</span></span>
+        <span class="skill-preview" aria-hidden="true">{group.keywords.slice(0, 4).join(' · ')}{group.keywords.length > 4 && <span class="skill-more"> +{group.keywords.length - 4}</span>}</span>
+        <span class="skill-toggle" aria-hidden="true"><Icon name="solar:add-linear" /></span>
+      </summary>
+      <ul class="skill-keywords" aria-label={`${group.name} skills`}>{group.keywords.map(skill => <li>{skill}</li>)}</ul>
+    </details>)}
+  </div>
+</section>

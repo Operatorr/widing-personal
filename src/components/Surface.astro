@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import island from '../assets/vintage-comic-island.png';
+---
+
+<!-- Original image generated with ImageGen. Prompt and source: docs/island-asset.md. -->
+<div class="surface" id="surface" data-surface aria-hidden="true">
+  <div class="wrap surface__scene">
+    <Image
+      class="surface__island"
+      src={island}
+      alt=""
+      width={960}
+      height={640}
+      widths={[480, 960]}
+      sizes="(max-width: 767px) 260px, 336px"
+      format="webp"
+      quality={85}
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
+</div>

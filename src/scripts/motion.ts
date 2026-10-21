@@ -1,4 +1,3 @@
-import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,38 +11,10 @@ export function initDescent(): void {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const disposers: Array<() => void> = [];
 
-  // --- Smooth scroll (Lenis is the only engine; skipped under reduced motion) ---
-  let lenis: Lenis | undefined;
-  if (!reduced) {
-    lenis = new Lenis();
-    lenis.on('scroll', ScrollTrigger.update);
-    const raf = (t: number) => lenis!.raf(t * 1000);
-    gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
-    disposers.push(() => {
-      gsap.ticker.remove(raf);
-      lenis?.destroy();
-    });
-  }
-
-  // --- In-page links ("Descend", "Surface", nav): smooth via Lenis when it runs, native otherwise ---
   const navH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) * 16 || 52;
-  const onLinkClick = (e: MouseEvent) => {
-    if (!lenis || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
-    if (!link) return;
-    const id = link.getAttribute('href')!.slice(1);
-    const target = id ? document.getElementById(id) : null;
-    if (!target) return;
-    e.preventDefault();
-    const top = id === 'top' || id === 'main';
-    lenis.scrollTo(top ? 0 : target, { offset: top ? 0 : -navH() - 16, duration: 1.4 });
-    history.replaceState(null, '', top ? location.pathname : `#${id}`);
-  };
-  document.addEventListener('click', onLinkClick);
-  disposers.push(() => document.removeEventListener('click', onLinkClick));
 
-  // --- Folio strip: hairline once the hero has scrolled past ---
+  // The sentinel sits at the foot of the sky. The strip turns dark as it sticks,
+  // while the island and waterline continue upward with the document.
   const folio = document.querySelector<HTMLElement>('[data-folio]');
   const sentinel = document.querySelector<HTMLElement>('[data-folio-sentinel]');
   if (folio && sentinel) {
@@ -53,6 +24,28 @@ export function initDescent(): void {
     });
     io.observe(sentinel);
     disposers.push(() => io.disconnect());
+  }
+
+  // The surface moves with the document; only a slight lateral ripple is animated.
+  const waterline = document.querySelector<HTMLElement>('[data-waterline]');
+  const strip = waterline?.querySelector<HTMLElement>('.waterline__strip');
+  if (waterline && strip && !reduced) {
+    let inView = false;
+    const ripple = gsap.fromTo(strip, { xPercent: -2 }, {
+      xPercent: 2, duration: 14, ease: 'none', repeat: -1, yoyo: true, paused: true,
+    });
+    const syncRipple = () => ripple.paused(!inView || document.visibilityState !== 'visible');
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      syncRipple();
+    });
+    observer.observe(waterline);
+    document.addEventListener('visibilitychange', syncRipple);
+    disposers.push(() => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', syncRipple);
+      ripple.revert();
+    });
   }
 
   // --- Mobile menu ---
@@ -88,21 +81,43 @@ export function initDescent(): void {
   const gauge = document.querySelector<HTMLElement>('[data-gauge]');
   const readout = gauge?.querySelector<HTMLElement>('[data-gauge-val]');
   if (gauge && readout && anchors.length) {
+    const pressure = gauge.querySelector<HTMLElement>('[data-gauge-pressure]');
+    const pressureFill = gauge.querySelector<HTMLElement>('[data-gauge-pressure-fill]');
+    const state = gauge.querySelector<HTMLElement>('[data-gauge-state]');
+    const title = gauge.querySelector<HTMLElement>('[data-gauge-title]');
+    const section = gauge.querySelector<HTMLElement>('[data-gauge-section]');
+    const fill = gauge.querySelector<HTMLElement>('[data-gauge-fill]');
+    const marker = gauge.querySelector<HTMLElement>('[data-gauge-marker]');
+    const scale = gauge.querySelector<HTMLElement>('.gauge__scale');
     let tops: number[] = [];
     let depths: number[] = [];
+    let sections: string[] = [];
+    let trackHeight = 0;
     let ticking = false;
-    let shown = -1;
+    let frame = 0;
+    let disposed = false;
+    let shown = '';
     const measure = () => {
       const pairs = anchors
-        .map((a) => ({ top: a.getBoundingClientRect().top + scrollY, depth: Number(a.dataset.depth) }))
+        .map((a) => {
+          const parent = a.closest('section');
+          const heading = parent?.querySelector('h2');
+          return {
+            top: a.getBoundingClientRect().top + scrollY,
+            depth: Number(a.dataset.depth),
+            section: heading?.getAttribute('aria-label') ?? heading?.textContent?.trim() ?? 'Introduction',
+          };
+        })
         .sort((a, b) => a.top - b.top);
       tops = pairs.map((p) => p.top);
       depths = pairs.map((p) => p.depth);
+      sections = pairs.map((p) => p.section);
+      trackHeight = scale?.clientHeight ?? 0;
     };
     const currentDepth = () => {
       if (!tops.length) return 0;
       if (scrollY <= 0) return depths[0];
-      const probe = scrollY + innerHeight * 0.45;
+      const probe = scrollY + navH();
       const maxScroll = document.documentElement.scrollHeight - innerHeight;
       if (maxScroll > 0 && scrollY >= maxScroll - 2) return depths[depths.length - 1];
       if (probe <= tops[0]) return depths[0];
@@ -116,19 +131,34 @@ export function initDescent(): void {
     };
     const paint = () => {
       ticking = false;
+      if (disposed) return;
       const d = Math.round(currentDepth());
-      if (d === shown) return;
-      shown = d;
+      const probe = scrollY + navH() + 24;
+      let index = 0;
+      for (let i = 0; i < tops.length; i++) { if (tops[i] <= probe) index = i; }
+      if (scrollY >= document.documentElement.scrollHeight - innerHeight - 2) index = sections.length - 1;
+      const label = sections[index];
+      const signature = `${d}:${label}`;
+      if (signature === shown) return;
+      shown = signature;
       readout.textContent = String(d);
-      gauge.style.setProperty('--p', String(d / 100));
+      if (pressure) pressure.textContent = String(Math.round((1 + d / 10) * 10) / 10);
+      if (state) state.textContent = d === 0 ? 'Surface' : d === 100 ? 'Deep' : 'Diving';
+      if (title) title.textContent = d === 0 ? 'At the surface' : d === 100 ? '100 metres down' : 'Under the surface';
+      if (section) section.textContent = label;
+      if (fill) fill.style.transform = `scaleY(${d / 100})`;
+      if (pressureFill) pressureFill.style.transform = `scaleX(${d / 100})`;
+      if (marker) marker.style.transform = `translateY(${trackHeight * d / 100 - 7}px)`;
     };
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
-      requestAnimationFrame(paint);
+      frame = requestAnimationFrame(paint);
     };
     const onResize = () => {
+      if (disposed) return;
       measure();
+      shown = '';
       onScroll();
     };
     measure();
@@ -137,6 +167,8 @@ export function initDescent(): void {
     addEventListener('resize', onResize);
     document.fonts?.ready.then(onResize);
     disposers.push(() => {
+      disposed = true;
+      cancelAnimationFrame(frame);
       removeEventListener('scroll', onScroll);
       removeEventListener('resize', onResize);
     });
@@ -221,7 +253,7 @@ export function initDescent(): void {
       .from(rules, { scaleX: 0, duration: 0.7, stagger: 0.12 }, 0)
       .from(words, { yPercent: 110, duration: 0.85, stagger: 0.1 }, 0.12)
       .from(meta ? Array.from(meta.children) : [], { autoAlpha: 0, y: 10, duration: 0.5, stagger: 0.06 }, 0.55);
-    if (gauge) intro.from(gauge, { autoAlpha: 0, x: -12, duration: 0.7 }, 0.7);
+    if (gauge) intro.from(gauge, { autoAlpha: 0, duration: 0.7, clearProps: 'opacity,visibility' }, 0.7);
 
     gsap.utils.toArray<HTMLElement>('[data-split-head]').forEach((head) => {
       const inner = head.querySelectorAll('.wi');
@@ -268,9 +300,17 @@ export function initDescent(): void {
     disposers.push(() => intro.kill());
   }
 
-  document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  let active = true;
+  const refresh = () => { if (active) ScrollTrigger.refresh(); };
+  document.fonts?.ready.then(refresh);
+  const island = document.querySelector<HTMLImageElement>('.surface__island');
+  if (island && !island.complete) {
+    island.addEventListener('load', refresh, { once: true });
+    disposers.push(() => island.removeEventListener('load', refresh));
+  }
 
   cleanup = () => {
+    active = false;
     disposers.forEach((d) => d());
     ScrollTrigger.getAll().forEach((t) => t.kill());
     cleanup = undefined;

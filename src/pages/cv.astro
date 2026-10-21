@@ -76,6 +76,7 @@ const mainWork = work;
             <p class="text-xs text-gray-700">
               {job.name}{job.location && ` · ${job.location}`}
             </p>
+            {job.description && <p class="text-xs text-gray-600 mt-0.5">{job.description}</p>}
             {job.summary && (
               <p class="text-xs text-gray-700 mt-0.5">{job.summary}</p>
             )}
@@ -92,12 +93,12 @@ const mainWork = work;
     </section>
   )}
 
-  <!-- Selected Projects -->
+  <!-- Projects -->
   {projects && projects.length > 0 && (
     <section class="mb-4">
-      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Selected Projects</h2>
+      <h2 class="text-sm font-bold text-black uppercase tracking-wide mb-2 pb-1 border-b border-gray-300">Projects</h2>
       <div class="space-y-3">
-        {projects.slice(0, 4).map((project) => (
+        {projects.map((project) => (
           <div class="avoid-break">
             <div class="flex justify-between items-start">
               <div>
@@ -108,10 +109,11 @@ const mainWork = work;
                 )}
               </div>
               <span class="text-xs text-gray-600 whitespace-nowrap ml-4">
-                {formatYear(project.startDate)}{project.endDate && ` – ${formatYear(project.endDate)}`}
+                {formatDate(project.startDate)} – {project.endDate ? formatDate(project.endDate) : 'Ongoing'}
               </span>
             </div>
             <p class="text-xs text-gray-700 mt-0.5">{project.description}</p>
+            <p class="text-xs text-gray-600 mt-0.5">Project type: {project.type}</p>
             {project.highlights && project.highlights.length > 0 && (
               <ul class="list-disc list-outside ml-4 mt-1 text-xs text-gray-700 space-y-0">
                 {project.highlights.map((highlight) => (

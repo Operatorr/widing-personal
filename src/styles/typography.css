@@ -1,0 +1,6 @@
+/* Local font families used by the sea-descent reference, shared by both pages. */
+@theme {
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, P052, "URW Palladio L", Georgia, serif;
+  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", "Nimbus Sans", "Liberation Sans", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+}

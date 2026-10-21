@@ -80,11 +80,6 @@ void main() {
   float light = (shafts * fromSurface * 1.0 + caustic * 0.5) * descent;
   col += shaftColor * light * 0.55;
 
-  // Waterline: a soft pale band along the very top, rippling with the caustics.
-  float ripple = 0.015 * sin(uv.x * aspect * 14.0 + t * 6.0) + 0.01 * sin(uv.x * aspect * 31.0 - t * 9.0);
-  float waterline = smoothstep(0.86 + ripple, 1.0, uv.y);
-  col = mix(col, white, waterline * 0.4 * descent);
-
   // A faint glow where the pointer is, as if a torch under water.
   vec2 pd = (uv - uPointer) * vec2(aspect, 1.0);
   col += cyan * 0.06 * smoothstep(0.55, 0.0, length(pd)) * descent;

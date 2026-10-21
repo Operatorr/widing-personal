@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import waterline from '../assets/comic-waterline.png';
+---
+
+<!-- Original ImageGen surface detail. The image bridges sky and water at this boundary. -->
+<div class="waterline" aria-hidden="true">
+  <div class="waterline__window" data-waterline>
+    <Image
+      class="waterline__strip"
+      src={waterline}
+      alt=""
+      width={1800}
+      widths={[960, 1800]}
+      sizes="108vw"
+      format="webp"
+      quality={85}
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+</div>

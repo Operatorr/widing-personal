@@ -1,22 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Summary from '../components/Summary.astro';
-import Experience from '../components/Experience.astro';
-import Projects from '../components/Projects.astro';
-import Skills from '../components/Skills.astro';
-import Education from '../components/Education.astro';
-import Notices from '../components/Notices.astro';
-import Contact from '../components/Contact.astro';
-import { resume } from '../lib/resume';
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import Hero from '../components/portfolio/Hero.astro';
+import Contributions from '../components/portfolio/Contributions.astro';
+import Career from '../components/portfolio/Career.astro';
+import About from '../components/portfolio/About.astro';
 ---
-<Layout title={`${resume.basics.name} – ${resume.basics.label}`} description={resume.basics.summary}>
-  <Hero />
-  <Summary />
-  <Experience />
-  <Projects />
-  <Skills />
-  <Education />
-  <Notices />
-  <Contact />
-</Layout>
+<PortfolioLayout title="Alexander Widing — Solutions Architect & Founding Engineer" description="Swedish solutions architect and founding engineer based in Bangkok. Building enterprise SaaS, production AI and the systems behind them. Swedish citizen with EU right to work.">
+  <main id="main"><Hero /><Contributions /><Career /><About /></main>
+</PortfolioLayout>

@@ -1,0 +1,33 @@
+---
+import '../styles/portfolio.css';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://widing.dev');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#9d220a" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/images/alexander-ember.webp', canonical)} />
+    <meta property="og:image:alt" content="Warm studio portrait of Alexander Widing" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+    <script>
+      import { initPortfolio } from '../scripts/portfolio';
+      initPortfolio();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import { Icon } from 'astro-icon/components';
+interface Props {
+  label: string;
+  caption: string;
+  variant?: 'main' | 'detail';
+  photos: { src: string; alt: string; width: number; height: number; position?: string }[];
+}
+const { label, caption, variant = 'main', photos } = Astro.props;
+---
+<figure class={`photo-${variant}`} data-gallery>
+  <div class="photo-carousel" role="region" aria-roledescription="carousel" aria-label={label}>
+    <div class="photo-track" tabindex="0" aria-label="Photos. Use left and right arrow keys to browse.">
+      {photos.map((photo, index) => <div class="photo-slide" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${photos.length}`}><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} style={photo.position ? `object-position: ${photo.position}` : undefined} loading="lazy" /></div>)}
+    </div>
+    <span class="photo-count" aria-live="polite" aria-atomic="true">1 / {photos.length}</span>
+    <button class="photo-arrow photo-prev" type="button" aria-label="Previous photo" aria-disabled="true"><Icon name="solar:alt-arrow-left-linear" /></button>
+    <button class="photo-arrow photo-next" type="button" aria-label="Next photo" aria-disabled="false"><Icon name="solar:alt-arrow-right-linear" /></button>
+  </div>
+  <figcaption class="photo-caption"><span>{caption}</span><span class="photo-dots" role="group" aria-label="Choose photo">{photos.map((_, index) => <button type="button" aria-label={`Show photo ${index + 1}`} aria-pressed={index === 0 ? 'true' : 'false'}></button>)}</span></figcaption>
+</figure>

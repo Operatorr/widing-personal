@@ -59,7 +59,7 @@
       "location": "Singapore & Bangkok, Thailand",
       "description": "Digital development agency",
       "position": "Corporate Systems Manager / Senior Software Engineer",
-      "startDate": "2015-08",
+      "startDate": "2015-09",
       "endDate": "2021-01",
       "summary": "Designed and developed suite of internal corporate systems and client-facing applications.",
       "highlights": [
@@ -294,7 +294,7 @@
     },
     {
       "language": "English",
-      "fluency": "Fluent"
+      "fluency": "Fluent; primary working language"
     },
     {
       "language": "Thai",
@@ -303,6 +303,10 @@
     {
       "language": "Japanese",
       "fluency": "Basic (JLPT N5)"
+    },
+    {
+      "language": "Mandarin",
+      "fluency": "Beginner, Traditional"
     }
   ],
   "interests": [
@@ -481,6 +485,7 @@
     }
   ],
   "meta": {
+    "professionalStartDate": "2015-09",
     "version": "v1.0.0",
     "lastModified": "2026-06-02",
     "theme": "elegant"

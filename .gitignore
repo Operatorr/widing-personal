@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# temp files
+temp/
+
+# Local contribution API credentials
+.env.contributions
