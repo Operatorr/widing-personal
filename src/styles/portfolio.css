@@ -1512,9 +1512,21 @@ section[id] {
   scrollbar-width: none;
 }
 .photo-track::-webkit-scrollbar { display: none; }
-.photo-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
+.photo-slide { position: relative; isolation: isolate; flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
+.photo-open { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.photo-open:focus-visible { outline: 2px solid var(--paper); outline-offset: -4px; }
+.photo-slide:has(.photo-open:focus-visible)::after { display: none; }
+/* Ember orange and deep rust shadows echo the landing page. */
+.photo-slide img { filter: grayscale(1) sepia(1) saturate(2.5) hue-rotate(-28deg) brightness(.74) contrast(1.08); }
+.photo-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgb(255 90 31 / 22%), rgb(68 14 7 / 40%));
+  pointer-events: none;
+}
 .photo-main img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
-.photo-count, .photo-arrow { position: absolute; color: #fff; background: rgb(0 15 30 / 65%); }
+.photo-count, .photo-arrow { position: absolute; z-index: 1; color: var(--paper); background: rgb(16 16 15 / 65%); }
 .photo-count { top: 16px; right: 16px; padding: 7px 11px; border-radius: 20px; font: 11px var(--mono); pointer-events: none; }
 .photo-arrow { top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 1px solid rgb(255 255 255 / 25%); border-radius: 50%; display: grid; place-items: center; cursor: pointer; }
 .photo-arrow svg { width: 20px; height: 20px; }
@@ -1528,6 +1540,40 @@ section[id] {
 .photo-dots button::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #635e55; }
 .photo-dots button[aria-pressed="true"]::after { background: #e4dbca; }
 .photo-track:focus-visible, .photo-arrow:focus-visible, .photo-dots button:focus-visible { outline: 2px solid #e4dbca; outline-offset: -3px; }
+html.photo-modal-open { overflow: hidden; }
+.photo-lightbox {
+  width: max-content;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100dvh - 64px);
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--paper);
+  overscroll-behavior: contain;
+}
+.photo-lightbox::backdrop { background: rgb(0 0 0 / 88%); }
+.photo-lightbox button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 1px solid rgb(240 233 219 / 25%); border-radius: 50%; background: rgb(16 16 15 / 75%); color: var(--paper); cursor: pointer; }
+.photo-lightbox button:focus-visible { outline: 2px solid var(--paper); outline-offset: -3px; }
+.photo-lightbox button svg { width: 24px; height: 24px; }
+.photo-lightbox .photo-lightbox-close { position: absolute; top: 12px; right: 12px; border: 0; }
+.photo-lightbox-stage { position: relative; }
+.photo-lightbox .photo-lightbox-image { display: block; width: auto; height: auto; max-width: min(1100px, calc(100vw - 48px)); max-height: calc(100dvh - 64px); aspect-ratio: auto; object-fit: contain; filter: none; }
+.photo-lightbox-prev, .photo-lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); }
+.photo-lightbox-prev { left: 12px; }
+.photo-lightbox-next { right: 12px; }
+.photo-lightbox button[aria-disabled="true"] { visibility: hidden; }
+.photo-lightbox-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; }
+.photo-lightbox .photo-lightbox-dots button { width: 28px; height: 44px; border: 0; background: transparent; }
+.photo-lightbox-dots button::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: rgb(255 255 255 / 45%); box-shadow: 0 1px 4px rgb(0 0 0 / 60%); }
+.photo-lightbox-dots button[aria-pressed="true"]::after { background: #fff; }
+@media (max-width: 600px) {
+  .photo-lightbox { max-width: calc(100vw - 16px); max-height: calc(100dvh - 32px); }
+  .photo-lightbox .photo-lightbox-image { max-width: calc(100vw - 16px); max-height: calc(100dvh - 32px); }
+  .photo-lightbox .photo-lightbox-close { top: 8px; right: 8px; }
+  .photo-lightbox-prev { left: 8px; }
+  .photo-lightbox-next { right: 8px; }
+}
 .about figcaption {
   font: 8px var(--mono);
   letter-spacing: 0.04em;
