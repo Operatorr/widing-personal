@@ -15,7 +15,7 @@ const workProjects = resume.projects.filter(project =>
 <section class="projects section-pad" id="work" aria-labelledby="projects-title">
   <div class="shell section-head">
     <p class="eyebrow">03 / Projects</p>
-    <div><h2 id="projects-title">Things I've<br /><em>put into the world.</em></h2><p>Apps I build and maintain, alongside the systems I've built at work.</p></div>
+    <div><h2 id="projects-title">What I've<br /><em>been building.</em></h2><p>Apps I run on my own time, plus some of the systems I built at work.</p></div>
   </div>
   <div class="shell">
     <div class="project-group-head">
@@ -38,7 +38,7 @@ const workProjects = resume.projects.filter(project =>
             </div>
           </a>
           {project.detail && <details class="product-card__details">
-            <summary><span>Behind the build<span class="product-card__details-hint">Architecture & implementation</span></span><Icon name="solar:add-linear" /></summary>
+            <summary><span>How it's built<span class="product-card__details-hint">Stack and architecture</span></span><Icon name="solar:add-linear" /></summary>
             <div><p>{project.detail.description}</p><p class="product-card__roles">{project.detail.roles.join(' · ')} / {dateRange(project.detail.startDate, project.detail.endDate, 'Ongoing')}</p><ul>{project.detail.highlights.map(highlight => <li>{highlight}</li>)}</ul></div>
           </details>}
         </article>

@@ -215,6 +215,12 @@ section[id] {
 .hero h1 em {
   color: #ffccab;
 }
+/* The last headline line overhangs the portrait stage instead of pushing it down. */
+@media (min-width: 761px) {
+  .hero h1 {
+    margin-bottom: -0.96em;
+  }
+}
 .hero-intro {
   padding-top: 40px;
   max-width: 280px;
@@ -315,18 +321,6 @@ section[id] {
 }
 .phone-status svg {
   width: 20px;
-}
-.phone-topline {
-  position: absolute;
-  z-index: 2;
-  top: 53px;
-  left: 18px;
-  right: 18px;
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 6px;
-  letter-spacing: 0.05em;
 }
 .phone-caption {
   position: absolute;

@@ -34,13 +34,13 @@ function bandMonths(year: number, band: number) {
 const calendarByYear = new Map(years.map(year => [year, daysFor(year)]));
 ---
 <section id="contributions" class="contributions section-pad">
-  <div class="shell section-head"><p class="eyebrow">01 / The commit trail</p><div><h2>Years of building.<br /><span>One commit at a time.</span></h2><p>The software I've worked on, across<br />personal projects and company accounts.</p></div></div>
+  <div class="shell section-head"><p class="eyebrow">01 / Commits</p><div><h2>Commit history<br /><span>since {firstYear}.</span></h2><p>Pulled from my personal and work accounts<br />on GitHub and Bitbucket.</p></div></div>
   <div class="shell">
     <div class="contribution-stats"><div><strong>{format.format(displayedTotal)}</strong><span>Unique commits since {firstYear}</span></div><div><strong>{yearsOfExperience()}<span> years</span></strong><span>Professional experience</span></div><div><strong>{connected}<span> / 5</span></strong><span>Source accounts connected</span></div><a class="text-link" href="https://github.com/Operatorr" target="_blank" rel="noopener noreferrer">View GitHub <Icon name="solar:arrow-right-up-linear" /></a></div>
     <div class="history-chart" aria-label="Imported commits by year">
       {years.map((year, i) => <button type="button" class:list={['year-bar', { selected:year === currentYear }]} data-year={year} aria-pressed={year === currentYear} aria-controls={`calendar-${year}`} aria-label={`${year}: ${format.format(totals[i])} imported commits. Show daily history.`}><span class="bar-count">{totals[i] ? format.format(totals[i]) : '—'}</span><span class="bar-track"><span style={`height:${Math.max(2, totals[i] / maximum * 100)}%`}></span></span><span class="bar-year">{year}</span></button>)}
     </div>
-    <p class="chart-instruction">Select a year to explore the daily history <span>{firstYear}—{currentYear}</span></p>
+    <p class="chart-instruction">Pick a year to see it day by day <span>{firstYear}—{currentYear}</span></p>
     <div class="calendar-area">
       {years.map((year, i) => <div class="year-panel" id={`calendar-${year}`} data-panel={year} hidden={year !== currentYear}>
         <div class="calendar-heading"><h3>{year} <span>/ Daily activity</span></h3><p>{format.format(totals[i])} imported commits</p></div>

@@ -4,7 +4,7 @@ import { resume, dateRange } from '../../lib/resume';
 import Projects from './Projects.astro';
 ---
 <section id="experience" class="career section-pad">
-  <div class="shell section-head"><p class="eyebrow">02 / The experience</p><div><h2>A career spent<br /><span>close to the code.</span></h2><p>From a first freelance project to owning the architecture.<br class="desktop-only" /> More responsibility, still hands-on.</p></div></div>
+  <div class="shell section-head"><p class="eyebrow">02 / Experience</p><div><h2>Where I've<br /><span>worked.</span></h2><p>Freelance sites in Stockholm, then internal systems in Singapore and Bangkok.<br class="desktop-only" /> Now architecture and engineering at DxT.</p></div></div>
   <div class="shell career-list">
     {resume.work.map((job, i) => <details class="career-row" open={i === 0}>
       <summary><span class="career-date">{dateRange(job.startDate, job.endDate)}{!job.endDate && <span class="current-label">Current</span>}</span><span class="career-role"><h3>{job.position}</h3><span>{job.name}</span></span><span class="career-toggle" aria-hidden="true"><Icon name="solar:add-linear" /></span></summary>
@@ -14,7 +14,7 @@ import Projects from './Projects.astro';
 </section>
 <Projects />
 <section class="expertise section-pad" id="expertise">
-  <div class="shell section-head"><p class="eyebrow">04 / The toolkit</p><div><h2>From architecture<br /><span>to implementation.</span></h2><p>Open a category to explore the full toolkit.</p></div></div>
+  <div class="shell section-head"><p class="eyebrow">04 / Skills</p><div><h2>What I<br /><span>work with.</span></h2><p>Open a category for the full list.</p></div></div>
   <div class="shell skill-list">
     {resume.skills.map((group, i) => <details class="skill-row">
       <summary>
