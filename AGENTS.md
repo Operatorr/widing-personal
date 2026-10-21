@@ -12,3 +12,8 @@ avoid the stock vocabulary and formulaic structures that mark AI writing.
 
 ## Git
 - Never include `Co-Authored-By` lines in commit messages
+
+## Client project confidentiality
+
+Use anonymous, descriptive titles for confidential client projects. Do not publish their
+product names or internal repository names in site content or documentation.

@@ -10,6 +10,16 @@ The hero states Alexander's role, Bangkok location and Swedish citizenship with 
 
 The main route uses `PortfolioLayout.astro` and `components/portfolio/`. The previous design files remain in place so the pre-existing uncommitted work is not lost. `temp/redesign-backup/pre-redesign.patch` also records the original tracked diff. The print résumé keeps its existing route and layout.
 
+The projects section starts with four independent projects: DoMarrow, MarrowTalk, Vibe Translate and Ashen Omega. Each card has a website preview, a short description, technologies, status and a direct link. Ashen Omega is the existing MMO networking project; its technical details appear in the card's native disclosure. The remaining résumé projects follow in an expandable list. Portfolio card content lives in `src/data/portfolio-projects.ts`.
+
+The anonymously named multi-tenant SaaS platform entry includes its companion Tauri/Rust desktop editor and Python translation pipeline. It leads with the platform's agent-first design: MCP tools and connectors across every module, including HR, Projects, Accounting and Knowledge. The highlights distinguish the SaaS infrastructure, the desktop's local SQLite and fuzzy retrieval, and the CLI's Postgres/pgvector embedding retrieval.
+
+Projects use the site's black background; the toolkit section uses the warm beige paper background. Text, disclosure borders and focus accents follow each section's surface, while project cards keep their own brand colors.
+
+MarrowTalk and Ashen Omega are marked as in development. Card colors, background glows, the 3px hover lift and 4px arrow movement follow the source in the sibling `marrowtech` repo. Hover motion uses 240ms CSS transitions with the site's easing token, runs only with a fine pointer, and removes movement for reduced motion. Keyboard focus shows the colored edge without moving the card.
+
+Only the app names use brand fonts: Crimson Pro, Archivo, IBM Plex Sans and Cinzel, each at weight 600. The four local WOFF2 subsets contain just the letters in their respective titles (uppercase for Ashen Omega), totaling 8,668 bytes. Vite emits separate files with content hashes for caching; the page makes no Google Fonts requests. Body copy uses the site's system fonts. Run `npm run sync:project-fonts` after changing a title, updating the matching text in `scripts/sync-project-fonts.mjs` first. Font licenses are in `public/fonts/licenses/`.
+
 ## Assets
 
 - `public/images/alexander-ember.webp`: generated portrait based on Alexander's `temp/studio_shot.jpg` and `temp/profile_photo.jpg`. The new lighting, clothing and background are AI-generated; the page labels the portrait accordingly. The original generated PNG is retained in the local image-generation output directory.
@@ -17,6 +27,7 @@ The main route uses `PortfolioLayout.astro` and `components/portfolio/`. The pre
 - `public/images/freediving-blue.webp`: supplied edited freediving portrait, `Freediver in the Deep Blue.png`, converted to WebP. The full frame is retained on desktop and mobile.
 - `public/images/climbing-river.webp` and `public/images/climbing-summit.webp`: supplied climbing photographs, converted to WebP and displayed in a second carousel. Both galleries use matching 4:5 frames below the introduction, aligned side by side on desktop and stacked on mobile. The river image is aligned to its lower edge to keep the climber visible.
 - UI symbols use the project's installed Solar icons through `astro-icon`.
+- `public/images/projects/`: local WebP previews from MarrowTech. MarrowTalk and Vibe Translate use the hub's preview assets; DoMarrow and Ashen Omega use the screenshots linked by the hub, resized to 1280 × 800. The cards do not call a screenshot service at runtime.
 
 ## Motion and accessibility
 

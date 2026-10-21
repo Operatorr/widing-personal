@@ -3,6 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { initContributionTooltip } from './contribution-tooltip';
 
 import { initPhotoGallery } from './photo-gallery';
+import { initProjectCardLayout } from './project-card-layout';
 
 export function initPortfolio() {
   const cleanups: (() => void)[] = [];
@@ -39,6 +40,7 @@ export function initPortfolio() {
   if (year) selectYear(year, false);
   cleanups.push(initContributionTooltip());
   cleanups.push(initPhotoGallery());
+  cleanups.push(initProjectCardLayout());
 
   gsap.registerPlugin(ScrollTrigger);
   const media = gsap.matchMedia();

@@ -1,0 +1,30 @@
+/* Title-only subsets. Refresh with node scripts/sync-project-fonts.mjs.
+   Vite emits separate files with content hashes for browser caching. */
+@font-face {
+  font-family: 'DoMarrow title';
+  src: url('../assets/fonts/projects/domarrow.woff2?no-inline') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MarrowTalk title';
+  src: url('../assets/fonts/projects/marrowtalk.woff2?no-inline') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vibe Translate title';
+  src: url('../assets/fonts/projects/vibe-translate.woff2?no-inline') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ashen Omega title';
+  src: url('../assets/fonts/projects/ashen-omega.woff2?no-inline') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}

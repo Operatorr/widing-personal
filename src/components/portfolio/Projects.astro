@@ -1,0 +1,55 @@
+---
+import { Icon } from 'astro-icon/components';
+import { resume, dateRange } from '../../lib/resume';
+import { portfolioProjects } from '../../data/portfolio-projects';
+import '../../styles/project-fonts.css';
+
+const featured = portfolioProjects.map(project => ({
+  ...project,
+  detail: resume.projects.find(item => item.name === project.resumeProject),
+}));
+const workProjects = resume.projects.filter(project =>
+  !portfolioProjects.some(item => item.resumeProject === project.name)
+);
+---
+<section class="projects section-pad" id="work" aria-labelledby="projects-title">
+  <div class="shell section-head">
+    <p class="eyebrow">03 / Projects</p>
+    <div><h2 id="projects-title">Things I've<br /><em>put into the world.</em></h2><p>Apps I build and maintain, alongside the systems I've built at work.</p></div>
+  </div>
+  <div class="shell">
+    <div class="project-group-head">
+      <h3 class="eyebrow" id="independent-projects-title">Independent projects</h3>
+      <a href="https://www.marrowtech.app/" target="_blank" rel="noopener noreferrer">More at MarrowTech <Icon name="solar:arrow-right-up-linear" /><span class="sr-only"> (opens in a new tab)</span></a>
+    </div>
+    <div class="project-grid" aria-labelledby="independent-projects-title">
+      {featured.map((project, i) => (
+        <article class={`product-card product-card--${project.id}`} data-status={project.status === 'Live' ? 'live' : 'development'}>
+          <a class="product-card__link" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.name} (opens in a new tab)`}>
+            <div class="product-card__media">
+              <img src={`/images/projects/${project.id}.webp`} alt={`${project.name} website preview`} width="1280" height="800" loading="lazy" decoding="async" />
+            </div>
+            <div class="product-card__body">
+              <div class="product-card__meta"><span>{String(i + 1).padStart(2, '0')} / {project.category}</span><span class="product-card__status">{project.status}</span></div>
+              <h4>{project.name}</h4>
+              <p class="product-card__description">{project.description}</p>
+              <ul class="product-card__tags" aria-label="Technologies">{project.keywords.map(keyword => <li>{keyword}</li>)}</ul>
+              <div class="product-card__footer"><span>{new URL(project.url).hostname}</span><span class="product-card__visit">Visit site <Icon name="solar:arrow-right-up-linear" /></span></div>
+            </div>
+          </a>
+          {project.detail && <details class="product-card__details">
+            <summary><span>Behind the build<span class="product-card__details-hint">Architecture & implementation</span></span><Icon name="solar:add-linear" /></summary>
+            <div><p>{project.detail.description}</p><p class="product-card__roles">{project.detail.roles.join(' · ')} / {dateRange(project.detail.startDate, project.detail.endDate, 'Ongoing')}</p><ul>{project.detail.highlights.map(highlight => <li>{highlight}</li>)}</ul></div>
+          </details>}
+        </article>
+      ))}
+    </div>
+    <div class="project-group-head project-group-head--work"><h3 class="eyebrow" id="work-projects-title">From my work & studies</h3><p>Open a project for the technical details.</p></div>
+    <div class="project-list" aria-labelledby="work-projects-title">
+      {workProjects.map((project, i) => <details class="project-row">
+        <summary><span class="project-index">{String(i + 1).padStart(2, '0')}</span><div><p class="eyebrow">{project.entity || 'Independent project'} / {dateRange(project.startDate, project.endDate, 'Ongoing')}</p><h4>{project.name}</h4></div><span class="project-open" aria-hidden="true"><Icon name="solar:add-linear" /></span></summary>
+        <div class="project-detail"><p>{project.description}</p><p class="project-roles">{project.roles.join(' · ')} · {project.type}</p><div class="tags">{project.keywords.map(k => <span>{k}</span>)}</div><ul>{project.highlights.map(h => <li>{h}</li>)}</ul></div>
+      </details>)}
+    </div>
+  </div>
+</section>

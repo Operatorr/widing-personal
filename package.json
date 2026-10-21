@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "sync:contributions": "node scripts/sync-contributions.mjs",
+    "sync:project-fonts": "node scripts/sync-project-fonts.mjs",
     "test:contributions": "node --test scripts/contribution-utils.test.mjs"
   },
   "dependencies": {
