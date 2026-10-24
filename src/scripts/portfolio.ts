@@ -65,6 +65,14 @@ export function initPortfolio() {
         ease: "power3.out",
         delay: 0.1,
       });
+      gsap.from(".language-meter > span", {
+        scaleX: 0,
+        clearProps: "transform",
+        stagger: 0.08,
+        duration: 1.1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".languages", start: "top 85%", once: true },
+      });
       // Text stays visible at all times, including interrupted intros.
       document
         .querySelectorAll<HTMLElement>(".section-head h2")

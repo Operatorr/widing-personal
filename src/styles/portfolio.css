@@ -195,6 +195,9 @@ section[id] {
   gap: 28px;
   font-size: 12px;
 }
+.nav-resume + .nav-contact {
+  margin-left: 0;
+}
 .hero-heading {
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -235,9 +238,6 @@ section[id] {
   margin: 23px 0 15px;
   font-size: 12px;
   line-height: 1.65;
-}
-.hero-intro .text-link:hover {
-  color: white;
 }
 .portrait-stage {
   height: 620px;
@@ -356,19 +356,6 @@ section[id] {
   font-size: 9px;
   line-height: 1.5;
   color: #c5b6a5;
-}
-.phone-footer a {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #ff702e;
-  color: #111;
-  transition: background 0.2s;
-}
-.phone-footer a:hover {
-  background: #ffb886;
 }
 .portrait-credit {
   display: block;
@@ -1684,6 +1671,7 @@ html.photo-modal-open { overflow: hidden; }
   height: 100%;
   border-radius: inherit;
   background: var(--orange);
+  transform-origin: left;
 }
 .language-meter[data-tone="fluent"] > span {
   background: #3fbf6a;
@@ -1881,7 +1869,6 @@ html.photo-modal-open { overflow: hidden; }
     padding-top: 28px;
     max-width: 100%;
     display: grid;
-    grid-template-columns: 1fr auto;
     gap: 15px;
   }
   .hero-intro > p {
@@ -1892,11 +1879,6 @@ html.photo-modal-open { overflow: hidden; }
   }
   .hero-intro > span {
     display: none;
-  }
-  .hero-intro .text-link {
-    align-self: end;
-    font-size: 10px;
-    gap: 8px;
   }
   .portrait-stage {
     margin-top: 60px;
@@ -2329,12 +2311,6 @@ html.photo-modal-open { overflow: hidden; }
   .nav {
     gap: 13px;
   }
-  .hero-intro {
-    grid-template-columns: 1fr;
-  }
-  .hero-intro .text-link {
-    justify-self: start;
-  }
   .hero h1 {
     font-size: 54px;
   }
@@ -2396,16 +2372,6 @@ html.photo-modal-open { overflow: hidden; }
     font-size: 9px;
     margin: 0;
   }
-  .hero-intro .text-link {
-    grid-row: 1;
-    grid-column: 2;
-  }
-}
-@media (max-width: 380px) {
-  .hero-intro .text-link {
-    grid-column: 1;
-    grid-row: 3;
-  }
 }
 @media (max-width: 760px) {
   .hero-intro > .hero-eligibility {
@@ -2418,13 +2384,6 @@ html.photo-modal-open { overflow: hidden; }
   .contribution-stats strong {
     font-size: 30px;
   }
-  .history-chart {
-    overflow-x: auto;
-    padding-bottom: 5px;
-  }
-  .year-bar {
-    min-width: 32px;
-  }
   .bar-year {
     font-size: 10px;
   }
@@ -2434,12 +2393,17 @@ html.photo-modal-open { overflow: hidden; }
   .nav-contact {
     min-height: 40px;
   }
-  .hero-intro .text-link {
-    min-height: 40px;
-  }
   .portrait-stage .round-link {
     width: 44px;
     height: 44px;
+  }
+}
+@media (max-width: 380px) {
+  .history-chart {
+    gap: 4px;
+  }
+  .bar-year {
+    font-size: 9px;
   }
 }
 .motion-word {
