@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { aggregateCommits } from "./contribution-utils.mjs";
+import { aggregateCommits, publicContributionSources } from "./contribution-utils.mjs";
 const record = (sha, date, provider = "github") => ({
   sha: sha.repeat(40),
   date,
@@ -56,4 +56,37 @@ test("counts distinct repositories per day without duplicating shared commits", 
 
 test("requires repository provenance rather than inventing zero repository counts", () => {
   assert.throws(() => aggregateCommits([{ ...record("a", "2020-01-01"), repository: undefined }]));
+});
+
+test("public source metadata excludes account and repository identities in every scan state", () => {
+  const sources = ["connected", "error", "pending"].map(status => ({
+    provider: "github",
+    status,
+    account: "private-account",
+    repository: "private-project",
+    email: "private@example.com",
+  }));
+  sources.push({ provider: "bitbucket", status: "connected", account: "private-account" });
+  assert.deepEqual(publicContributionSources(sources), [
+    { provider: "github", status: "connected" },
+    { provider: "github", status: "error" },
+    { provider: "github", status: "pending" },
+    { provider: "bitbucket", status: "connected" },
+  ]);
+});
+
+test("private commit records publish only anonymous daily counts", () => {
+  const result = aggregateCommits([{
+    ...record("a", "2026-01-01"),
+    account: "private-account",
+    repository: "github:private-project",
+    email: "private@example.com",
+    message: "private commit message",
+  }]);
+  assert.deepEqual(result, {
+    total: 1,
+    firstDate: "2026-01-01",
+    lastDate: "2026-01-01",
+    days: [{ date: "2026-01-01", count: 1, github: 1, bitbucket: 0, repositories: 1 }],
+  });
 });

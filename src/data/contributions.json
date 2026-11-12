@@ -1,39 +1,38 @@
 {
-  "generatedAt": "2026-10-21T07:01:47.685Z",
+  "generatedAt": "2026-11-12T08:03:39.500Z",
   "coverage": "accessible-branch-history",
   "complete": true,
-  "repositoryCount": 116,
+  "repositoryCount": 120,
   "failedImports": 0,
   "sources": [
     {
       "provider": "github",
-      "account": "Operatorr",
       "status": "connected"
     },
     {
       "provider": "github",
-      "account": "eqho-dev",
       "status": "connected"
     },
     {
       "provider": "github",
-      "account": "OMG-group-tech",
+      "status": "connected"
+    },
+    {
+      "provider": "github",
       "status": "connected"
     },
     {
       "provider": "bitbucket",
-      "account": "Operatorr",
       "status": "connected"
     },
     {
       "provider": "bitbucket",
-      "account": "Alexander Viding",
       "status": "connected"
     }
   ],
-  "total": 9361,
+  "total": 10520,
   "firstDate": "2013-10-27",
-  "lastDate": "2026-10-20",
+  "lastDate": "2026-11-12",
   "days": [
     {
       "date": "2013-10-27",
@@ -9965,6 +9964,167 @@
       "date": "2026-10-20",
       "count": 45,
       "github": 45,
+      "bitbucket": 0,
+      "repositories": 2
+    },
+    {
+      "date": "2026-10-21",
+      "count": 98,
+      "github": 98,
+      "bitbucket": 0,
+      "repositories": 4
+    },
+    {
+      "date": "2026-10-22",
+      "count": 113,
+      "github": 113,
+      "bitbucket": 0,
+      "repositories": 8
+    },
+    {
+      "date": "2026-10-23",
+      "count": 89,
+      "github": 89,
+      "bitbucket": 0,
+      "repositories": 3
+    },
+    {
+      "date": "2026-10-24",
+      "count": 54,
+      "github": 54,
+      "bitbucket": 0,
+      "repositories": 4
+    },
+    {
+      "date": "2026-10-25",
+      "count": 30,
+      "github": 30,
+      "bitbucket": 0,
+      "repositories": 1
+    },
+    {
+      "date": "2026-10-26",
+      "count": 17,
+      "github": 15,
+      "bitbucket": 2,
+      "repositories": 2
+    },
+    {
+      "date": "2026-10-27",
+      "count": 18,
+      "github": 18,
+      "bitbucket": 0,
+      "repositories": 2
+    },
+    {
+      "date": "2026-10-28",
+      "count": 35,
+      "github": 35,
+      "bitbucket": 0,
+      "repositories": 3
+    },
+    {
+      "date": "2026-10-29",
+      "count": 82,
+      "github": 81,
+      "bitbucket": 1,
+      "repositories": 8
+    },
+    {
+      "date": "2026-10-30",
+      "count": 90,
+      "github": 90,
+      "bitbucket": 0,
+      "repositories": 4
+    },
+    {
+      "date": "2026-10-31",
+      "count": 3,
+      "github": 3,
+      "bitbucket": 0,
+      "repositories": 1
+    },
+    {
+      "date": "2026-11-01",
+      "count": 1,
+      "github": 1,
+      "bitbucket": 0,
+      "repositories": 1
+    },
+    {
+      "date": "2026-11-02",
+      "count": 52,
+      "github": 52,
+      "bitbucket": 0,
+      "repositories": 4
+    },
+    {
+      "date": "2026-11-03",
+      "count": 83,
+      "github": 83,
+      "bitbucket": 0,
+      "repositories": 4
+    },
+    {
+      "date": "2026-11-04",
+      "count": 80,
+      "github": 80,
+      "bitbucket": 0,
+      "repositories": 5
+    },
+    {
+      "date": "2026-11-05",
+      "count": 60,
+      "github": 60,
+      "bitbucket": 0,
+      "repositories": 2
+    },
+    {
+      "date": "2026-11-06",
+      "count": 13,
+      "github": 13,
+      "bitbucket": 0,
+      "repositories": 2
+    },
+    {
+      "date": "2026-11-07",
+      "count": 13,
+      "github": 13,
+      "bitbucket": 0,
+      "repositories": 3
+    },
+    {
+      "date": "2026-11-08",
+      "count": 38,
+      "github": 38,
+      "bitbucket": 0,
+      "repositories": 3
+    },
+    {
+      "date": "2026-11-09",
+      "count": 63,
+      "github": 63,
+      "bitbucket": 0,
+      "repositories": 5
+    },
+    {
+      "date": "2026-11-10",
+      "count": 37,
+      "github": 37,
+      "bitbucket": 0,
+      "repositories": 4
+    },
+    {
+      "date": "2026-11-11",
+      "count": 68,
+      "github": 68,
+      "bitbucket": 0,
+      "repositories": 7
+    },
+    {
+      "date": "2026-11-12",
+      "count": 22,
+      "github": 22,
       "bitbucket": 0,
       "repositories": 2
     }

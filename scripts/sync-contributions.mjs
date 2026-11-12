@@ -3,16 +3,40 @@ import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { aggregateCommits } from "./contribution-utils.mjs";
+import { homedir } from "node:os";
+import { join } from "node:path";
+import {
+  aggregateCommits,
+  publicContributionSources,
+} from "./contribution-utils.mjs";
 
 process.chdir(fileURLToPath(new URL("../", import.meta.url)));
-if (existsSync(".env.contributions")) process.loadEnvFile(".env.contributions");
-const accounts = ["Operatorr", "eqho-dev", "OMG-group-tech"];
-const cacheDir = "temp/contributions-cache";
-await mkdir(cacheDir, { recursive: true });
-const identities = existsSync("temp/contribution-identities.json")
-  ? JSON.parse(await readFile("temp/contribution-identities.json", "utf8"))
-  : { emails: [], bitbucket: [] };
+const configDir = join(
+  process.env.XDG_CONFIG_HOME || join(homedir(), ".config"),
+  "widing-personal",
+);
+const configFile = join(configDir, "contributions.json");
+let identities;
+try {
+  identities = JSON.parse(await readFile(configFile, "utf8"));
+} catch {
+  throw new Error("Set up GitHub accounts in the local contributions configuration; see docs/contribution-history.md");
+}
+const accounts = identities.github;
+if (
+  !Array.isArray(accounts) ||
+  !accounts.length ||
+  accounts.some(account => typeof account !== "string" || !account.trim())
+)
+  throw new Error("Local contributions configuration must contain a non-empty github account list");
+const envFile = join(configDir, "contributions.env");
+if (existsSync(envFile)) process.loadEnvFile(envFile);
+const cacheDir = join(
+  process.env.XDG_CACHE_HOME || join(homedir(), ".cache"),
+  "widing-personal",
+  "contributions",
+);
+await mkdir(cacheDir, { recursive: true, mode: 0o700 });
 const records = [],
   failures = [],
   sources = [];
@@ -73,7 +97,8 @@ async function bitbucketPages(url, auth) {
   return rows;
 }
 const repos = new Map();
-for (const account of accounts) {
+for (const [index, account] of accounts.entries()) {
+  const label = `GitHub ${index + 1}`;
   try {
     // gh's active account is never changed. Tokens stay in this process's memory.
     const token = execFileSync("gh", ["auth", "token", "--user", account], {
@@ -88,9 +113,9 @@ for (const account of accounts) {
     for (const repo of list)
       if (!repos.has(repo.id)) repos.set(repo.id, { ...repo, auth });
     sources.push({ provider: "github", account, status: "connected" });
-    console.log(`${account}: ${list.length} accessible repositories`);
+    console.log(`${label}: ${list.length} accessible repositories`);
   } catch (error) {
-    failures.push({ source: account, error: error.message });
+    failures.push({ source: label, error: error.message });
     sources.push({ provider: "github", account, status: "error" });
   }
 }
@@ -106,7 +131,7 @@ await Promise.all(
         const cached = existsSync(cacheFile)
           ? JSON.parse(await readFile(cacheFile, "utf8"))
           : null;
-        const cachedAuthors = cached?.authors || accounts;
+        const cachedAuthors = cached?.authors || [];
         const fresh =
           cached &&
           Date.now() - Date.parse(cached.fetchedAt) < 24 * 60 * 60 * 1000 &&
@@ -272,7 +297,7 @@ const output = {
     failures.length === 0 && sources.every((s) => s.status === "connected"),
   repositoryCount: repos.size + bitbucketRepos.size,
   failedImports: failures.length,
-  sources,
+  sources: publicContributionSources(sources),
   ...data,
 };
 if (!records.length)

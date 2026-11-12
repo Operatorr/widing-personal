@@ -4,30 +4,29 @@ The site displays daily counts from `src/data/contributions.json`. It makes no A
 
 ## Refresh GitHub
 
-The three accounts must be signed in through `gh auth login`:
-
-- Operatorr
-- eqho-dev
-- OMG-group-tech
+Sign in to each account through `gh auth login`. Keep the account list outside this repository in `~/.config/widing-personal/contributions.json` (or `$XDG_CONFIG_HOME/widing-personal/contributions.json`). The file contains a `github` array of login names. Do not copy real account identities into source files, documentation or test fixtures. This computer is already configured.
 
 Run `npm run sync:contributions`. The script retrieves each account's token from the keychain without changing the active `gh` account. It paginates accessible repositories, branches and matching commits. Complete repository scans are cached locally for 24 hours; new author identities are checked even against a recent cache. Use `npm run sync:contributions -- --refresh` to rescan everything.
 
-The cache is additive: a verified record remains in the archive if its branch is later removed. Do not delete the local cache if you want to retain those records. Cache files live in ignored `temp/contributions-cache/`; they contain commit hashes and dates, not tokens or source code.
+After the import finishes, run `npm run build` to check the site. Commit and deploy the updated `src/data/contributions.json` to publish the new counts and update date. Syncing locally does not change the live site.
+
+The cache is additive: a verified record remains in the archive if its branch is later removed. Do not delete the local cache if you want to retain those records. Cache files live outside the repository in `~/.cache/widing-personal/contributions/` (or `$XDG_CACHE_HOME/widing-personal/contributions/`). They contain private author identifiers, commit hashes and dates, but no tokens or source code. Keep import logs outside the repository too.
 
 ## Connect the two Bitbucket accounts
 
 1. Sign into each Atlassian account and [create a scoped API token for Bitbucket](https://support.atlassian.com/bitbucket-cloud/docs/create-an-api-token/).
 2. Select these read scopes: `read:repository:bitbucket`, `read:user:bitbucket`, `read:workspace:bitbucket`. No write permissions are needed.
-3. Open the ignored `.env.contributions` file at the repository root. The two email fields are already filled in. Add the respective API token to `BITBUCKET_PERSONAL_TOKEN` and `BITBUCKET_WORK_TOKEN`. Use the Atlassian login email if it differs from the commit author email. Keep tokens out of chat and Git.
+3. Open `contributions.env` beside the external `contributions.json` configuration. The two email fields are already filled in on this computer. Add the respective API token to `BITBUCKET_PERSONAL_TOKEN` and `BITBUCKET_WORK_TOKEN`. Use the Atlassian login email if it differs from the commit author email. Keep tokens out of chat and Git.
 4. Run `npm run sync:contributions` again. The importer identifies each authenticated user, discovers their accessible workspaces, then reads all repository commits across branches and tags. Shared repositories are scanned once and matched separately to each account. If workspace discovery is restricted, add the workspace slugs from the repository URLs to the local identities file.
 5. Run `npm run build` after a successful import.
 
-The local `temp/contribution-identities.json` contains author emails and the Bitbucket account configuration. An empty `workspaces` array enables discovery. A `uuid` is optional; by default the importer gets the authenticated user's UUID from Bitbucket. Only that UUID or the confirmed author emails match a commit. Display names alone are never used for attribution.
+The external `contributions.json` configuration also contains author emails and the Bitbucket account configuration. An empty `workspaces` array enables discovery. A `uuid` is optional; by default the importer gets the authenticated user's UUID from Bitbucket. Only that UUID or the confirmed author emails match a commit. Display names alone are never used for attribution.
 
 Example configuration (replace the example values locally):
 
 ```json
 {
+  "github": ["personal-login", "work-login"],
   "emails": ["personal@example.com", "work@example.com"],
   "bitbucket": [
     {
@@ -56,10 +55,10 @@ Each day includes a distinct repository count. The importer attaches the provide
 
 GitHub scans currently accessible repository branches. Bitbucket scans all accessible branches and tags. Deleted or inaccessible repositories, GitHub tags with no surviving branch, removed branches not in the local cache, Mercurial repositories, and unknown author aliases need separate recovery. Authentication does not grant access to repositories removed from an account. The `complete` field means configured source scans succeeded; it does not prove that every historical repository has been recovered.
 
-The public JSON contains dates, commit and repository counts, source account names and scan status. It excludes author emails, repository names and IDs, commit hashes, messages and source code. Failures are reported in `temp/contributions-cache/last-report.json`; the site also labels an incomplete import. A run with no verified commits preserves the existing public snapshot.
+The public JSON contains dates, commit and repository counts, providers and scan status. It excludes account identities, author emails, repository names and IDs, commit hashes, messages and source code. Private work contributes anonymous counts only. Failures are reported in `last-report.json` in the external cache directory; the site also labels an incomplete import. A run with no verified commits preserves the existing public snapshot.
 
-Run `npm run test:contributions` to check cross-provider deduplication, date handling and invalid input rejection.
+Run `npm run test:contributions` to check deduplication, date handling, input validation and anonymous exports.
 
 References: [Bitbucket users API](https://developer.atlassian.com/cloud/bitbucket/rest/api-group-users/), [workspace discovery](https://developer.atlassian.com/cloud/bitbucket/rest/api-group-workspaces/), [token permissions](https://support.atlassian.com/bitbucket-cloud/docs/api-token-permissions/).
 
-Bitbucket checkpoints also live in `temp/contributions-cache/`. They retain only commit hashes, dates and author identifiers (email and UUID) for attribution across the two accounts. This metadata stays local. Repository scans are reused for 24 hours unless `--refresh` is passed.
+Bitbucket checkpoints also live in the external cache directory. They retain only commit hashes, dates and author identifiers (email and UUID) for attribution across the two accounts. This metadata stays local. Repository scans are reused for 24 hours unless `--refresh` is passed.

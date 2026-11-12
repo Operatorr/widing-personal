@@ -17,3 +17,8 @@ avoid the stock vocabulary and formulaic structures that mark AI writing.
 
 Use anonymous, descriptive titles for confidential client projects. Do not publish their
 product names or internal repository names in site content or documentation.
+
+Private contribution account identities and repository metadata must stay outside this
+repository in local configuration and caches. Never put private identities in source,
+documentation, test fixtures or repository-local logs. Publish anonymous contribution
+counts and provider scan status only.

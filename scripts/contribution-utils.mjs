@@ -1,3 +1,7 @@
+export function publicContributionSources(sources) {
+  return sources.map(({ provider, status }) => ({ provider, status }));
+}
+
 export function aggregateCommits(records) {
   const unique = new Map();
   for (const record of records) {

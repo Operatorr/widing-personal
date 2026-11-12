@@ -47,6 +47,10 @@ npm run dev
 | `npm run dev`     | Start development server |
 | `npm run build`   | Build for production     |
 | `npm run preview` | Preview production build |
+| `npm run sync:contributions` | Refresh GitHub and Bitbucket commit history |
+| `npm run sync:contributions -- --refresh` | Refresh history without the 24-hour cache |
+
+After syncing, build and deploy the updated data to publish it. Account setup and cache details are in [docs/contribution-history.md](docs/contribution-history.md).
 
 ## Customization
 
